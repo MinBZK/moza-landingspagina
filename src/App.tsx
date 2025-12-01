@@ -2,8 +2,8 @@ import "@rijkshuisstijl-community/design-tokens/dist/index.css";
 import "@rijkshuisstijl-community/components-css/dist/index.css";
 import "./styles/index.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Blog from "./routes/blog";
-import Detail from "./routes/blog/[slug].tsx";
+import Actueel from "./routes/actueel";
+import Detail from "./routes/actueel/[type]/[slug].tsx";
 import OnderwerpenLijst from "./routes/onderwerpen";
 import Profielservice from "./routes/onderwerpen/profielservice.tsx";
 import Portaal from "./routes/onderwerpen/portaal.tsx";
@@ -23,23 +23,23 @@ function App() {
         <main className="flex-grow">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/blog" element={<Blog />} />
+            <Route path="/actueel" element={<Actueel />} />
+            <Route path="/actueel/:type/:name" element={<Detail />} />
             <Route path="/onderwerpen" element={<OnderwerpenLijst />} />
             <Route
               path="/onderwerpen/profielservice"
               element={<Profielservice />}
             />
             <Route path="/onderwerpen/portaal" element={<Portaal />} />
-            <Route path="/blog/:name" element={<Detail />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
-        <footer className="h-56 w-full bg-[#154273] py-4">
+        <footer className="h-56 w-full bg-[#154273] p-4">
           <Container>
-            <div className="pt-5">
-              <span className="text-2xl text-white italic">
-                De Rijksoverheid. Voor Nederland
+            <div className="px-4 pt-5">
+              <span className="text-3xl text-white italic">
+                Eén Overheid. Voor iedereen!
               </span>
             </div>
           </Container>

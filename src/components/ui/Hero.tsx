@@ -5,7 +5,7 @@ interface HeroProps {
 
 export function Hero({ title, subtitle }: HeroProps) {
   return (
-    <div className="relative mb-8 h-[400px] w-full overflow-hidden">
+    <div className="relative h-[400px] w-full overflow-hidden">
       <img
         src={"hero.png"}
         alt={title}

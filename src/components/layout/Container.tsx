@@ -10,7 +10,7 @@ export function Container({
 }: PropsWithChildren<ContainerProps>) {
   return (
     <div
-      className={`container mx-auto max-w-[1168px] px-4 py-1 ${className}`.trim()}
+      className={`container mx-auto h-auto max-w-[1200px] ${className}`.trim()}
     >
       {children}
     </div>

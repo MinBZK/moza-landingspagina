@@ -5,7 +5,7 @@ import type { HomeCard } from "../../types/card.ts";
 
 const OnderwerpenLijst = () => {
   return (
-    <Container className="min-h-80 py-4 md:px-0">
+    <Container className="min-h-80 py-4 *:px-4 md:px-0">
       <h1 className="mb-4 text-2xl font-semibold text-blue-900 underline">
         Alle onderwerpen binnen MijnOverheid Zakelijk
       </h1>

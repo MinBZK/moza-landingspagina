@@ -9,13 +9,14 @@ type NavItem = {
 };
 
 const NAV_ITEMS: NavItem[] = [
+  { label: "Actueel", href: "/actueel" },
   { label: "Onderwerpen", href: "/onderwerpen" },
   {
     label: "Documentatie",
     href: "https://docs.mijnoverheidzakelijk.nl",
     external: true,
   },
-  { label: "Blog", href: "/blog" },
+  // { label: "Nieuws", href: "/nieuws" },
   {
     label: "Github",
     href: "https://github.com/MinBZK/MijnOverheidZakelijk",
@@ -28,67 +29,47 @@ export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <nav className="min-h-[70px] w-full bg-[#154273] text-white">
+    <nav className="flex min-h-[76px] w-full items-center bg-[#154273] text-white">
       <Container>
-        <div className="flex h-[70px] items-center">
-          <span className="text-2xl hover:underline">
-            <Link to="/">Home</Link>
-          </span>
+        <div className="px-4">
+          <div className="flex items-center">
+            <span className="text-2xl hover:underline">
+              <Link to="/">Home</Link>
+            </span>
 
-          {/* Hamburger button - visible on xs and sm screens */}
-          <button
-            aria-expanded={isMenuOpen}
-            className="ml-auto md:hidden"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            <svg
-              className="h-6 w-6"
-              fill="none"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
+            {/* Hamburger button - visible on xs and sm screens */}
+            <button
+              aria-expanded={isMenuOpen}
+              className="ml-auto md:hidden"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-label="Toggle menu"
             >
-              {isMenuOpen ? (
-                <path d="M6 18L18 6M6 6l12 12" />
-              ) : (
-                <path d="M4 6h16M4 12h16M4 18h16" />
-              )}
-            </svg>
-          </button>
+              <svg
+                className="h-6 w-6"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                {isMenuOpen ? (
+                  <path d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path d="M4 6h16M4 12h16M4 18h16" />
+                )}
+              </svg>
+            </button>
 
-          {/* Desktop menu - hidden on xs and sm screens */}
-          <ul className="ml-auto hidden w-fit text-lg md:flex">
-            {NAV_ITEMS.map((item) => (
-              <li key={item.label} className="ml-6 hover:underline">
-                <Link
-                  {...(item.external
-                    ? { target: "_blank", rel: "noreferrer noopener" }
-                    : {})}
-                  to={item.href}
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Mobile menu - visible when hamburger is clicked */}
-        {isMenuOpen && (
-          <div className="border-t border-t-white pb-4 md:hidden md:border-none">
-            <ul className="flex flex-col text-lg">
+            {/* Desktop menu - hidden on xs and sm screens */}
+            <ul className="ml-auto hidden w-fit text-lg md:flex">
               {NAV_ITEMS.map((item) => (
-                <li key={item.label} className="border-b border-b-white">
+                <li key={item.label} className="ml-6 hover:underline">
                   <Link
-                    to={item.href}
                     {...(item.external
                       ? { target: "_blank", rel: "noreferrer noopener" }
                       : {})}
-                    className="block py-3 hover:bg-[#1a5287]"
-                    onClick={() => setIsMenuOpen(false)}
+                    to={item.href}
                   >
                     {item.label}
                   </Link>
@@ -96,7 +77,29 @@ export function Navbar() {
               ))}
             </ul>
           </div>
-        )}
+
+          {/* Mobile menu - visible when hamburger is clicked */}
+          {isMenuOpen && (
+            <div className="border-t border-t-white pb-4 md:hidden md:border-none">
+              <ul className="flex flex-col text-lg">
+                {NAV_ITEMS.map((item) => (
+                  <li key={item.label} className="border-b border-b-white">
+                    <Link
+                      to={item.href}
+                      {...(item.external
+                        ? { target: "_blank", rel: "noreferrer noopener" }
+                        : {})}
+                      className="block py-3 hover:bg-[#1a5287]"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
       </Container>
     </nav>
   );
