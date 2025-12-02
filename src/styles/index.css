@@ -18,4 +18,6 @@ a[href^="http"]:not(:has(img)):before {
     font-weight: bold;
     font-size: 1rem;
     margin-right: 0.25rem;
+    text-decoration: none;
+    display: inline-block;
 }

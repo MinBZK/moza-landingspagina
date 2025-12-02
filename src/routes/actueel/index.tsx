@@ -8,6 +8,8 @@ import {
   loadAllEntries,
 } from "../../lib/markdown.ts";
 import AgendaItem from "../../components/actueel/AgendaEntry.tsx";
+import ChevronIcon from "../../components/ui/ChevronIcon.tsx";
+import { IconText } from "../../components/ui/iconText.tsx";
 
 const Actueel = () => {
   const [weeklyEntries, setweeklyEntries] = useState<{
@@ -65,14 +67,19 @@ const Actueel = () => {
           <div className="px-4">
             <ul className="grid grid-cols-1 gap-4 py-6 text-xl md:grid-cols-3">
               {["Nieuws", "Weekly", "Agenda"].map((item) => (
-                <li key={item}>
-                  <a
-                    href={`#${item.toLowerCase()}`}
-                    className="flex items-center scroll-smooth text-[#154273] hover:underline"
+                <li key={item} className="text-[#154273]">
+                  <IconText
+                    IconBefore={(props) => (
+                      <ChevronIcon {...props} className="h-4 w-4" />
+                    )}
                   >
-                    <span className="mr-1">›</span>
-                    {item}
-                  </a>
+                    <a
+                      href={`#${item.toLowerCase()}`}
+                      className="flex items-center scroll-smooth hover:underline"
+                    >
+                      {item}
+                    </a>
+                  </IconText>
                 </li>
               ))}
             </ul>
