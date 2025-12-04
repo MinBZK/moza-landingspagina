@@ -35,7 +35,7 @@ export function Card({
             ? { target: "_blank", rel: "noreferrer noopener" }
             : {})}
           to={href}
-          className="flex items-center font-semibold text-sky-800 hover:text-sky-900"
+          className="flex items-center font-semibold text-sky-800 hover:text-sky-900 no-underline hover:underline"
         >
           <span className="text-2xl font-light">{title}</span>
         </Link>

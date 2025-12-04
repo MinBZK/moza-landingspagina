@@ -89,7 +89,7 @@ const Actueel = () => {
       <Container>
         <div className="pt-10">
           <div id="nieuws" className="border-t border-gray-200 px-4 pt-2">
-            <h1 className="py-2 text-3xl font-bold">Nieuws</h1>
+            <h1 className="py-2 text-3xl font-bold text-slate-700">Nieuws</h1>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             {weeklyEntries.nieuws.length === 0 ? (
@@ -104,7 +104,7 @@ const Actueel = () => {
           </div>
 
           <div id="weekly" className="border-t border-gray-200 px-4 pt-2">
-            <h1 className="py-2 text-3xl font-bold">Weekly</h1>
+            <h1 className="py-2 text-3xl font-bold text-slate-700">Weekly</h1>
           </div>
 
           <div className="grid grid-cols-1 py-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -122,7 +122,7 @@ const Actueel = () => {
 
         <div className="mx-auto w-full">
           <div id="agenda" className="border-t border-gray-200 px-4 pt-2">
-            <h1 className="py-2 text-3xl font-bold">Agenda</h1>
+            <h1 className="py-2 text-3xl font-bold text-slate-700">Agenda</h1>
           </div>
           <div className="grid grid-cols-1 py-4 sm:grid-cols-2 lg:grid-cols-3">
             {weeklyEntries.agenda.length === 0 ? (

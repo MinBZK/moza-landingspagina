@@ -5,7 +5,7 @@ const Contact = () => {
     <Container>
       <div className="mx-auto flex w-full justify-center px-2 py-6 sm:px-4 sm:py-10">
         <div className="w-full max-w-[768px]">
-          <h1 className="mb-6 text-4xl font-bold text-gray-900">Contact</h1>
+          <h1 className="mb-6 text-4xl font-bold text-slate-700">Contact</h1>
 
           <div>
             <p className="mb-4 text-lg">
@@ -29,7 +29,7 @@ const Contact = () => {
               <p className="mb-2 text-sm text-sky-900">Mail ons op:</p>
               <a
                 href="mailto:contact@mijnoverheid-zakelijk.nl"
-                className="inline-block text-2xl font-semibold text-sky-700 hover:text-sky-800 hover:underline"
+                className="inline-block text-xl font-semibold text-sky-800 hover:text-sky-900 hover:underline"
               >
                 contact@mijnoverheid-zakelijk.nl
               </a>

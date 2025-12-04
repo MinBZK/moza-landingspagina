@@ -1,6 +1,15 @@
 @import "tailwindcss";
 @plugin '@tailwindcss/typography';
 
+@theme {
+    --text-lg: 1.125em;
+    --text-xl: 1.25em;
+    --text-2xl: 1.5em;
+    --text-3xl: 1.75em;
+    --text-4xl: 2em;
+    --text-5xl: 2.5em;
+}
+
 @font-face {
     font-family: "RO-Sans";
     src: url("./fonts/RijksSansVF.woff2") format("woff");
@@ -18,17 +27,18 @@
 }
 
 body {
+    color: var(--color-slate-800);
     font-family: "RO-Sans", "Fira Sans", Arial, sans-serif;
-    font-size: 18px; /* Even resetten zodat we de typografische schaal van de Rijkshuisstijl normaal kunnen toepassen */
 }
 
 p {
     margin-bottom: .5em;
 }
 
-/* .paragraph-intro {
-    font-size: 1.333em;
-} */
+p.text-xl, /* even alleen voor paragraaf tekst een ruimere line-height, text-xl wordt waarschijnlijk ook voor koptekst gebruikt waar de default line-height wel volstaat */
+.prose {
+    line-height: 1.6;
+}
 
 .rhc-theme {
     --rhc-card-inline-size: 100%;

@@ -19,8 +19,8 @@ export const AgendaItem = ({
           {title}
         </h2>
         <div className="mt-1 flex items-center gap-2">
-          <span>📅</span>
-          <p className="font-bold">
+          <span className="text-xl">📅</span>
+          <p className="font-bold text-gray-600">
             {fromDate.toLocaleDateString("nl-NL", {
               year: "numeric",
               month: "long",
@@ -39,8 +39,8 @@ export const AgendaItem = ({
           </p>
         </div>
         <div className="mt-1 flex items-center gap-2">
-          <span>📍</span>
-          <p className="font-bold">{location}</p>
+          <span className="text-xl">📍</span>
+          <p className="font-bold text-gray-600">{location}</p>
         </div>
         <div className="line-clamp-3 overflow-hidden text-ellipsis">
           {summary}

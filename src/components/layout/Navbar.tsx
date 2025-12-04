@@ -33,7 +33,7 @@ export function Navbar() {
       <Container>
         <div className="px-4">
           <div className="flex items-center">
-            <span className="text-2xl hover:underline">
+            <span className="text-xl hover:underline">
               <Link to="/">Home</Link>
             </span>
 
@@ -62,7 +62,7 @@ export function Navbar() {
             </button>
 
             {/* Desktop menu - hidden on xs and sm screens */}
-            <ul className="ml-auto hidden w-fit text-lg md:flex">
+            <ul className="ml-auto hidden w-fit text-xl md:flex">
               {NAV_ITEMS.map((item) => (
                 <li key={item.label} className="ml-6 hover:underline">
                   <Link

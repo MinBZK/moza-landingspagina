@@ -18,8 +18,8 @@ export const BlogEntry = ({
       </h2>
 
       <div className="mt-1 flex items-center gap-2">
-        <span>📅</span>
-        <p className="font-bold">
+        <span className="text-xl">📅</span>
+        <p className="font-bold text-gray-600">
           {entry.date.toLocaleDateString("nl-NL", {
             year: "numeric",
             month: "long",
