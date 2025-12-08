@@ -6,7 +6,7 @@ export const BlogEntry = ({
   type,
 }: {
   entry: BlogEntryType;
-  type: "weekly" | "nieuws";
+  type: "weekly" | "nieuws" | "presentaties";
 }) => (
   <div className="mb-10">
     <Link

@@ -13,6 +13,7 @@ import { Navbar } from "./components/layout/Navbar.tsx";
 import Contact from "./routes/contact.tsx";
 import NotFound from "./routes/errors/404.tsx";
 import { Container } from "./components/layout/Container.tsx";
+import Presentaties from "./routes/actueel/presentaties/[slug].tsx";
 
 function App() {
   return (
@@ -24,6 +25,10 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/actueel" element={<Actueel />} />
+            <Route
+              path="/actueel/presentaties/:name"
+              element={<Presentaties />}
+            />
             <Route path="/actueel/:type/:name" element={<Detail />} />
             <Route path="/onderwerpen" element={<OnderwerpenLijst />} />
             <Route
@@ -38,7 +43,7 @@ function App() {
         <footer className="h-56 w-full bg-[#154273] p-4">
           <Container>
             <div className="px-4 pt-5">
-              <span className="text-3xl text-white italic serif">
+              <span className="serif text-3xl text-white italic">
                 Eén Overheid. Voor iedereen!
               </span>
             </div>

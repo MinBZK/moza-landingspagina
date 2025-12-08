@@ -16,6 +16,7 @@
     "react-dom": "^19.2.0",
     "react-markdown": "^10.1.0",
     "react-router-dom": "^7.9.6",
+    "reveal.js": "^5.2.1",
     "tailwindcss": "^4.1.17"
   },
   "devDependencies": {
@@ -27,6 +28,7 @@
     "@types/node": "^24.10.0",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
+    "@types/reveal.js": "^5.2.2",
     "@utrecht/component-library-react": "^10.3.9",
     "@vitejs/plugin-react": "^5.1.0",
     "eslint": "^9.39.1",

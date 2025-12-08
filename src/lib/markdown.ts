@@ -99,9 +99,22 @@ export async function loadAllAgendaEntries(): Promise<AgendaEntryType[]> {
   );
 }
 
+export async function loadAllPresentaties(): Promise<BlogEntryType[]> {
+  return loadEntriesByPath(
+    "presentaties",
+    (data, filename) => ({
+      filename,
+      title: data.title,
+      summary: data.summary,
+      date: parse(data.date, "dd-MM-yyyy", new Date()),
+    }),
+    (a, b) => b.date.getTime() - a.date.getTime(),
+  );
+}
+
 export async function loadBlogMarkdownByFilename(
   filename: string,
-  contentType: "weekly" | "nieuws" | "agenda",
+  contentType: "weekly" | "nieuws" | "agenda" | "presentaties",
 ): Promise<BlogDetailType | AgendaDetailType> {
   const matchingFiles = Object.keys(markdownModules).filter(
     (path) =>
@@ -138,16 +151,19 @@ export async function loadAllEntries(): Promise<{
   weekly: BlogEntryType[];
   nieuws: BlogEntryType[];
   agenda: AgendaEntryType[];
+  presentaties: BlogEntryType[];
 }> {
-  const [weekly, nieuws, agenda] = await Promise.all([
+  const [weekly, nieuws, agenda, presentaties] = await Promise.all([
     loadAllWeeklyEntries(),
     loadAllNieuwsEntries(),
     loadAllAgendaEntries(),
+    loadAllPresentaties(),
   ]);
 
   return {
     weekly,
     nieuws,
     agenda,
+    presentaties,
   };
 }

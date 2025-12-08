@@ -10,21 +10,21 @@
     --text-5xl: 2.5em;
 }
 
-@font-face {
-    font-family: "RO-Sans";
-    src: url("./fonts/RijksSansVF.woff2") format("woff");
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-}
+/*@font-face {*/
+/*    font-family: "RO-Sans";*/
+/*    src: url("./fonts/RijksSansVF.woff2") format("woff");*/
+/*    font-weight: 400;*/
+/*    font-style: normal;*/
+/*    font-display: swap;*/
+/*}*/
 
-@font-face {
-    font-family: "RO-Serif";
-    src: url("./fonts/RijksoverheidSerifWeb.woff") format("woff");
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-}
+/*@font-face {*/
+/*    font-family: "RO-Serif";*/
+/*    src: url("./fonts/RijksoverheidSerifWeb.woff") format("woff");*/
+/*    font-weight: 400;*/
+/*    font-style: normal;*/
+/*    font-display: swap;*/
+/*}*/
 
 body {
     color: var(--color-slate-800);
@@ -55,4 +55,11 @@ a[href^="http"]:not(:has(img)):after {
 
 .serif {
     font-family: "RO-Serif", "Times New Roman", serif;
+}
+
+@layer base {
+    /* Reverts a preflight rule on hidden that breaks some reveal.js */
+    [hidden] {
+        display: revert !important;
+    }
 }

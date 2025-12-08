@@ -1,0 +1,145 @@
+---
+title: Presentatie 1
+summary: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+date: 21-03-2022
+---
+<section>
+    <h1>MOZa Pulse van 7 oktober</h1>
+    <p>Ontdek de laatste ontwikkelingen van MijnOverheid Zakelijk</p>
+</section>
+<section>
+    <div class="block-grid">
+        <div class="block-item">
+            Afronden open eindes<br />
+            fase 1
+        </div>
+        <div class="block-item">Profielservice + componenten uitwerken</div>
+        <div class="block-item">Verkenning Bedrijfsgegevens</div>
+        <div class="block-item">Verkenning notificaties over relevante ontwikkelingen</div>
+    </div>
+</section>
+<section>
+    <h2>Open eindes fase 1</h2>
+    <ol>
+        <li style="color: var(--rijksoverheid-grijs-donker); opacity: 0.5">
+            Definities van services en beschrijving hoe deze met elkaar samenwerken
+        </li>
+        <li>Onderzoek Notify component bespreken met OBIS</li>
+        <li style="color: var(--rijksoverheid-grijs-donker); opacity: 0.5">
+            Memo over Notificatieservice/ Notify in relatie tot programma MOZa
+        </li>
+        <li style="color: var(--rijksoverheid-grijs-donker); opacity: 0.5">
+            UX onderzoek naar differentiatie adressering van notificaties per dienst, product of middel
+        </li>
+        <li style="color: var(--rijksoverheid-grijs-donker); opacity: 0.5">
+            Afronden onderzoek Notificatie Templates, o.a. of er aanpassingen nodig zijn t.o.v. de
+            huidige template set
+        </li>
+    </ol>
+</section>
+<section>
+    <h2>Open eindes fase 1</h2>
+    <ol>
+        <li style="color: var(--rijksoverheid-grijs-donker); opacity: 0.5">
+            Definities van services en beschrijving hoe deze met elkaar samenwerken.
+        </li>
+        <li style="color: var(--rijksoverheid-grijs-donker); opacity: 0.5">
+            Onderzoek Notify component bespreken met OBIS
+        </li>
+        <li style="color: var(--rijksoverheid-grijs-donker); opacity: 0.5">
+            Memo over Notificatieservice/ Notify in relatie tot programma MOZa
+        </li>
+        <li style="color: var(--rijksoverheid-grijs-donker); opacity: 0.5">
+            UX onderzoek naar differentiatie adressering van notificaties per dienst, product of middel
+        </li>
+        <li>
+            Afronden onderzoek Notificatie Templates, o.a. of er aanpassingen nodig zijn t.o.v. de
+            huidige template set
+        </li>
+    </ol>
+</section>
+<section>
+    <h2>Open eindes fase 1</h2>
+    <ol>
+        <li style="color: var(--rijksoverheid-grijs-donker); opacity: 0.5">
+            Definities van services en beschrijving hoe deze met elkaar samenwerken.
+        </li>
+        <li style="color: var(--rijksoverheid-grijs-donker); opacity: 0.5">
+            Onderzoek Notify component bespreken met OBIS
+        </li>
+        <li style="color: var(--rijksoverheid-grijs-donker); opacity: 0.5">
+            Memo over Notificatieservice/ Notify in relatie tot programma MOZa
+        </li>
+        <li>
+            UX onderzoek naar differentiatie adressering van notificaties per dienst, product of middel
+        </li>
+        <li style="color: var(--rijksoverheid-grijs-donker); opacity: 0.5">
+            Afronden onderzoek Notificatie Templates, o.a. of er aanpassingen nodig zijn t.o.v. de
+            huidige template set
+        </li>
+    </ol>
+</section>
+<section>
+    <img
+            src="/content/moza_pulse_20251007/gebruikersonderzoek-fase1-conclusie-1.png"
+            style="max-width: 100%; max-height: 65vh; height: auto; margin-top: 100px"
+    />
+</section>
+<section>
+    <img
+            src="/content/moza_pulse_20251007/gebruikersonderzoek-fase1-conclusie-2.png"
+            style="max-width: 100%; max-height: 65vh; height: auto; margin-top: 100px"
+    />
+</section>
+<section>
+    <h2 style="font-size: 1.5em">Profielservice + componenten uitwerken</h2>
+    <ol>
+        <li>Verzamelen en analyseren info uit bestaande onderzoeken naar contactvoorkeuren</li>
+        <li>UX onderzoek</li>
+        <li>Aanhaken bij ontwikkelingen VNG MijnServices</li>
+        <li>Een alfa versie van de profielservice bouwen</li>
+        <li>Een prototype van de MijnOmgeving Zakelijk om profiel te kunnen beheren</li>
+    </ol>
+</section>
+<section>
+    <img
+            src="/content/moza_pulse_20251007/sequencediagram-zakelijke-gebruiker-profiel-service.png"
+            style="max-width: 100%; max-height: 65vh; height: auto; margin-top: 100px"
+    />
+</section>
+<section>
+    <img
+            src="/content/moza_pulse_20251007/sequencediagram-zakelijke-gebruiker-wijzig-email.png"
+            style="max-width: 100%; max-height: 65vh; height: auto; margin-top: 100px"
+    />
+</section>
+<section>
+    <img
+            src="/content/moza_pulse_20251007/sequencediagram-organisatie-medewerker-profiel-service.png"
+            style="max-width: 100%; max-height: 65vh; height: auto; margin-top: 100px"
+    />
+</section>
+<section class="hide-logo">
+    <img
+            src="/content/moza_pulse_20251007/voorbeeld-issue-nlds.png"
+            style="max-width: 100%; height: auto; margin-top: 0"
+    />
+</section>
+<section>
+    <h2>Open werken</h2>
+    <a href="https://github.com/orgs/MinBZK/teams/mijnoverheid-zakelijk/">
+        https://github.com/orgs/MinBZK/teams/mijnoverheid-zakelijk/
+    </a>
+</section>
+<section class="hide-logo">
+    <img
+            src="/content/moza_pulse_20251007/MijnOverheidZakelijk_MinBZK_Team.jpeg"
+            style="max-width: 100%; height: auto"
+    />
+</section>
+<section class="hide-logo">
+    <img
+            src="/content/moza_pulse_20251007/Board_MijnOverheidZakelijk.jpeg"
+            style="max-width: 100%; height: auto"
+    />
+</section>
