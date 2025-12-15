@@ -8,13 +8,13 @@ export default function Home() {
     <>
       <Hero
         title="MijnOverheid Zakelijk"
-        subtitle="Welkom bij het centrale punt voor alle overheidssystemen en digitale dienstverlening"
+        subtitle="Overzicht in wat er speelt"
       />
-      <div className="bg-gray-100">
+      <div className="">
         <Container>
           <div className="px-4">
-            <div className="py-10">
-              <p className="mb-4 text-xl">
+            <div className="flex w-2/3 flex-col gap-4 py-10 text-xl">
+              <p className="font-bold">
                 Via MijnOverheid Zakelijk kunnen ondernemers in de toekomst
                 eenvoudig zakendoen met de overheid. Nu krijgen zij nog
                 informatie van tientallen overheidsorganisaties — vaak
@@ -22,7 +22,7 @@ export default function Home() {
                 dat. Straks kunnen ondernemers op een eenduidige manier zaken
                 regelen, inzien of informatie daarover ontvangen.
               </p>
-              <p className="text-xl">
+              <p className="">
                 MijnOverheid Zakelijk is in ontwikkeling. Via deze website laten
                 we zien wat we ontwikkelen en hoe we dat doen. We werken samen
                 met diverse overheidsorganisaties en vragen regelmatig om

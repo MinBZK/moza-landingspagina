@@ -14,6 +14,9 @@ import Contact from "./routes/contact.tsx";
 import NotFound from "./routes/errors/404.tsx";
 import { Container } from "./components/layout/Container.tsx";
 import Presentaties from "./routes/actueel/presentaties/[slug].tsx";
+import OpenWerken from "./routes/onderwerpen/openwerken.tsx";
+import Documentatie from "./routes/onderwerpen/documentatie.tsx";
+import Ontwerp from "./routes/onderwerpen/ontwerp.tsx";
 
 function App() {
   return (
@@ -36,6 +39,12 @@ function App() {
               element={<Profielservice />}
             />
             <Route path="/onderwerpen/portaal" element={<Portaal />} />
+            <Route path="/onderwerpen/openwerken" element={<OpenWerken />} />
+            <Route
+              path="/onderwerpen/documentatie"
+              element={<Documentatie />}
+            />
+            <Route path="/onderwerpen/ontwerp" element={<Ontwerp />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

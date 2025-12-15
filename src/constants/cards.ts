@@ -3,8 +3,7 @@ import type { HomeCard } from "../types/card.ts";
 export const HOME_CARDS: HomeCard[] = [
   {
     title: "MijnOverheid Zakelijk portaal",
-    description:
-      "Noodsituaties komen vaak onverwacht. Weet jij wat je moet doen bij langdurige stroom- of internetuitval? Lees hoe je je huis en gezin eenvoudig voorbereidt.",
+    description: "Maak kennis met MOZa via ons digitale prototype.",
     href: "/onderwerpen/portaal",
     imageUrl: "portaal.png",
     imageAlt: "Campagnebeeld voorbereid op morgen",
@@ -12,43 +11,41 @@ export const HOME_CARDS: HomeCard[] = [
   },
   {
     title: "Profiel service",
-    description:
-      "Noodsituaties komen vaak onverwacht. Weet jij wat je moet doen bij langdurige stroom- of internetuitval? Lees hoe je je huis en gezin eenvoudig voorbereidt.",
+    description: "Op één plek je gegevens en voorkeuren beheren.",
     href: "/onderwerpen/profielservice",
     imageUrl: "profiel.png",
     imageAlt: "Campagnebeeld voorbereid op morgen",
     external: false,
   },
+  // {
+  //   title: "Notificatie service",
+  //   description: "Notificatie service voor de gebruiker.",
+  //   href: "#",
+  //   imageUrl: "figma.png",
+  //   imageAlt: "Campagnebeeld voorbereid op morgen",
+  //   external: false,
+  // },
   {
-    title: "Notificatie service",
-    description: "Notificatie service voor de gebruiker.",
-    href: "#",
-    imageUrl: "figma.png",
-    imageAlt: "Campagnebeeld voorbereid op morgen",
-    external: false,
-  },
-  {
-    title: "Design",
-    description: "Hier vind u alle (figma) designs van MijnOverheid Zakelijk.",
-    href: "x://www.figma.com/proto/Px77Bmqi8hjlbiPVtJrSkw/MOZa-gebruikerstest?page-id=80%3A8583&node-id=80-8586&p=f&viewport=25%2C79%2C0.7&t=4UaOV6eSoMfyYqMY-1&scaling=scale-down-width&content-scaling=fixed",
-
-    imageUrl: "figma.png",
-    imageAlt: "Campagnebeeld voorbereid op morgen",
-    external: false,
-  },
-  {
-    title: "Open source",
+    title: "Ontwerp",
     description:
-      "Open source is een manier om software te ontwikkelen waarmee anderen kunnen helpen.",
-    href: "x://github.com/MinBZK/MijnOverheidZakelijk",
+      "Hier vind u alle (figma) ontwerpen van MijnOverheid Zakelijk.",
+    href: "/onderwerpen/ontwerp",
+    imageUrl: "figma.png",
+    imageAlt: "Campagnebeeld voorbereid op morgen",
+    external: false,
+  },
+  {
+    title: "Open werken",
+    description: "In onze aanpak staat zichtbaar werken centraal.",
+    href: "/onderwerpen/openwerken",
     imageUrl: "portaal.png",
     imageAlt: "Campagnebeeld voorbereid op morgen",
     external: false,
   },
   {
     title: "Documentatie",
-    description: "documentatie van de website",
-    href: "x://docs.mijnoverheidzakelijk.nl/",
+    description: "Als onze technische documentatie handig bij elkaar gezet.",
+    href: "/onderwerpen/documentatie",
     imageUrl: "profiel.png",
     imageAlt: "Campagnebeeld voorbereid op morgen",
     external: false,
