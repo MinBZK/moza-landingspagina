@@ -45,16 +45,29 @@ p.text-xl, /* even alleen voor paragraaf tekst een ruimere line-height, text-xl 
 }
 
 a[href^="http"]:not(:has(img)):after {
-    content: "\2197";
-    font-weight: bold;
-    font-size: 1rem;
-    margin-left: 0.25rem;
-    text-decoration: none;
+    content: url(../../public/externe-link.svg);
     display: inline-block;
+    height: .75em;
+    margin-left: .25em;
+    width: .75em;
 }
 
 .serif {
     font-family: "RO-Serif", "Times New Roman", serif;
+}
+
+.breadcrumb {
+    margin-bottom: .5em;
+    a:hover {
+        text-decoration: underline;
+    }
+    a::after {
+        content: url(../../public/chevron-r.svg);
+        display: inline-block;
+        height: .5em;
+        margin: 0 .5em;
+        width: .5em;
+    }
 }
 
 @layer base {

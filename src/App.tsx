@@ -52,7 +52,7 @@ function App() {
         <footer className="h-56 w-full bg-[#154273] p-4">
           <Container>
             <div className="px-4 pt-5">
-              <span className="serif text-3xl text-white italic">
+              <span className="serif text-2xl text-white italic">
                 Eén Overheid. Voor iedereen!
               </span>
             </div>

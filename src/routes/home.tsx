@@ -8,7 +8,7 @@ export default function Home() {
     <>
       <Hero
         title="MijnOverheid Zakelijk"
-        subtitle="Overzicht in wat er speelt"
+        subtitle="Eén centrale plek om eenvoudig en overzichtelijk zaken te doen met de overheid"
       />
       <div className="">
         <Container>
@@ -35,13 +35,8 @@ export default function Home() {
         </Container>
       </div>
 
-      <Container className="mt-4">
-        <div className="px-4">
-          <div className="">
-            <h2 className="mb-4 text-2xl font-bold text-slate-700">
-              Onderwerpen
-            </h2>
-          </div>
+      <Container>
+        <div className="">
           <div className="xs:grid-cols-1 mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {HOME_CARDS.map((card) => (
               <Card key={card.href} {...card} />

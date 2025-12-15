@@ -11,33 +11,33 @@ export function Card({
 }: HomeCard) {
   return (
     <article
-      className={`w-full overflow-hidden rounded-sm bg-white shadow-sm ring-1 ring-slate-200`}
+      className={`w-full overflow-hidden`}
     >
-      <div className="relative h-56 w-full bg-gray-100">
+       <div className="relative h-10">
         <Link
           to={href}
           {...(external
             ? { target: "_blank", rel: "noreferrer noopener" }
             : {})}
-          className="flex h-full w-full items-center justify-center"
+          className="flex h-full w-full px-4"
         >
           <img
             src={imageUrl}
             alt={imageAlt}
-            className="h-4/5 object-contain"
+            className="h-5/5 object-contain"
             loading="lazy"
           />
         </Link>
       </div>
-      <div className="space-y-2 px-4 py-3">
+      <div className="space-y-2 px-4 py-3 pt-0">
         <Link
           {...(external
             ? { target: "_blank", rel: "noreferrer noopener" }
             : {})}
           to={href}
-          className="flex items-center font-semibold text-sky-800 hover:text-sky-900 no-underline hover:underline"
+          className="flex items-center mb-0 text-2xl font-bold text-sky-800 hover:text-sky-900 no-underline hover:underline"
         >
-          <span className="text-2xl font-light">{title}</span>
+          {title}
         </Link>
 
         <p className="leading-relaxed text-slate-800">{description}</p>
