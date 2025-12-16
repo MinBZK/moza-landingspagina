@@ -5,13 +5,6 @@ const OpenWerken = () => {
     <Container>
       <div className="mx-auto flex px-2 py-8 sm:px-4 sm:py-6">
         <div className="flex w-full flex-col gap-2 lg:w-2/3">
-
-          <ul className="breadcrumb flex">
-            <li><a href="/" className="text-sky-700">Home</a></li>
-            <li><a href="/onderwerpen" className="text-sky-700">Onderwerpen</a></li>
-            <li>Open werken</li>
-          </ul>
-
           <h1 className="text-3xl font-bold tracking-tight text-slate-800 sm:text-4xl">
             Open werken
           </h1>

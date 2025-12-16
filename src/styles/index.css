@@ -56,19 +56,6 @@ a[href^="http"]:not(:has(img)):after {
     font-family: "RO-Serif", "Times New Roman", serif;
 }
 
-.breadcrumb {
-    margin-bottom: .5em;
-    a:hover {
-        text-decoration: underline;
-    }
-    a::after {
-        content: url(../../public/chevron-r.svg);
-        display: inline-block;
-        height: .5em;
-        margin: 0 .5em;
-        width: .5em;
-    }
-}
 
 @layer base {
     /* Reverts a preflight rule on hidden that breaks some reveal.js */

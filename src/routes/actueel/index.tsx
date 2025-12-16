@@ -1,7 +1,5 @@
 import { Container } from "../../components/layout/Container.tsx";
 import { BlogEntry } from "../../components/actueel/BlogEntry.tsx";
-import { Card } from "../../components/ui/Card.tsx";
-import { HOME_CARDS } from "../../constants/cards.ts";
 import { useEffect, useState } from "react";
 
 import {

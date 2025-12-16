@@ -17,6 +17,7 @@ import Presentaties from "./routes/actueel/presentaties/[slug].tsx";
 import OpenWerken from "./routes/onderwerpen/openwerken.tsx";
 import Documentatie from "./routes/onderwerpen/documentatie.tsx";
 import Ontwerp from "./routes/onderwerpen/ontwerp.tsx";
+import Breadcrumb from "./components/layout/Breadcrumb.tsx";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
       <div className="rhc-theme moza-theme-overrides flex min-h-screen flex-col">
         <Header />
         <Navbar />
+        <Breadcrumb />
         <main className="flex-grow">
           <Routes>
             <Route path="/" element={<Home />} />
