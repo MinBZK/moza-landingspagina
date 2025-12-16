@@ -6,17 +6,17 @@ date: 09-12-2025
 
 ## Algemeen
 
-*   **Regieteam**: op 4 december vond overleg met het MOZa Regieteam plaats. Er is daar gesproken over:
-* De intentieverklaring: de tekst moet een duidelijke intentie van alle betrokken partijen uitdragen. We werken toe naar een finale versie.
-* Nader doelgroepenonderzoek: hoewel de focus van MOZa ligt op ZZP’ers en MKB tot 50 medewerkers, gaan we met het Regieteam alvast de complexiteit rondom de andere doelgroepen verkennen. Hier komen verdiepingssessies voor.
-* De planning voor volgend jaar is als concept gedeeld en wordt op basis van de feedback de komende periode verder uitgewerkt en gedeeld.
+* **Regieteam**: op 4 december vond overleg met het MOZa Regieteam plaats. Er is daar gesproken over:
+  * De intentieverklaring: de tekst moet een duidelijke intentie van alle betrokken partijen uitdragen. We werken toe naar een finale versie.
+  * Nader doelgroepenonderzoek: hoewel de focus van MOZa ligt op ZZP’ers en MKB tot 50 medewerkers, gaan we met het Regieteam alvast de complexiteit rondom de andere doelgroepen verkennen. Hier komen verdiepingssessies voor.
+  * De planning voor volgend jaar is als concept gedeeld en wordt op basis van de feedback de komende periode verder uitgewerkt en gedeeld.
 * **MOZa Pulse**: In de bijlage vind je de presentatie van de MOZa Pulse van 2 december. Op de agenda stonden: Profiel Service Architectuursessies, Fieldlab "Bestaanszekerheid bij Levensgebeurtenissen", Aansluiten Profiel Service op GDI standaarden en [een demo](https://moza.mijnoverheidzakelijk.nl/) (inloggen met gebruikersnaam *linda* en wachtwoord *password*).
 * **Programmawebsite**: de eerste versie van de nieuwe website voor MijnOverheid Zakelijk, bedoeld om geïnteresseerden te informeren over de voortgang van ons programma, is gepresenteerd aan het team. De feedback wordt nu verwerkt met als doel dat we voor het einde van het jaar een versie online hebben staan. Deze Weekly berichten zullen daar ook een plek krijgen.
 
 ## Overheidsbrede interactieservices
 
 * **Oproep werkgroepen OBIS:** op dinsdag 28 november was de kickoff voor de werkgroep Overheidsbrede Interactieservices (OBIS/MOZa). Het werd duidelijk dat er breed draagvlak is voor de gezamenlijke aanpak van overheidsbrede interactieservices voor burgers en ondernemers. Als vervolg worden er in Q1 2026 meerdere werkgroepbijeenkomsten georganiseerd, waar product owners/product managers en enterprise/solution architecten hun input en feedback op uitwerkingen van Logius kunnen geven. **Heb je interesse, meld je dan aan voor 18 december via** [**leo.hornig@logius.nl**](mailto:leo.hornig@logius.nl)**.** Het gaat om:
-    * Werkgroep 1: MijnZaken/MijnTaken, met als doel afstemming over hoe de interactieservices MijnZaken (Track & Trace) en MijnTaken overheidsbreed toepasbaar zijn, voor zowel burgers als ondernemingen. Gezocht: product owner of product manager van een MijnOmgeving. 
+  * Werkgroep 1: MijnZaken/MijnTaken, met als doel afstemming over hoe de interactieservices MijnZaken (Track & Trace) en MijnTaken overheidsbreed toepasbaar zijn, voor zowel burgers als ondernemingen. Gezocht: product owner of product manager van een MijnOmgeving. 
   * Werkgroep 2: Notificeren/Profiel/Berichten, met als doel afstemming over hoe de interactieservices voor notificaties, profielbeheer en berichten overheidsbreed toepasbaar zijn, voor zowel burgers als ondernemingen. Gezocht: Product owner of product manager van een MijnOmgeving. 
   * Werkgroep 3: Architectuur & Standaarden, met als doel afstemming over de architectuur van overheidsbrede interactieservices en het toetsen van standaarden voordat deze het formele standaardisatietraject ingaan. Gezocht: Enterprise architect of solution architect. 
 * **Rijksbrede architectuur:** De eerste gesprekken hebben plaatsgevonden tussen betrokken architecten om toe te werken naar een gezamenlijke rijksbrede architectuur MOZa-OBIS-VNG gericht op ondernemer én burgers. Doel is om voor te borduren op wat de VNG al heeft staan om ontwikkelingen meer in samenhang op te kunnen pakken. 
