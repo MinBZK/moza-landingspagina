@@ -55,14 +55,14 @@ const ActueelDetail = () => {
   return (
     <Container>
       <div className="mx-auto flex w-full justify-center px-2 py-6 sm:px-4 sm:py-10">
-        <div className="w-full max-w-[768px]">
+        <div className="w-full max-w-[1200px]">
           <div className="">
-            <h1 className="text-4xl font-bold">{data.title}</h1>
+            <h1 className="text-2xl font-bold">{data.title}</h1>
             <div className="flex flex-wrap gap-4">
               {"fromDate" in data ? (
                 <>
-                  <div className="flex items-center gap-2 rounded-md py-2 backdrop-blur-sm">
-                    <span className="text-xl">📅</span>
+                  <div className="flex items-center gap-2 py-2">
+                    <span className="text-sm">📅</span>
                     <div className="text-sm font-medium">
                       <div>
                         {data.fromDate.toLocaleDateString("nl-NL", {
@@ -84,14 +84,14 @@ const ActueelDetail = () => {
                       )}
                     </div>
                   </div>
-                  <div className="flex items-center gap-2 rounded-md py-2 backdrop-blur-sm">
-                    <span className="text-xl">📍</span>
+                  <div className="flex items-center gap-2 py-2">
+                    <span className="text-base">📍</span>
                     <span className="text-sm font-medium">{data.location}</span>
                   </div>
                 </>
               ) : (
-                <div className="flex items-center gap-2 rounded-md py-2 backdrop-blur-sm">
-                  <span className="text-xl">📅</span>
+                <div className="flex items-center gap-2 py-2">
+                  <span className="text-base">📅</span>
                   <span className="text-sm font-medium">
                     {data.date.toLocaleDateString("nl-NL", {
                       year: "numeric",
@@ -103,7 +103,7 @@ const ActueelDetail = () => {
               )}
             </div>
           </div>
-          <div className="prose !max-w-none border-t border-gray-200 py-10">
+          <div className="prose py-2">
             <ReactMarkdown>{data.content}</ReactMarkdown>
           </div>
         </div>

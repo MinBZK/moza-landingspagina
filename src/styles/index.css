@@ -44,12 +44,31 @@ p.text-xl, /* even alleen voor paragraaf tekst een ruimere line-height, text-xl 
     --rhc-card-inline-size: 100%;
 }
 
-a[href^="http"]:not(:has(img)):after {
+a[href^="http"]:not(:has(img))::after {
     content: url(../../public/externe-link.svg);
     display: inline-block;
     height: .75em;
     margin-left: .25em;
     width: .75em;
+}
+nav a[href^="http"]:not(:has(img))::after {
+    content: url(../../public/externe-link-inverse.svg);
+}
+
+footer {
+    li {
+        margin-bottom: .5em;
+    }
+    a::before {
+        content: url(../../public/chevron-r-inverse.svg);
+        display: inline-block;
+        height: .75em;
+        margin: 0 .25em;
+        width: .75em;
+    }
+    a[rel="external"]::after {
+        content: url(../../public/externe-link-inverse.svg);
+    }
 }
 
 .serif {

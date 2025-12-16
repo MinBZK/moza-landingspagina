@@ -5,14 +5,14 @@ const ProfielService = () => {
     <Container>
       <div className="mx-auto flex px-2 py-8 sm:px-4 sm:py-6">
         <div className="flex w-full flex-col gap-2 lg:w-2/3">
-          <h1 className="text-2xl font-bold tracking-tight text-slate-800 sm:text-4xl">
+          <h1 className="mt-0 mb-4 text-2xl font-semibold text-slate-700">
             Profiel service
           </h1>
 
-          <h2 className="text-3xl font-bold tracking-tight text-slate-800 sm:text-2xl">
+          <h2 className="text-xl font-bold tracking-tight text-slate-800">
             Op één plek je contactgegevens en communicatievoorkeuren beheren
           </h2>
-          <p className="leading-relaxed break-words whitespace-pre-line text-slate-700">
+          <p className="break-words whitespace-pre-line text-slate-800">
             De Profiel Service is een van de services die binnen het programma
             MOZa wordt ontwikkeld. Dankzij deze service kunnen ondernemers
             straks, net als burgers, op één plek hun contactgegevens en
@@ -21,7 +21,7 @@ const ProfielService = () => {
             voeren of bij te houden.
           </p>
 
-          <h2 className="text-3xl font-bold tracking-tight text-slate-800 sm:text-2xl">
+          <h2 className="text-xl font-bold tracking-tight text-slate-800">
             Overheden kunnen gegevens opvragen
           </h2>
           <p>
@@ -32,7 +32,7 @@ const ProfielService = () => {
             samen in een centraal, goed beheerd register.
           </p>
 
-          <ul className="list-disc space-y-2 pl-6 text-slate-700">
+          <ul className="list-disc space-y-2 pl-6 mb-2 text-slate-800">
             <li>
               Geeft ondernemers controle over hun profielgegevens en hoe zij met
               de overheid willen communiceren. Ze ervaren minder administratieve
@@ -48,7 +48,7 @@ const ProfielService = () => {
             </li>
           </ul>
 
-          <h2 className="text-3xl font-bold tracking-tight text-slate-800 sm:text-2xl">
+          <h2 className="text-xl font-bold tracking-tight text-slate-800">
             Gefaseerde ontwikkelstrategie
           </h2>
           <p>
@@ -66,7 +66,7 @@ const ProfielService = () => {
             conform LDV).
           </p>
 
-          <h2 className="text-3xl font-bold tracking-tight text-slate-800 sm:text-2xl">
+          <h2 className="text-xl font-bold tracking-tight text-slate-800">
             Oproep tot samenwerking
           </h2>
           <p>
@@ -82,15 +82,15 @@ const ProfielService = () => {
             digitale dienstverlening. om de
           </p>
 
-          <p className="leading-relaxed text-slate-700">
+          <p className="text-slate-800">
             Wil je meer weten over hoe de profiel service tot stand komt?
             <br />
-            Kijk dan op onze Github:{" "}
+            Kijk dan op onze GitHub:{" "}
             <a
               href="https://github.com/MinBZK/moza-profiel-service"
-              className="rounded font-medium text-sky-700 underline-offset-2 hover:underline focus-visible:underline focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:outline-none"
+              className="font-medium text-sky-700 hover:underline"
             >
-              Github profiel service
+              GitHub profiel service
             </a>
           </p>
         </div>

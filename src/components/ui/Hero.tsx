@@ -15,12 +15,12 @@ export function Hero({ title, subtitle }: HeroProps) {
       />
       <div className="absolute inset-0 flex items-center">
         <Container className="flex items-center">
-          <div className="mb-auto rounded-tr-4xl bg-[#dce3ea] py-5 pl-7 pr-6 -ml-3 text-[#154273] lg:w-2/5">
+          <div className="mb-auto rounded-xs rounded-tr-4xl bg-[#dce3ea] text-slate-700 py-5 pl-7 pr-6 -ml-3 lg:w-2/5">
             <h1 className="mb-3 text-2xl font-bold sm:text-3xl md:mb-2 md:text-4xl">
               {title}
             </h1>
             {subtitle && (
-              <p className="text-base font-medium sm:text-lg md:text-xl !mb-0">
+              <p className="text-base font-medium sm:text-lg md:text-xl text-slate-800 !mb-0">
                 {subtitle}
               </p>
             )}

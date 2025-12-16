@@ -3,18 +3,19 @@ import { Container } from "../components/layout/Container.tsx";
 const Contact = () => {
   return (
     <Container>
-      <div className="mx-auto flex w-full justify-center px-2 py-6 sm:px-4 sm:py-10">
-        <div className="w-full max-w-[768px]">
-          <h1 className="mb-6 text-4xl font-bold text-slate-700">Contact</h1>
-
+      <div className="mx-auto flex px-2 py-8 sm:px-4 sm:py-6">
+        <div className="flex w-full flex-col gap-2 lg:w-2/3">
+          <h1 className="mt-0 mb-4 text-2xl font-semibold text-slate-700">
+            Contact
+          </h1>
           <div>
-            <p className="mb-4 text-lg">
+            <p className="mb-4 text-slate-800">
               MijnOverheid Zakelijk is een programma van Logius (in opdracht van
               het ministerie van Binnenlandse Zaken en Koninkrijksrelaties) en
               werkt samen met:
             </p>
 
-             <ul className="list-disc space-y-2 pl-6 mb-2 text-lg text-slate-700">
+             <ul className="list-disc space-y-2 pl-6 mb-4 text-slate-800">
               <li>de Belastingdienst</li>
               <li>douane</li>
               <li>KVK</li>
@@ -27,10 +28,10 @@ const Contact = () => {
               <li>VNG</li>
             </ul>
 
-            <p className="mb-4 text-lg">
+            <p className="mb-4 text-slate-800">
               Je kunt het programmateam bereiken via <a
                 href="mailto:contact@mijnoverheid-zakelijk.nl"
-                className="text-sky-800 hover:text-sky-900 hover:underline"
+                className="text-sky-700 hover:text-sky-900 hover:underline"
               >
                 contact@mijnoverheid-zakelijk.nl
               </a>.

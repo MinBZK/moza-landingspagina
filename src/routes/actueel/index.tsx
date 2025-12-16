@@ -56,39 +56,8 @@ const Actueel = () => {
 
   return (
     <>
-      <style>
-        {`
-          html {
-            scroll-behavior: smooth;
-          }
-        `}
-      </style>
-      <div className="bg-[#f3f3f3]">
-        <Container>
-          <div className="px-4">
-            <ul className="grid grid-cols-1 gap-4 py-6 text-xl md:grid-cols-3">
-              {["Weekly", "Agenda", "Presentaties"].map((item) => (
-                <li key={item} className="text-[#154273]">
-                  <IconText
-                    IconBefore={(props) => (
-                      <ChevronIcon {...props} className="h-4 w-4" />
-                    )}
-                  >
-                    <a
-                      href={`#${item.toLowerCase()}`}
-                      className="flex items-center scroll-smooth hover:underline"
-                    >
-                      {item}
-                    </a>
-                  </IconText>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </Container>
-      </div>
       <Container>
-        <div className="pt-10">
+        <div className="pt-4">
           {/*<div id="nieuws" className="border-t border-gray-200 px-4 pt-2">*/}
           {/*  <h1 className="py-2 text-3xl font-bold text-slate-700">Nieuws</h1>*/}
           {/*</div>*/}
@@ -104,14 +73,39 @@ const Actueel = () => {
           {/*  )}*/}
           {/*</div>*/}
 
-          <div id="weekly" className="border-t border-gray-200 px-4 pt-2">
-            <h1 className="py-2 text-3xl font-bold text-slate-700">Weekly</h1>
+          <div className="bg-[#f3f3f3] pl-2">
+            <Container>
+              <div className="px-4 pl-2 mb-6">
+                <ul className="flex py-3 text-base">
+                  {["Weekly", "Agenda", "Presentaties"].map((item) => (
+                    <li key={item} className="text-sky-700 ml-0 mr-2">
+                      <IconText
+                        IconBefore={(props) => (
+                          <ChevronIcon {...props} className="h-3 w-4" />
+                        )}
+                      >
+                        <a
+                          href={`#${item.toLowerCase()}`}
+                          className="flex items-center hover:underline"
+                        >
+                          {item}
+                        </a>
+                      </IconText>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              </Container>
           </div>
 
-          <div className="grid grid-cols-1 py-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div id="weekly" className="px-4 pt-0">
+            <h1 className="py-2 text-2xl font-bold text-slate-700">Weekly</h1>
+          </div>
+
+          <div className="grid grid-cols-1 py-2 sm:grid-cols-2 lg:grid-cols-3">
             {weeklyEntries.weekly.length === 0 ? (
               <p className="mb-10 px-4 py-2">
-                Geen weekly berichten beschikbaar.
+                Er zijn geen weekly berichten beschikbaar.
               </p>
             ) : (
               weeklyEntries.weekly.map((entry) => (
@@ -120,26 +114,26 @@ const Actueel = () => {
             )}
           </div>
 
-          <div id="agenda" className="border-t border-gray-200 px-4 pt-2">
-            <h1 className="py-2 text-3xl font-bold text-slate-700">Agenda</h1>
+          <div id="agenda" className="px-4">
+            <h1 className="py-2 text-2xl font-bold text-slate-700">Agenda</h1>
           </div>
           <div className="grid grid-cols-1 py-4 sm:grid-cols-2 lg:grid-cols-3">
             {weeklyEntries.agenda.length === 0 ? (
-              <p className="mb-10 px-4 py-2">Geen agenda items beschikbaar.</p>
+              <p className="mb-10 px-4 py-2">Er zijn geen agenda items beschikbaar.</p>
             ) : (
               weeklyEntries.agenda.map((entry) => <AgendaItem {...entry} />)
             )}
           </div>
 
-          <div id="presentaties" className="border-t border-gray-200 px-4 pt-2">
-            <h1 className="py-2 text-3xl font-bold text-slate-700">
+          <div id="presentaties" className="px-4">
+            <h1 className="py-2 text-2xl font-bold text-slate-700">
               Presentaties
             </h1>
           </div>
           <div className="grid grid-cols-1 py-4 sm:grid-cols-2 lg:grid-cols-3">
             {weeklyEntries.presentaties.length === 0 ? (
               <p className="mb-10 px-4 py-2">
-                Nog geen presentaties beschikbaar.
+                Er zijn nog geen presentaties beschikbaar.
               </p>
             ) : (
               weeklyEntries.presentaties.map((entry) => (

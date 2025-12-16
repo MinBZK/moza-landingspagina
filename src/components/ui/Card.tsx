@@ -29,18 +29,18 @@ export function Card({
           />
         </Link>
       </div>
-      <div className="space-y-2 px-4 py-3 pt-0">
+      <div className="space-y-2 px-4 py-3 pt-2">
         <Link
           {...(external
             ? { target: "_blank", rel: "noreferrer noopener" }
             : {})}
           to={href}
-          className="flex items-center mb-0 text-2xl font-bold text-sky-800 hover:text-sky-900 no-underline hover:underline"
+          className="flex items-center mb-0 text-xl font-bold text-sky-700 hover:text-sky-900 no-underline hover:underline"
         >
           {title}
         </Link>
 
-        <p className="leading-relaxed text-slate-800">{description}</p>
+        <p className="text-slate-800">{description}</p>
       </div>
     </article>
   );

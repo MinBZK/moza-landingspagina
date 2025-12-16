@@ -51,12 +51,37 @@ function App() {
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
-        <footer className="h-56 w-full bg-[#154273] p-4">
+        <footer className="h-auto w-full bg-[#154273] p-4 pb-8">
           <Container>
-            <div className="px-4 pt-5">
+            <div className="flex justify-between px-4 pt-5">
               <span className="serif text-2xl text-white italic">
                 Eén Overheid. Voor iedereen!
               </span>
+              <div className="flex gap-16">
+                <dl className="text-white">
+                  <dt className="text-2xl mb-2">Service</dt>
+                  <dd>
+                    <ul className="text-lg">
+                      <li><a href="/contact">Contact</a></li>
+                      <li><a href="https://docs.mijnoverheidzakelijk.nl" rel="external">Documentatie</a></li>
+                      <li><a href="https://github.com/MinBZK/MijnOverheidZakelijk" rel="external">GitHub</a></li>
+                      <li><a href="#">Sitemap</a></li>
+                    </ul>
+                  </dd>
+                </dl>
+                <dl className="text-white">
+                  <dt className="text-2xl mb-2">Over deze site</dt>
+                  <dd>
+                    <ul className="text-lg">
+                      <li><a href="#">Copyright</a></li>
+                      <li><a href="#">Privacy</a></li>
+                      <li><a href="#">Cookies</a></li>
+                      <li><a href="#">Toegankelijkheid</a></li>
+                      <li><a href="#">Kwetsbaarheid melden</a></li>
+                    </ul>
+                  </dd>
+                </dl>
+              </div>
             </div>
           </Container>
         </footer>
