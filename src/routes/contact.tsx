@@ -15,11 +15,11 @@ const Contact = () => {
             </p> */}
 
             <h2 className="mt-6 mb-1 text-xl font-semibold text-slate-700">Mattermost chat</h2>
-            <p>
+            <p className="text-slate-800">
               Kom in contact met ons op Mattermost. Je kunt hier vragen stellen, ervaringen delen, meelezen en in contact komen met de mensen die aan MijnOverheid Zakelijk werken.
             </p>
             <h3 className="mt-6 mb-1 text-lg font-semibold text-slate-700">Mattermost instellen</h3>
-            <p>
+            <p className="text-slate-800">
               Zorg ervoor dat je <a href="https://mattermost.com/apps/" className="text-sky-700 hover:text-sky-900 hover:underline">Mattermost hebt geïnstalleerd</a> en volg deze stappen:
             </p>
             <ol className="list-decimal space-y-2 pl-6 mb-4 text-slate-800">
@@ -35,7 +35,7 @@ const Contact = () => {
               </li>
               <li><a href="https://digilab.overheid.nl/chat/signup_user_complete/?id=zzj8os1dsjb67ymuqt9e54b9uh&md=link&sbr=su" className="text-sky-700  hover:text-sky-900 hover:underline">Gebruik deze uitnodigingslink</a> of <a href="mailto:contact@mijnoverheid-zakelijk.nl" className="text-sky-700  hover:text-sky-900 hover:underline">vraag ons om je toe te voegen</a> aan het MijnOverheid Zakelijk team</li>
             </ol>
-            <p>
+            <p className="text-slate-800">
               Kom je er niet uit? <a href="mailto:contact@mijnoverheid-zakelijk.nl" className="text-sky-700 hover:text-sky-900 hover:underline">Stuur ons een e-mail</a>!
             </p>
 

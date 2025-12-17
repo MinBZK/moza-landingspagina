@@ -61,7 +61,7 @@ function App() {
               <div className="serif mb-8 text-2xl text-white italic">
                 Eén Overheid. Voor iedereen!
               </div>
-              <div className="flex gap-16">
+              <div className="flex gap-16 mr-8">
                 <dl className="text-white">
                   <dt className="mb-2 text-2xl">Service</dt>
                   <dd>
@@ -85,9 +85,9 @@ function App() {
                           GitHub
                         </a>
                       </li>
-                      <li>
+                      {/* <li>
                         <a href="#">Sitemap</a>
-                      </li>
+                      </li> */}
                     </ul>
                   </dd>
                 </dl>
@@ -95,20 +95,17 @@ function App() {
                   <dt className="mb-2 text-2xl">Over deze site</dt>
                   <dd>
                     <ul className="text-lg">
-                      <li>
+                      {/* <li>
                         <a href="#">Copyright</a>
-                      </li>
+                      </li> */}
                       <li>
                         <a href="#">Privacy</a>
                       </li>
-                      <li>
+                      {/* <li>
                         <a href="#">Cookies</a>
-                      </li>
+                      </li> */}
                       <li>
                         <a href="#">Toegankelijkheid</a>
-                      </li>
-                      <li>
-                        <a href="#">Kwetsbaarheid melden</a>
                       </li>
                     </ul>
                   </dd>
