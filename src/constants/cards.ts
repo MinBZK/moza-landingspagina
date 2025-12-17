@@ -43,7 +43,7 @@ export const HOME_CARDS: HomeCard[] = [
     external: false,
   },
   {
-    title: "Documentatie",
+    title: "Proeftuin",
     description: "Onze technische documentatie, handig bij elkaar.",
     href: "/onderwerpen/documentatie",
     imageUrl: "tegel-documentatie.svg",

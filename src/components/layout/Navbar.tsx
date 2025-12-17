@@ -12,7 +12,7 @@ const NAV_ITEMS: NavItem[] = [
   { label: "Actueel", href: "/actueel" },
   { label: "Onderwerpen", href: "/onderwerpen" },
   {
-    label: "Proeftuin",
+    label: "Documenten",
     href: "https://docs.mijnoverheidzakelijk.nl",
     external: true,
   },
