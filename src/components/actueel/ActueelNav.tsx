@@ -2,7 +2,7 @@ import { IconText } from "../ui/iconText.tsx";
 import ChevronIcon from "../ui/ChevronIcon.tsx";
 import { Link } from "react-router-dom";
 
-const NAV_ITEMS = ["Weekly", "Agenda", "Presentaties"] as const;
+const NAV_ITEMS = ["Weekly", "Presentaties"] as const;
 
 export function ActueelNav() {
   return (
