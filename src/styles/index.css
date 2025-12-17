@@ -19,6 +19,14 @@
 }
 
 @font-face {
+    font-family: "RO-SansItalic";
+    src: url("./fonts/RijksSansWeb-Italic.woff2") format("woff");
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
     font-family: "RO-Serif";
     src: url("./fonts/RijksoverheidSerifWeb.woff") format("woff");
     font-weight: 400;
@@ -35,9 +43,26 @@ p {
     margin-bottom: .5em;
 }
 
-p.text-xl, /* even alleen voor paragraaf tekst een ruimere line-height, text-xl wordt waarschijnlijk ook voor koptekst gebruikt waar de default line-height wel volstaat */
-.prose {
-    line-height: 1.6;
+blockquote {
+    background: #eff7fc;
+    border-radius: 2em .25em .25em;
+    margin-bottom: 1em;
+    padding: 1em 2em .75em;
+    width: fit-content;
+    p {
+        font-family: "RO-SansItalic", "Fira Sans", Arial, sans-serif;
+        font-style: italic;
+        &::before, &::after {
+            content: "“";
+            font-size: 1.125em;
+            font-weight: 700;
+            margin-right: .125em;
+        }
+        &::after {
+            content: "”";
+            margin-left: .125em;
+        }
+    }
 }
 
 .rhc-theme {
