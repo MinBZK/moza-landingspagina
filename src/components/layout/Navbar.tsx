@@ -17,7 +17,6 @@ const NAV_ITEMS: NavItem[] = [
     href: "https://docs.mijnoverheidzakelijk.nl",
     external: true,
   },
-  // { label: "Nieuws", href: "/nieuws" },
   {
     label: "GitHub",
     href: "https://github.com/MinBZK/MijnOverheidZakelijk",
@@ -29,12 +28,15 @@ const NAV_ITEMS: NavItem[] = [
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const internalItems = NAV_ITEMS.filter((i) => !i.external);
+  const externalItems = NAV_ITEMS.filter((i) => i.external);
+
   return (
     <nav className="flex min-h-[64px] w-full items-center bg-[#154273] text-white">
       <Container>
         <div className="px-4">
           <div className="flex items-center">
-            <span className="text-xl hover:underline mt-4 mb-4">
+            <span className="mt-4 mb-4 text-xl hover:underline">
               <Link to="/">Home</Link>
             </span>
 
@@ -62,21 +64,31 @@ export function Navbar() {
               </svg>
             </button>
 
-            {/* Desktop menu - hidden on xs and sm screens */}
-            <ul className=" hidden w-fit text-xl md:flex">
-              {NAV_ITEMS.map((item) => (
-                <li key={item.label} className="ml-6 hover:underline">
-                  <Link
-                    {...(item.external
-                      ? { target: "_blank", rel: "noreferrer noopener" }
-                      : {})}
-                    to={item.href}
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            {/* Desktop menu - internal left, external right */}
+            <div className="hidden md:flex md:flex-1 md:items-center md:pl-6">
+              <ul className="flex w-full text-xl">
+                {internalItems.map((item) => (
+                  <li key={item.label} className="mr-6 hover:underline">
+                    <Link to={item.href}>{item.label}</Link>
+                  </li>
+                ))}
+              </ul>
+
+              <ul className="flex text-xl md:ml-auto">
+                {externalItems.map((item) => (
+                  <li key={item.label} className="ml-6 hover:underline">
+                    <Link
+                      {...(item.external
+                        ? { target: "_blank", rel: "noreferrer noopener" }
+                        : {})}
+                      to={item.href}
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
           {/* Mobile menu - visible when hamburger is clicked */}

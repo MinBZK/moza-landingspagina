@@ -65,8 +65,10 @@ blockquote {
     }
 }
 
-.rhc-theme {
-    --rhc-card-inline-size: 100%;
+
+nav a[href^="http"]:not(:has(img)) {
+    display: inline-flex;
+    white-space: nowrap;
 }
 
 a[href^="http"]:not(:has(img))::after {

@@ -1,32 +1,23 @@
 import { Container } from "../../components/layout/Container.tsx";
 import { HOME_CARDS } from "../../constants/cards.ts";
-import { Link } from "react-router-dom";
-import type { HomeCard } from "../../types/card.ts";
+import { Card } from "../../components/ui/Card.tsx";
 
 const OnderwerpenLijst = () => {
   return (
     <Container className="min-h-80 py-4 *:px-4 md:px-0">
-      <h1 className="mt-3 mb-4 text-2xl font-semibold text-slate-700">
-        Onderwerpen binnen MijnOverheid Zakelijk
+      <h1 className="mt-3 text-2xl font-semibold text-slate-700">
+        Onderwerpen
       </h1>
 
-      <ul className="space-y-1 text-sky-900">
-        {HOME_CARDS.map((card) => (
-          <ListItem key={card.title} card={card} />
-        ))}
-      </ul>
+      <div className="mb-10 pt-14">
+        <div className="xs:grid-cols-1 mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {HOME_CARDS.map((card) => (
+            <Card key={card.href} {...card} />
+          ))}
+        </div>
+      </div>
     </Container>
   );
 };
 
-const ListItem = ({ card }: { card: HomeCard }) => {
-  return (
-    <li className="flex gap-2">
-      <span className="text-sky-700">&rsaquo;</span>
-      <Link className="text-base hover:underline" to={card.href}>
-        {card.title}
-      </Link>
-    </li>
-  );
-};
 export default OnderwerpenLijst;
