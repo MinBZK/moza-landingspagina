@@ -4,8 +4,8 @@ import { Card } from "../../components/ui/Card.tsx";
 
 const OnderwerpenLijst = () => {
   return (
-    <Container className="min-h-80 py-4 *:px-4 md:px-0">
-      <h1 className="mt-3 text-2xl font-semibold text-slate-700">
+    <Container className="min-h-80 py-4 md:px-0">
+      <h1 className="mt-3 px-4 text-2xl font-semibold text-slate-700">
         Onderwerpen
       </h1>
 
