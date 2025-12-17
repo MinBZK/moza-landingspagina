@@ -10,7 +10,7 @@ export const IconText = ({
   iconProps?: React.SVGProps<SVGSVGElement>;
 }) => {
   return (
-    <span className="flex items-baseline gap-2 active:underline">
+    <span className="flex items-baseline gap-2 hover:underline">
       {IconBefore && <IconBefore className="w-3" {...iconProps} />}
       {children}
       {IconAfter && <IconAfter className="w-3" {...iconProps} />}

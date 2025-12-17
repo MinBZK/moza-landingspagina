@@ -7,7 +7,7 @@ import {
   type BlogEntryType,
   loadAllEntries,
 } from "../../lib/markdown.ts";
-import AgendaItem from "../../components/actueel/AgendaEntry.tsx";
+// import AgendaItem from "../../components/actueel/AgendaEntry.tsx";
 import { ActueelNav } from "../../components/actueel/ActueelNav.tsx";
 import { ActueelSection } from "../../components/actueel/actueelSection.tsx";
 
@@ -72,7 +72,7 @@ const Actueel = () => {
             )}
           />
 
-          <ActueelSection
+          {/* <ActueelSection
             title="Agenda"
             items={weeklyEntries.agenda}
             emptyText="Er zijn geen agenda items beschikbaar."
@@ -80,7 +80,7 @@ const Actueel = () => {
             renderItem={(entry) => (
               <AgendaItem key={entry.filename} {...entry} />
             )}
-          />
+          /> */}
 
           <ActueelSection
             title="Presentaties"

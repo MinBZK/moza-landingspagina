@@ -32,12 +32,12 @@ date: 04-11-2025
 
 ## Agenda
 
-- MOZa Pulse - 4 november (morgen!)
-- Regieteam overleg - 6 november
-- MOZa Pulse - 18 november
-- Stuurgroep - 21 november
-- [Common Ground Fieldlab](https://commonground.nl/events/view/f6376a29-cfdd-47c0-ae8c-e08ea60ca0d7/common-ground-fieldlab-10-11-november-2025) - 10 & 11 november (MOZa aanwezig)
-- Gebruiker centraal - Online formulieren ont¬werpen over de UX-aanpak van Nathalie de Groot, UX-writer bij KVK - 13 november
-- [ECP Jaarfestival 2025](https://ecp.nl/ecp-jaarfestival/) - Bewust digitaal! - donderdag 20 november
-- [Fieldlab Digilab](https://fieldlab.bzlg.apps.digilab.network/) - Bestaanszekerheid bij Levensgebeurtenissen - 24, 25 & 26 november (MOZa aanwezig)
-- VNG Themadag Klantreizen: Generieke klantroutes - 1 december
+- **MOZa Pulse**: 4 november (morgen!)
+- **Regieteam overleg**: 6 november
+- **MOZa Pulse**: 18 november
+- **Stuurgroep**: 21 november
+- **[Common Ground Fieldlab](https://commonground.nl/events/view/f6376a29-cfdd-47c0-ae8c-e08ea60ca0d7/common-ground-fieldlab-10-11-november-2025)**: 10 & 11 november (MOZa aanwezig)
+- **Gebruiker centraal - Online formulieren ont¬werpen over de UX-aanpak van Nathalie de Groot, UX-writer bij KVK**: 13 november
+- **[ECP Jaarfestival 2025](https://ecp.nl/ecp-jaarfestival/) - Bewust digitaal!**: donderdag 20 november
+- **[Fieldlab Digilab](https://fieldlab.bzlg.apps.digilab.network/) - Bestaanszekerheid bij Levensgebeurtenissen**: 24, 25 & 26 november (MOZa aanwezig)
+- **VNG Themadag Klantreizen: Generieke klantroutes**: 1 december

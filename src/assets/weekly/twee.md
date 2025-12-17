@@ -14,7 +14,7 @@ date: 17-10-2025
 ## Gebruikersonderzoek 29 & 30 oktober & UX
 
 1. Het verslag van de aannamesessie over het gebruikersonderzoek staat op [de samenwerkruimte](https://www.samenwerkruimten.nl/teamsites/programma%20mijnoverheid%20voor%20ondernemers/Gedeelde%20%20documenten/MOZa%20Notificatie%20service/UX/Verslaglegging%20aanname%20sessie%20MOZa%20\(1%20oktober%202025\).pdf).
-2. De uitnodigingen om mee te kijken tijdens het gebruikersonderzoek zijn verstuurd. Heb je geen uitnodiging ontvangen, maar wil je wel meekijken, dan kun je Nancy ([Nancy.Bergenhenegouwen@Logius.nl](mailto:Nancy.Bergenhenegouwen@Logius.nl)) een bericht sturen.
+2. De uitnodigingen om mee te kijken tijdens het gebruikersonderzoek zijn verstuurd.
 3. Het nieuwe prototype dat we willen gebruiken voor het gebruikersonderzoek daar wordt hard aan gewerkt.
 4. We willen compliant zijn met het NL Design System (NLDS). Wel lopen we in het gebruik tegen uitdagingen aan. Dit pakken we actief op met de NLDS community. Tegelijk onderzoeken we een abstractielaag, waarmee we sneller kunnen gaan in het ontwikkelen van applicaties. De ervaring die we hier opdoen zullen we ook teruggeven aan de NLDS community.
 5. Naast NLDS is er ook de Rijkshuisstijl Community met een design system. Dit design system is compliant met NLDS, maar implementeert de Rijkshuisstijl. Vanaf nu zitten we elke twee weken om tafel met de teams die hieraan werken.
@@ -30,18 +30,18 @@ date: 17-10-2025
     - Feedback, suggesties en aanbevelingen zijn welkom. Dit kan gestuurd worden naar Robin, of via een bericht op Mattermost.
 4. De samenwerking met OBIS/MijnServices wordt actief opgezocht. Deze week hebben we o.a. gezeten over de Profiel Service.
 5. Ook met VNG Omnichannel zitten we nu bijna wekelijks om tafel om kennis uit te wisselen. Zij hebben o.a. al een basis staan in MijnProfiel en dit wordt meegenomen in de plannen.
-6. De code repositories worden overgezet van de besloten GitLab van Logius naar de publieke GitHub omgeving ([link](https://github.com/topics/mijnoverheidzakelijk)). Hierdoor werkt het automatisch bijwerken van de demo omgeving en documentatie even niet, maar dat zijn we aan het fixen.
+6. De code repositories worden overgezet van de besloten GitLab van Logius naar de [publieke GitHub omgeving](https://github.com/topics/mijnoverheidzakelijk). Hierdoor werkt het automatisch bijwerken van de demo omgeving en documentatie even niet, maar dat zijn we aan het fixen.
 7. We gaan de standaard Logboek Dataverwerkingen implementeren. Er is contact geweest met het team dat deze standaard beheerd, o.a. om te kijken of zij in de planning hebben staan om packages voor de diverse programmeertalen te maken. Dit staat niet op de planning. Wij overwegen om dit vanuit MOZa te gaan doen. Er wordt gewerkt aan een decision record waarin we dit vastleggen.
 
 ---
 
 ## Agenda
 
-- MOZa Pulse - 21 oktober
-- Gebruikersonderzoeken - 29 & 30 oktober
-- Logius Roadshow - 30 oktober (MOZa aanwezig)
-- Regieteam overleg - 6 november
-- Stuurgroep - 21 november
-- [ECP Jaarfestival 2025](https://ecp.nl/ecp-jaarfestival/) - Bewust digitaal! - donderdag 20 november
-- [Common Ground Fieldlab](https://commonground.nl/events/view/f6376a29-cfdd-47c0-ae8c-e08ea60ca0d7/common-ground-fieldlab-10-11-november-2025) - 10 & 11 november 2025 (MOZa aanwezig)
-- [Fieldlab Digilab](https://fieldlab.bzlg.apps.digilab.network/) - Bestaanszekerheid bij Levensgebeurtenissen - 24, 25 & 26 november (MOZa aanwezig)
+- **MOZa Pulse**: 21 oktober
+- **Gebruikersonderzoeken**: 29 & 30 oktober
+- **Logius Roadshow**: 30 oktober (MOZa aanwezig)
+- **Regieteam overleg**: 6 november
+- **Stuurgroep**: 21 november
+- **[ECP Jaarfestival 2025](https://ecp.nl/ecp-jaarfestival/) - Bewust digitaal!**: donderdag 20 november
+- **[Common Ground Fieldlab](https://commonground.nl/events/view/f6376a29-cfdd-47c0-ae8c-e08ea60ca0d7/common-ground-fieldlab-10-11-november-2025)**: 10 & 11 november 2025 (MOZa aanwezig)
+- **[Fieldlab Digilab](https://fieldlab.bzlg.apps.digilab.network/) - Bestaanszekerheid bij Levensgebeurtenissen**: 24, 25 & 26 november (MOZa aanwezig)

@@ -24,9 +24,9 @@ date: 10-11-2025
 ## UX & NL Design System
 
 1. Maandag was de eerste uit een reeks NeRDS (Nederlandse Richtlijn Digitale Systemen) workshops. NeRDS stelt duidelijke richtlijnen op voor het ontwikkelen van digitale overheidsproducten, geïnspireerd op GOV.uk's Technology Code of Practice.
-    - In deze sessie heeft ons team gewerkt aan een eerste opzet voor richtlijnen rond het vaststellen van gebruikersbehoeften.
-    - In totaal worden via deze workshops richtlijnen ontwikkeld voor veertien hoofdprincipes.
-    - De volgende workshop richt zich op Toegankelijkheid en Inclusie.
+   - In deze sessie heeft ons team gewerkt aan een eerste opzet voor richtlijnen rond het vaststellen van gebruikersbehoeften.
+   - In totaal worden via deze workshops richtlijnen ontwikkeld voor veertien hoofdprincipes.
+   - De volgende workshop richt zich op Toegankelijkheid en Inclusie.
 2. Tijdens de workshop spraken we de projectleider voor de Overheidsbrede onderzoekscommunity. Vanuit de Rijkshuisstijl Community worstelen we met de vertaling van de nieuwe Rijkshuisstijl naar het digitale domein. We zijn hierover in gesprek.
 3. Op dinsdag kwamen ontwerpers en front-end developers van de Rijkshuisstijl Community samen voor de community sprint planning. We hebben naar de Tab component gekeken. Binnen het NLDS en de RHC is hier nog geen duidelijke lijn in. We onderzoeken dit component verder en werken aan ontwerp, documentatie en implementatie.
 4. Verbeteringen aan de NLDS design tokens zijn afgerond, waardoor deze beter omgezet kunnen worden naar bruikbare CSS-variabelen. Dit is enthousiast ontvangen door andere developers in de community.
@@ -42,13 +42,13 @@ date: 10-11-2025
 
 Wist je dat we (bijna) elke maandag samenwerken op Beatrixpark in Den Haag? Wil je een keer aanhaken, dan ben je van harte welkom.
 
-- [KVK Ondernemersdagen](https://www.kvk.nl/ondernemersdagen/) - 14 & 15 november
-- MOZa Pulse - 18 november
-- Teamdag - 18 november
-- Stuurgroep - 21 november
-- Gebruiker centraal - Online formulieren ontwerpen over de UX-aanpak van Nathalie de Groot, UX-writer bij KVK - 13 november
-- [ECP Jaarfestival 2025](https://ecp.nl/ecp-jaarfestival/) - Bewust digitaal! - 20 november
-- [Fieldlab Digilab](https://fieldlab.bzlg.apps.digilab.network/) - Bestaanszekerheid bij Levensgebeurtenissen - 24, 25 & 26 november (MOZa aanwezig)
-- Regieteam overleg - 4 december
-- VNG Themadag Klantreizen: Generieke klant¬routes - 1 december
-- Stelsel Toegang - [Digitale vertegenwoordiging](https://stelseltoegang.pleio.nl/events/view/c44c4444-a61a-4348-ba52-58bffdc0bacc/digitale-vertegenwoordiging) - 9 december
+- **[KVK Ondernemersdagen](https://www.kvk.nl/ondernemersdagen/)**: 14 & 15 november
+- **MOZa Pulse**: 18 november
+- **Teamdag**: 18 november
+- **Stuurgroep**: 21 november
+- **Gebruiker centraal - Online formulieren ontwerpen over de UX-aanpak van Nathalie de Groot, UX-writer bij KVK**: 13 november
+- **[ECP Jaarfestival 2025](https://ecp.nl/ecp-jaarfestival/) - Bewust digitaal!**: 20 november
+- **[Fieldlab Digilab](https://fieldlab.bzlg.apps.digilab.network/) - Bestaanszekerheid bij Levensgebeurtenissen**: 24, 25 & 26 november (MOZa aanwezig)
+- **Regieteam overleg**: 4 december
+- **VNG Themadag Klantreizen: Generieke klant¬routes**: 1 december
+- **Stelsel Toegang - [Digitale vertegenwoordiging](https://stelseltoegang.pleio.nl/events/view/c44c4444-a61a-4348-ba52-58bffdc0bacc/digitale-vertegenwoordiging)**: 9 december
