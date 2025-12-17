@@ -3,7 +3,7 @@ import type { HomeCard } from "../types/card.ts";
 export const HOME_CARDS: HomeCard[] = [
   {
     title: "MijnOverheid Zakelijk portaal",
-    description: "Maak kennis met MOZa via ons digitale prototype.",
+    description: "Maak kennis met de Mijn-omgeving van MOZa via ons digitale prototype.",
     href: "/onderwerpen/portaal",
     imageUrl: "tegel-portaal.svg",
     imageAlt: "",
@@ -11,8 +11,8 @@ export const HOME_CARDS: HomeCard[] = [
   },
   {
     title: "Profiel service",
-    description: "Op één plek je gegevens en voorkeuren beheren.",
-    href: "/onderwerpen/profiel-service",
+    description: "Interactieservice waarmee je op één plek je gegevens en voorkeuren kunt beheren.",
+    href: "/onderwerpen/profielservice",
     imageUrl: "tegel-profiel.svg",
     imageAlt: "",
     external: false,
@@ -27,8 +27,7 @@ export const HOME_CARDS: HomeCard[] = [
   // },
   {
     title: "Ontwerp",
-    description:
-      "Alles over ontwerp, inclusief prototypes voor gebruikersonderzoeken.",
+    description: "Alles over het MOZa digitale ontwerp, inclusief prototypes voor gebruikersonderzoeken.",
     href: "/onderwerpen/ontwerp",
     imageUrl: "tegel-ontwerp.svg",
     imageAlt: "",
@@ -36,15 +35,15 @@ export const HOME_CARDS: HomeCard[] = [
   },
   {
     title: "Open werken",
-    description: "In onze aanpak staat zichtbaar werken centraal.",
-    href: "/onderwerpen/open-werken",
+    description: "In onze aanpak staat zichtbaar werken en kennisdeling centraal.",
+    href: "/onderwerpen/openwerken",
     imageUrl: "tegel-openwerken.svg",
     imageAlt: "",
     external: false,
   },
   {
     title: "Proeftuin",
-    description: "Onze technische documentatie, handig bij elkaar.",
+    description: "Onze technische documentatie en achtergrondinformatie handig bij elkaar gezet.",
     href: "/onderwerpen/documentatie",
     imageUrl: "tegel-documentatie.svg",
     imageAlt: "",

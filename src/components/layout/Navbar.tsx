@@ -9,6 +9,7 @@ type NavItem = {
 };
 
 const NAV_ITEMS: NavItem[] = [
+  { label: "Projectinformatie", href: "/over" },
   { label: "Actueel", href: "/actueel" },
   { label: "Onderwerpen", href: "/onderwerpen" },
   {
