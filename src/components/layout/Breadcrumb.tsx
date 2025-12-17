@@ -3,19 +3,13 @@ import { Link, useLocation } from "react-router-dom";
 import { Container } from "./Container.tsx";
 
 type BreadcrumbProps = {
-  /**
-   * Optional: provide nicer labels for certain path segments.
-   * Example: { onderwerpen: "Onderwerpen", actueel: "Actueel" }
-   */
   labelMap?: Record<string, React.ReactNode>;
-  /**
-   * Optional: hide the "Home" crumb.
-   */
   hideHome?: boolean;
 };
 
 function titleFromSegment(segment: string) {
-  const decoded = decodeURIComponent(segment);
+  let decoded = decodeURIComponent(segment);
+  decoded = decoded.replace("-", " ");
   if (!decoded) return decoded;
   return decoded.charAt(0).toUpperCase() + decoded.slice(1);
 }
@@ -29,6 +23,8 @@ export default function Breadcrumb({ labelMap, hideHome }: BreadcrumbProps) {
   const crumbs = segments.map((seg) => {
     acc += `/${seg}`;
     const label = labelMap?.[seg] ?? titleFromSegment(seg);
+
+    console.log(label);
     return { to: acc, label };
   });
 

@@ -12,7 +12,7 @@ export const HOME_CARDS: HomeCard[] = [
   {
     title: "Profiel service",
     description: "Op één plek je gegevens en voorkeuren beheren.",
-    href: "/onderwerpen/profielservice",
+    href: "/onderwerpen/profiel-service",
     imageUrl: "tegel-profiel.svg",
     imageAlt: "",
     external: false,
@@ -37,7 +37,7 @@ export const HOME_CARDS: HomeCard[] = [
   {
     title: "Open werken",
     description: "In onze aanpak staat zichtbaar werken centraal.",
-    href: "/onderwerpen/openwerken",
+    href: "/onderwerpen/open-werken",
     imageUrl: "tegel-openwerken.svg",
     imageAlt: "",
     external: false,

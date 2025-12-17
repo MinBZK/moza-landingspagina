@@ -37,11 +37,11 @@ function App() {
             <Route path="/actueel/:type/:name" element={<Detail />} />
             <Route path="/onderwerpen" element={<OnderwerpenLijst />} />
             <Route
-              path="/onderwerpen/profielservice"
+              path="/onderwerpen/profiel-service"
               element={<Profielservice />}
             />
             <Route path="/onderwerpen/portaal" element={<Portaal />} />
-            <Route path="/onderwerpen/openwerken" element={<OpenWerken />} />
+            <Route path="/onderwerpen/open-werken" element={<OpenWerken />} />
             <Route
               path="/onderwerpen/documentatie"
               element={<Documentatie />}
@@ -53,31 +53,59 @@ function App() {
         </main>
         <footer className="h-auto w-full bg-[#154273] p-4 pb-8">
           <Container>
-            <div className="flex flex-col min-[900px]:flex-row justify-between px-4 pt-5">
-              <div className="mb-8 serif text-2xl text-white italic">
+            <div className="flex flex-col justify-between px-4 pt-5 min-[900px]:flex-row">
+              <div className="serif mb-8 text-2xl text-white italic">
                 Eén Overheid. Voor iedereen!
               </div>
               <div className="flex gap-16">
                 <dl className="text-white">
-                  <dt className="text-2xl mb-2">Service</dt>
+                  <dt className="mb-2 text-2xl">Service</dt>
                   <dd>
                     <ul className="text-lg">
-                      <li><a href="/contact">Contact</a></li>
-                      <li><a href="https://docs.mijnoverheidzakelijk.nl" rel="external">Documentatie</a></li>
-                      <li><a href="https://github.com/MinBZK/MijnOverheidZakelijk" rel="external">GitHub</a></li>
-                      <li><a href="#">Sitemap</a></li>
+                      <li>
+                        <a href="/contact">Contact</a>
+                      </li>
+                      <li>
+                        <a
+                          href="https://docs.mijnoverheidzakelijk.nl"
+                          rel="external"
+                        >
+                          Documentatie
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="https://github.com/MinBZK/MijnOverheidZakelijk"
+                          rel="external"
+                        >
+                          GitHub
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#">Sitemap</a>
+                      </li>
                     </ul>
                   </dd>
                 </dl>
                 <dl className="text-white">
-                  <dt className="text-2xl mb-2">Over deze site</dt>
+                  <dt className="mb-2 text-2xl">Over deze site</dt>
                   <dd>
                     <ul className="text-lg">
-                      <li><a href="#">Copyright</a></li>
-                      <li><a href="#">Privacy</a></li>
-                      <li><a href="#">Cookies</a></li>
-                      <li><a href="#">Toegankelijkheid</a></li>
-                      <li><a href="#">Kwetsbaarheid melden</a></li>
+                      <li>
+                        <a href="#">Copyright</a>
+                      </li>
+                      <li>
+                        <a href="#">Privacy</a>
+                      </li>
+                      <li>
+                        <a href="#">Cookies</a>
+                      </li>
+                      <li>
+                        <a href="#">Toegankelijkheid</a>
+                      </li>
+                      <li>
+                        <a href="#">Kwetsbaarheid melden</a>
+                      </li>
                     </ul>
                   </dd>
                 </dl>
