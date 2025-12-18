@@ -57,7 +57,7 @@ const ActueelDetail = () => {
       <div className="mx-auto flex w-full justify-center px-2 py-6 sm:px-4 sm:py-10">
         <div className="w-full max-w-[1200px]">
           <div className="">
-            <h1 className="text-2xl font-bold">{data.title}</h1>
+            <h1 className="text-xl font-bold">{data.title}</h1>
             <div className="flex flex-wrap gap-4">
               {"fromDate" in data ? (
                 <>
@@ -103,7 +103,7 @@ const ActueelDetail = () => {
               )}
             </div>
           </div>
-          <div className="prose py-2">
+          <div className="prose py-2 lg:w-2/3">
             <ReactMarkdown>{data.content}</ReactMarkdown>
           </div>
         </div>
