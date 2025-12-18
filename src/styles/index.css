@@ -37,7 +37,7 @@
 }
 
 @font-face {
-    font-family: "RO-SansItalic";
+    font-family: "RO-Sans";
     src: url("./fonts/ROsanswebtextitalic.woff") format("woff");
     font-weight: 400;
     font-style: italic;
@@ -76,7 +76,7 @@ blockquote {
     padding: 1em 2em .75em;
     width: fit-content;
     p {
-        font-family: "RO-SansItalic", "Fira Sans", Arial, sans-serif;
+        font-family: "RO-Sans", "Fira Sans", Arial, sans-serif;
         font-style: italic;
         &::before, &::after {
             content: "“";
