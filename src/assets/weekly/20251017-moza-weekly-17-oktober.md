@@ -21,13 +21,13 @@ date: 17-10-2025
 
 ## Profiel service
 
-1.  Een concept document over de profiel service kan bekeken worden op [MijnOverheidZakelijk/Docs/structurizr/profielservicedocs/01-context](https://github.com/MinBZK/MijnOverheidZakelijk/blob/main/Docs/structurizr/profielservicedocs/01-context.md)
+1. Een concept document over de profiel service kan bekeken worden op [MijnOverheidZakelijk/Docs/structurizr/profielservicedocs/01-context](https://github.com/MinBZK/MijnOverheidZakelijk/blob/main/Docs/structurizr/profielservicedocs/01-context.md)
     - In [deze taak op GitHub](https://github.com/MinBZK/MijnOverheidZakelijk/issues/26) kan feedback voor dit document worden achtergelaten.
-    - Feedback kan ook gemaild worden naar Robin: [robin.alderliesten@minbzk.nl](mailto:robin.alderliesten@minbzk.nl) of een bericht op Mattermost
+    - Feedback kan ook [gedeeld worden op Mattermost](/contact).
 2. Er wordt gewerkt aan een interactie-procesmodel en een gegevensmodel. Binnenkort hierover meer.
 3. Voor de profiel service is een voorlopige beslissing genomen over event sourcing versus audit logging. De uitkomst is dat we op dit moment kiezen voor audit logging.
     - De voorlopige beslissing staat vastgelegd in [MijnOverheidZakelijk/Docs/structurizr/decisions/0005-AuditLog-EventSourcing](https://github.com/MinBZK/MijnOverheidZakelijk/blob/main/Docs/structurizr/decisions/0005-AuditLog-EventSourcing.md)
-    - Feedback, suggesties en aanbevelingen zijn welkom. Dit kan gestuurd worden naar Robin, of via een bericht op Mattermost.
+    - Feedback, suggesties en aanbevelingen zijn welkom. Dit kan gestuurd [via een bericht op Mattermost](/contact).
 4. De samenwerking met OBIS/MijnServices wordt actief opgezocht. Deze week hebben we o.a. gezeten over de Profiel Service.
 5. Ook met VNG Omnichannel zitten we nu bijna wekelijks om tafel om kennis uit te wisselen. Zij hebben o.a. al een basis staan in MijnProfiel en dit wordt meegenomen in de plannen.
 6. De code repositories worden overgezet van de besloten GitLab van Logius naar de [publieke GitHub omgeving](https://github.com/topics/mijnoverheidzakelijk). Hierdoor werkt het automatisch bijwerken van de demo omgeving en documentatie even niet, maar dat zijn we aan het fixen.

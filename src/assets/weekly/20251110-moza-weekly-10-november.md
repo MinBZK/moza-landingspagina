@@ -7,14 +7,14 @@ date: 10-11-2025
 ## Algemeen
 
 1. Dinsdag hebben we tijdens de MOZa Pulse een eerste terugkoppeling gegeven naar aanleiding van het gebruikersonderzoek. Ook hebben we meer verteld over de profiel service. In de bijlage vind je de slides.
-2. Donderdag vond het MOZa Regieteam overleg plaats. Met dank aan Stephanie, die in zeer korte tijd alle input op de roadmap had verwerkt, hebben we samen een eerste grove schets van een gezamenlijke concept roadmap gemaakt. Hiermee weten we nu wanneer organisaties ongeveer van een service gebruik willen maken. We werken dit nu verder uit naar een stuk dat we kunnen delen.
+2. Donderdag vond het MOZa Regieteam overleg plaats. Met dank aan onze business analyst, die in zeer korte tijd alle input op de roadmap had verwerkt, hebben we samen een eerste grove schets van een gezamenlijke concept roadmap gemaakt. Hiermee weten we nu wanneer organisaties ongeveer van een service gebruik willen maken. We werken dit nu verder uit naar een stuk dat we kunnen delen.
 3. Tijdens het Regieteam overleg hebben we ook bevindingen rondom Notificatie Templates gedeeld. De huidige templates voldoen voor een deel van de notificaties. Het is vooral richting het intermediair dat we mogelijk een uitbreiding nodig hebben. Aan deze vervolgactie wordt gewerkt.
 4. Hoe kunnen we slimmer documenteren? Er zijn diverse groepen binnen de overheid mee bezig. Samen met o.a. VNG MijnServices, developer.overheid.nl en NeRDS brengen we dit nu bij elkaar. En ja, dit betekent dat ook de MOZa documentatie qua format gaat veranderen.
 5. De samenwerking met OBIS/MijnServices wordt actief vormgegeven.
 
 ## Profiel service
 
-1. Een eerste voorstel voor het gegevensmodel van de profiel service is vastgelegd en [staat online](https://docs.mijnoverheidzakelijk.nl/workspace/documentation/Profiel%20Service#positionering-voor-stakeholders). Erik klopt bij jullie aan om feedback op te halen. . Feedback en vragen mogen ook per mail of via GitHub gesteld worden.
+1. Een eerste voorstel voor het gegevensmodel van de profiel service is vastgelegd en [staat online](https://docs.mijnoverheidzakelijk.nl/workspace/documentation/Profiel%20Service#positionering-voor-stakeholders). Onze architect klopt bij jullie aan om feedback op te halen. Feedback en vragen mogen ook per mail of via GitHub gesteld worden.
 2. De eerste sequence-diagrammen zijn gemaakt en [gedeeld](https://docs.mijnoverheidzakelijk.nl/workspace/documentation/Profiel%20Service#positionering-voor-stakeholders) voor:
     - Ondernemer → profiel service
     - Dienstverlener → profiel service

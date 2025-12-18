@@ -7,7 +7,7 @@ date: 01-12-2025
 ## Algemeen
 
 * Op dinsdag 28 november was de kickoff voor de werkgroep Overheidsbrede Interactieservices OBIS. Daarbij is onder andere stilgestaan bij dat we burger & ondernemer tegelijk oppakken, dat dit aansluit bij de Nederlandse Digitaliseringstrategie en de samenhang tussen OBIS en MOza. Ook vanuit het programma MOZa waren we aanwezig en hebben we meegeholpen in de voorbereiding.
-* Pepe heeft donderdag zijn concluderende presentatie gegeven rondom zijn afstudeeronderzoek. Daarin staan creatieve adviezen over hoe MOZa de interactie met ondernemers het beste zou kunnen vormgeven. Pepe studeert Strategic Product Design aan de TU Delft. Hij levert binnenkort een handige toolkit op waar we straks gebruik van kunnen maken. 
+* Een student Strategic Product Design aan de TU Delft heeft donderdag zijn concluderende presentatie gegeven rondom zijn afstudeeronderzoek. Daarin staan creatieve adviezen over hoe MOZa de interactie met ondernemers het beste zou kunnen vormgeven. Hij levert binnenkort een handige toolkit op waar we straks gebruik van kunnen maken. 
 * We hebben gewerkt aan een nieuw functioneel ontwerp voor de programma website van MOZa. Dit moet een plek worden waar geïnteresseerden de voortgang van ons programma goed kunnen volgen, zowel qua nieuws als kennis en de producten.
 
 ## Profiel service
