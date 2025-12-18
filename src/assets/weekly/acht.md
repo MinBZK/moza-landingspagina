@@ -10,7 +10,7 @@ date: 09-12-2025
   * De intentieverklaring: de tekst moet een duidelijke intentie van alle betrokken partijen uitdragen. We werken toe naar een finale versie.
   * Nader doelgroepenonderzoek: hoewel de focus van MOZa ligt op ZZP’ers en MKB tot 50 medewerkers, gaan we met het Regieteam alvast de complexiteit rondom de andere doelgroepen verkennen. Hier komen verdiepingssessies voor.
   * De planning voor volgend jaar is als concept gedeeld en wordt op basis van de feedback de komende periode verder uitgewerkt en gedeeld.
-* **MOZa Pulse**: [Hier vind je de presentatie van de MOZa Pulse van 2 december](actueel/presentaties/example2.md). Op de agenda stonden:
+* **MOZa Pulse**: [Hier vind je de presentatie van de MOZa Pulse van 2 december](/actueel/presentaties/example2.md). Op de agenda stonden:
   * Profiel Service Architectuursessies,
   * Fieldlab "Bestaanszekerheid bij Levensgebeurtenissen",
   * Aansluiten Profiel Service op GDI standaarden en
