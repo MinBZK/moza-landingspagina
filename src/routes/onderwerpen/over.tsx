@@ -73,15 +73,15 @@ const Over = () => {
             Overheidsorganisaties die samenwerken aan MijnOverheid Zakelijk zijn:
           </p>
           <ul className="list-disc space-y-2 pl-6 mb-4 text-slate-800">
-            <li>de Belastingdienst</li>
-            <li>douane</li>
+            <li>Belastingdienst</li>
+            <li>Douane</li>
             <li>KVK</li>
             <li>Logius</li>
             <li>Rijks ICT Gilde</li>
-            <li>gemeente Rotterdam</li>
+            <li>Gemeente Rotterdam</li>
             <li>RVO</li>
-            <li>ministerie van Binnenlandse Zaken en Koninkrijksrelaties</li>
-            <li>ministerie van Economische Zaken</li>
+            <li>Ministerie van Binnenlandse Zaken en Koninkrijksrelaties</li>
+            <li>Ministerie van Economische Zaken</li>
             <li>UWV</li>
             <li>VNG</li>
           </ul>
