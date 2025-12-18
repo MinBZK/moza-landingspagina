@@ -12,15 +12,25 @@
 
 @font-face {
     font-family: "RO-Sans";
-    src: url("./fonts/RijksSansVF.woff2") format("woff");
+    /* src: url("./fonts/RijksSansVF.woff2") format("woff"); */
+    src: url("./fonts/ROsanswebtextregular.woff") format("woff");
     font-weight: 400;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
+    font-family: "RO-Sans";
+    /* src: url("./fonts/RijksSansVF.woff2") format("woff"); */
+    src: url("./fonts/ROsanswebtextbold.woff") format("woff");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
     font-family: "RO-SansItalic";
-    src: url("./fonts/RijksSansWeb-Italic.woff2") format("woff");
+    src: url("./fonts/ROsanswebtextitalic.woff") format("woff");
     font-weight: 400;
     font-style: italic;
     font-display: swap;
@@ -35,8 +45,15 @@
 }
 
 body {
-    color: var(--color-slate-800);
     font-family: "RO-Sans", "Fira Sans", Arial, sans-serif;
+}
+
+body, p, .prose {
+    color: #0f172a !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
 }
 
 p {
