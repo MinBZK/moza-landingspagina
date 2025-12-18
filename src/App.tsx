@@ -64,37 +64,6 @@ function App() {
               </div>
               <div className="mr-8 flex gap-16">
                 <dl className="text-white">
-                  <dt className="mb-2 text-2xl">Service</dt>
-                  <dd>
-                    <ul className="text-lg">
-                      <li>
-                        <Link to="/contact">Contact</Link>
-                      </li>
-                      <li>
-                        <Link
-                          to="https://docs.mijnoverheidzakelijk.nl"
-                          target="_blank"
-                          rel="noreferrer noopener"
-                        >
-                          Documentatie
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          to="https://github.com/MinBZK/MijnOverheidZakelijk"
-                          target="_blank"
-                          rel="noreferrer noopener"
-                        >
-                          GitHub
-                        </Link>
-                      </li>
-                      {/* <li>
-                        <a href="#">Sitemap</a>
-                      </li> */}
-                    </ul>
-                  </dd>
-                </dl>
-                <dl className="text-white">
                   <dt className="mb-2 text-2xl">Over deze site</dt>
                   <dd>
                     <ul className="text-lg">
