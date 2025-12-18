@@ -8,12 +8,14 @@ import {
   loadBlogMarkdownByFilename,
 } from "../../../lib/markdown.ts";
 import { useEffect, useState } from "react";
+import { useBreadcrumb } from "../../../context/BreadcrumbContext.tsx";
 
 const ActueelDetail = () => {
   const { name, type } = useParams();
   const [data, setData] = useState<BlogDetailType | AgendaDetailType>();
   const [error, setError] = useState<string>("");
   const [isLoading, setIsLoading] = useState(true);
+  const { setTitle } = useBreadcrumb();
 
   useEffect(() => {
     const fetchContent = async () => {
@@ -26,6 +28,7 @@ const ActueelDetail = () => {
           type as "weekly" | "nieuws",
         );
         setData(data);
+        setTitle(data.title);
       } catch {
         setError("Bestand niet gevonden");
       } finally {
@@ -34,7 +37,10 @@ const ActueelDetail = () => {
     };
 
     fetchContent();
-  }, [name]);
+    return () => {
+      setTitle(undefined);
+    };
+  }, [name, type, setTitle]);
 
   if (isLoading) {
     return (

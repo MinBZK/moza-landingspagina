@@ -1,4 +1,5 @@
 import { Container } from "./Container.tsx";
+import { Link } from "react-router-dom";
 
 export function Header() {
   return (
@@ -14,14 +15,14 @@ export function Header() {
         </div>
 
         <div className="justify-self-center">
-          <a href="/">
-          <img
-            src="/logo.svg"
-            alt=""
-            id="logotype"
-            className="h-auto max-w-full"
-          />
-          </a>
+          <Link to="/">
+            <img
+              src="/logo.svg"
+              alt=""
+              id="logotype"
+              className="h-auto max-w-full"
+            />
+          </Link>
         </div>
 
         <div className="hidden md:block" />

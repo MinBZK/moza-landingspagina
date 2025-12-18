@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Container } from "./Container.tsx";
+import { useBreadcrumb } from "../../context/BreadcrumbContext.tsx";
 
 type BreadcrumbProps = {
   labelMap?: Record<string, React.ReactNode>;
@@ -15,7 +16,8 @@ function titleFromSegment(segment: string) {
 }
 
 export default function Breadcrumb({ labelMap, hideHome }: BreadcrumbProps) {
-  const { pathname, state } = useLocation();
+  const { pathname } = useLocation();
+  const { title } = useBreadcrumb();
 
   const segments = pathname.split("/").filter(Boolean);
 
@@ -39,8 +41,10 @@ export default function Breadcrumb({ labelMap, hideHome }: BreadcrumbProps) {
             {allCrumbs.map((c, i) => {
               const isLast = i === allCrumbs.length - 1;
 
-              const displayLabel =
-                isLast && state?.title ? state.title : c.label;
+              const displayLabel = isLast
+                ? // Prefer dynamic title from context (e.g., when landing directly on detail pages)
+                  (title ?? c.label)
+                : c.label;
 
               return (
                 <li

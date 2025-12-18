@@ -13,7 +13,6 @@ export const AgendaItem = ({
     <div className="">
       <Link
         to={`/actueel/agenda/${filename.replace(/\.md$/, "") as string}`}
-        state={{ title: title }}
         className="group relative flex h-[220px] flex-col space-y-1 self-end lg:m-0"
       >
         <h2 className="text-xl text-sky-700 group-hover:underline">{title}</h2>

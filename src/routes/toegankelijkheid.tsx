@@ -1,4 +1,5 @@
 import { Container } from "../components/layout/Container.tsx";
+import { Link } from "react-router-dom";
 const Toegankelijkheid = () => {
   return (
     <Container>
@@ -14,12 +15,12 @@ const Toegankelijkheid = () => {
           <p className="text-slate-800">
             Mocht je problemen ondervinden bij het gebruik van onze website of
             suggesties hebben voor verbeteringen,{" "}
-            <a
-              href="/contact"
+            <Link
+              to="/contact"
               className="text-sky-700 hover:text-sky-900 hover:underline"
             >
               neem dan contact met ons op
-            </a>
+            </Link>
             . Wij werken continu aan het verbeteren van de toegankelijkheid van
             onze site.
           </p>
