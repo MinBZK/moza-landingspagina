@@ -10,7 +10,8 @@ export const BlogEntry = ({
 }) => (
   <div className="">
     <Link
-      to={`/actueel/${type}/${entry.filename}`}
+      state={{ title: entry.title }}
+      to={`/actueel/${type}/${entry.filename.replace(/\.md$/, "") as string}`}
       className="group relative flex h-[220px] flex-col space-y-1 self-end lg:m-0"
     >
       <h2 className="text-xl text-sky-700 group-hover:underline">

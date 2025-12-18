@@ -7,7 +7,6 @@ import {
   type BlogEntryType,
   loadAllEntries,
 } from "../../lib/markdown.ts";
-// import AgendaItem from "../../components/actueel/AgendaEntry.tsx";
 import { ActueelNav } from "../../components/actueel/ActueelNav.tsx";
 import { ActueelSection } from "../../components/actueel/actueelSection.tsx";
 
@@ -51,8 +50,23 @@ const Actueel = () => {
     };
   }, []);
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
+  if (isLoading)
+    return (
+      <>
+        <Container>
+          <div className="pt-4">Loading...</div>
+        </Container>
+      </>
+    );
+
+  if (error)
+    return (
+      <>
+        <Container>
+          <div className="pt-4">Error: {error}</div>
+        </Container>
+      </>
+    );
 
   return (
     <>
@@ -72,15 +86,15 @@ const Actueel = () => {
             )}
           />
 
-          {/* <ActueelSection
-            title="Agenda"
-            items={weeklyEntries.agenda}
-            emptyText="Er zijn geen agenda items beschikbaar."
-            allLink={{ to: "/actueel/agenda", label: "Alle agenda items" }}
-            renderItem={(entry) => (
-              <AgendaItem key={entry.filename} {...entry} />
-            )}
-          /> */}
+          {/*<ActueelSection*/}
+          {/*  title="Agenda"*/}
+          {/*  items={weeklyEntries.agenda}*/}
+          {/*  emptyText="Er zijn geen agenda items beschikbaar."*/}
+          {/*  allLink={{ to: "/actueel/agenda", label: "Alle agenda items" }}*/}
+          {/*  renderItem={(entry) => (*/}
+          {/*    <AgendaItem key={entry.filename} {...entry} />*/}
+          {/*  )}*/}
+          {/*/>*/}
 
           <ActueelSection
             title="Presentaties"

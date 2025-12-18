@@ -118,7 +118,8 @@ export async function loadBlogMarkdownByFilename(
 ): Promise<BlogDetailType | AgendaDetailType> {
   const matchingFiles = Object.keys(markdownModules).filter(
     (path) =>
-      path.includes(`/assets/${contentType}/`) && path.endsWith(`/${filename}`),
+      path.includes(`/assets/${contentType}/`) &&
+      path.endsWith(`/${filename + ".md"}`),
   );
 
   if (matchingFiles.length === 0) {

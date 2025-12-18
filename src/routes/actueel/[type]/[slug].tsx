@@ -19,7 +19,7 @@ const ActueelDetail = () => {
     const fetchContent = async () => {
       if (!name) return;
       setIsLoading(true);
-
+      console.log(name);
       try {
         const data = await loadBlogMarkdownByFilename(
           name,
@@ -103,7 +103,7 @@ const ActueelDetail = () => {
               )}
             </div>
           </div>
-          <div className="prose py-2 lg:w-2/3">
+          <div className="prose max-w-none py-2 lg:w-2/3">
             <ReactMarkdown>{data.content}</ReactMarkdown>
           </div>
         </div>

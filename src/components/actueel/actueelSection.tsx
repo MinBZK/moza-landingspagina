@@ -25,7 +25,7 @@ export function ActueelSection<T>({
   const visibleItems = items.slice(0, limit);
 
   return (
-    <section className={className ?? "px-4 pt-2 mb-4"}>
+    <section className={className ?? "mb-4 px-4 pt-2"}>
       <h1 className="py-2 text-2xl font-bold text-slate-700">{title}</h1>
 
       <div className="grid grid-cols-1 gap-4 py-2 sm:grid-cols-2 lg:grid-cols-3">

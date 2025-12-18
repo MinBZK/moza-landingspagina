@@ -12,8 +12,9 @@ const NAV_ITEMS: NavItem[] = [
   { label: "Programmainformatie", href: "/over" },
   { label: "Actueel", href: "/actueel" },
   { label: "Onderwerpen", href: "/onderwerpen" },
+  { label: "Contact", href: "/contact" },
   {
-    label: "Documenten",
+    label: "Technische documentatie",
     href: "https://docs.mijnoverheidzakelijk.nl",
     external: true,
   },
@@ -22,7 +23,6 @@ const NAV_ITEMS: NavItem[] = [
     href: "https://github.com/MinBZK/MijnOverheidZakelijk",
     external: true,
   },
-  { label: "Contact", href: "/contact" },
 ];
 
 export function Navbar() {

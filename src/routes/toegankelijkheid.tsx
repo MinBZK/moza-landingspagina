@@ -8,9 +8,20 @@ const Toegankelijkheid = () => {
             Toegankelijkheid
           </h1>
           <p className="text-slate-800">
-            Wij vinden het belangrijk dat onze website voor iedereen goed te gebruiken is.
+            Wij vinden het belangrijk dat onze website voor iedereen goed te
+            gebruiken is.
           </p>
-          <p className="text-slate-800">Mocht je problemen ondervinden bij het gebruik van onze website of suggesties hebben voor verbeteringen, <a href="/contact" className="text-sky-700  hover:text-sky-900 hover:underline">neem dan contact met ons op</a>. Wij werken continu aan het verbeteren van de toegankelijkheid van onze site.
+          <p className="text-slate-800">
+            Mocht je problemen ondervinden bij het gebruik van onze website of
+            suggesties hebben voor verbeteringen,{" "}
+            <a
+              href="/contact"
+              className="text-sky-700 hover:text-sky-900 hover:underline"
+            >
+              neem dan contact met ons op
+            </a>
+            . Wij werken continu aan het verbeteren van de toegankelijkheid van
+            onze site.
           </p>
         </div>
       </div>

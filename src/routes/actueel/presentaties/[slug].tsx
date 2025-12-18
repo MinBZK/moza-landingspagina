@@ -21,7 +21,7 @@ const Slug = () => {
     const fetchContent = async () => {
       if (!name) return;
       setIsLoading(true);
-
+      console.log(name);
       try {
         const data = await loadBlogMarkdownByFilename(name, "presentaties");
 

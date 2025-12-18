@@ -8,8 +8,16 @@
     --text-3xl: 1.75em;
     --text-4xl: 2em;
     --text-5xl: 2.5em;
+
+    --tw-prose-bullets: black;
 }
 
+
+@layer utilities {
+    .prose {
+        --tw-prose-bullets: #1d293d;
+    }
+}
 @font-face {
     font-family: "RO-Sans";
     /* src: url("./fonts/RijksSansVF.woff2") format("woff"); */

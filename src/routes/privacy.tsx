@@ -8,7 +8,9 @@ const Privacy = () => {
             Privacy verklaring
           </h1>
           <p className="text-slate-800">
-            Wij hechten veel waarde aan jouw privacy. MijnOverheid Zakelijk verzamelt geen persoonlijke gegevens, en we gebruiken geen cookies of andere trackingtools om jouw gedrag te volgen.
+            Wij hechten veel waarde aan jouw privacy. MijnOverheid Zakelijk
+            verzamelt geen persoonlijke gegevens, en we gebruiken geen cookies
+            of andere trackingtools om jouw gedrag te volgen.
           </p>
         </div>
       </div>

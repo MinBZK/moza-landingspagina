@@ -15,7 +15,7 @@ function titleFromSegment(segment: string) {
 }
 
 export default function Breadcrumb({ labelMap, hideHome }: BreadcrumbProps) {
-  const { pathname } = useLocation();
+  const { pathname, state } = useLocation();
 
   const segments = pathname.split("/").filter(Boolean);
 
@@ -24,7 +24,6 @@ export default function Breadcrumb({ labelMap, hideHome }: BreadcrumbProps) {
     acc += `/${seg}`;
     const label = labelMap?.[seg] ?? titleFromSegment(seg);
 
-    console.log(label);
     return { to: acc, label };
   });
 
@@ -40,13 +39,16 @@ export default function Breadcrumb({ labelMap, hideHome }: BreadcrumbProps) {
             {allCrumbs.map((c, i) => {
               const isLast = i === allCrumbs.length - 1;
 
+              const displayLabel =
+                isLast && state?.title ? state.title : c.label;
+
               return (
                 <li
                   key={`${c.to}-${i}`}
                   aria-current={isLast ? "page" : undefined}
                 >
                   {isLast ? (
-                    <span>{c.label}</span>
+                    <span>{displayLabel}</span>
                   ) : (
                     <Link
                       to={c.to}
