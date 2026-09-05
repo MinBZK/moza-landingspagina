@@ -139,7 +139,7 @@ jobs:
         run: npm ci
 
       - name: Haal de gebouwde site op
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           name: site
           path: tmp/public
@@ -162,7 +162,7 @@ jobs:
           node-version: 22
 
       - name: Haal de gebouwde site op
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           name: site
           path: tmp/public
