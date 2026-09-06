@@ -53,6 +53,12 @@
     display: none !important;
   }
 
+  /* In een print is elke link extern, dus dit icoon voegt niets toe. */
+  a[rel~="external"]::after,
+  a[rel~="private"]::after {
+    display: none !important;
+  }
+
   /* Inhoud over de volledige breedte */
   main:has(.page-aside) {
     display: block;

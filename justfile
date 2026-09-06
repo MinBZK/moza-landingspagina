@@ -63,6 +63,12 @@ csp: build-check
     npm run csp
     rm -rf tmp/public
 
+# Toets de gegenereerde PDF's tegen PDF/UA (vereist: brew install verapdf)
+pdfua: build-check
+    npm run render-downloads -- tmp/public
+    npm run pdfua -- tmp/public
+    rm -rf tmp/public
+
 # Bouw de site naar tmp/public, waarop links, a11y en csp draaien
 [private]
 build-check:
