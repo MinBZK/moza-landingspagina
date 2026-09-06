@@ -77,6 +77,7 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
             BASE_URL=${{ steps.url.outputs.deployment_url }}
+            DRAFTS=true
           cache-from: type=gha
           cache-to: type=gha,mode=max
 

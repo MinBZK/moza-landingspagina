@@ -4,6 +4,8 @@ DirectoryPath: tmp/public
 ExternalTimeout: 30
 HTTPConcurrencyLimit: 4
 
+IgnoreAltEmpty: true
+
 IgnoreURLs:
   - samenwerkruimten.nl
   - figma.com
