@@ -181,30 +181,38 @@ function xrefSections(objects) {
     .join("");
 }
 
-/** Alle objecten met hun dictionary, in bestandsvolgorde. */
+/**
+ * Alle objecten met hun dictionary, in bestandsvolgorde.
+ *
+ * De grens van een streamobject komt uit `/Length`, niet uit een zoekactie naar
+ * `endstream`: die bytes kunnen toevallig in de ingepakte inhoud voorkomen.
+ */
 function objectDictionaries(text) {
   const gevonden = [];
   for (const kop of text.matchAll(/(?:^|[\r\n])(\d+)\s+\d+\s+obj\b/g)) {
     const begin = kop.index + kop[0].length;
-    const einde = text.indexOf("endobj", begin);
-    if (einde === -1) continue;
-    const romp = text.slice(begin, einde);
-    const dictEinde = romp.indexOf("stream");
-    const dict = (dictEinde === -1 ? romp : romp.slice(0, dictEinde)).trim();
-    if (!dict.startsWith("<<") || !dict.endsWith(">>")) continue;
-    gevonden.push({ nummer: Number(kop[1]), dict, begin, einde });
+    const dict = readDict(text, begin);
+    if (!dict) continue;
+
+    const naDict = text.indexOf(dict, begin) + dict.length;
+    const streamWoord = text.slice(naDict, naDict + 16).match(/^\s*stream\r?\n/);
+    let streamBegin = null;
+    let streamEinde = null;
+    if (streamWoord) {
+      const lengte = Number(dict.match(/\/Length\s+(\d+)(?!\s+\d+\s+R)/)?.[1]);
+      if (!Number.isInteger(lengte)) continue;
+      streamBegin = naDict + streamWoord[0].length;
+      streamEinde = streamBegin + lengte;
+    }
+    gevonden.push({ nummer: Number(kop[1]), dict, begin, streamBegin, streamEinde });
   }
   return gevonden;
 }
 
 /** De inhoud van een streamobject, uitgepakt wanneer die met Flate is ingepakt. */
 function readStream(text, object) {
-  const start = text.indexOf("stream", object.begin);
-  if (start === -1 || start > object.einde) return null;
-  const na = text[start + 6] === "\r" ? start + 8 : start + 7;
-  const eind = text.lastIndexOf("endstream", object.einde);
-  if (eind === -1) return null;
-  const ruw = Buffer.from(text.slice(na, eind).replace(/\r?\n$/, ""), "latin1");
+  if (object.streamBegin === null) return null;
+  const ruw = Buffer.from(text.slice(object.streamBegin, object.streamEinde), "latin1");
   if (!object.dict.includes("/FlateDecode")) return ruw;
   try {
     return inflateSync(ruw);
