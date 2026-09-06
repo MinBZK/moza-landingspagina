@@ -11,7 +11,7 @@
   {{- if not $maten -}}
     {{- errorf "toegankelijkheidslabel: geen width en height in de SVG gevonden" -}}
   {{- end -}}
-  <a href="{{ $register }}"><img src="{{ $label.RelPermalink }}" alt="Status toegankelijkheidslabel van MijnOverheid Zakelijk. Volg de link voor de volledige toegankelijkheidsverklaring." width="{{ index $maten 0 1 }}" height="{{ index $maten 0 2 }}" /></a>
+  <a href="{{ $register }}"><img src="{{ $label.RelPermalink }}" alt="Status toegankelijkheid C van vijf niveaus: eerste maatregelen genomen. Volg de link voor de volledige toegankelijkheidsverklaring." width="{{ index $maten 0 1 }}" height="{{ index $maten 0 2 }}" /></a>
 {{- else -}}
   {{- errorf "toegankelijkheidslabel: assets/images/toegankelijkheidslabel.svg ontbreekt" -}}
 {{- end -}}
