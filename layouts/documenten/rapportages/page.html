@@ -6,17 +6,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{{ .Title }} | {{ .Site.Title }}</title>
-{{- /* Inter font: publiceer woff2's via .RelPermalink side-effect en koppel inter.css. */ -}}
+{{- /* Zonder deze regel worden de woff2's niet gepubliceerd. */ -}}
 {{- range (resources.Match "vendor/inter/*.woff2") -}}{{- $_ := .RelPermalink -}}{{- end }}
-{{- with resources.Get "vendor/inter/inter.css" }}
-<link rel="stylesheet" href="{{ .RelPermalink }}">
-{{- end }}
-{{- with resources.Get "css/rapportages.css" }}
-<link rel="stylesheet" href="{{ .RelPermalink }}">
-{{- end }}
-{{- with resources.Get "css/rapportage-nav.css" }}
-<link rel="stylesheet" href="{{ .RelPermalink }}">
-{{- end }}
+{{- /* inter.css verwijst relatief naar zijn fonts; in een bundel op een ander
+       pad kloppen die paden niet meer. */ -}}
+{{- $inter := resources.Get "vendor/inter/inter.css" -}}
+{{- $interAbs := resources.FromString "css/inter-absoluut.css"
+      (replaceRE `url\("` (printf `url("%s` (relURL "vendor/inter/")) $inter.Content) -}}
+{{- $css := slice $interAbs (resources.Get "css/rapportages.css") (resources.Get "css/rapportage-nav.css")
+      | resources.Concat "css/rapportage-bundle.css" | fingerprint "md5" }}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}">
 </head>
 <body>
 {{ .Content }}
