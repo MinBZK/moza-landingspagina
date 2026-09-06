@@ -4,9 +4,13 @@ import { mkdtempSync, writeFileSync, readFileSync, rmSync } from "node:fs";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
 import puppeteer from "puppeteer";
+import { deflateSync, inflateSync } from "node:zlib";
 import {
   setPdfMetadata,
   buildIncrementalUpdate,
+  buildLijstParts,
+  buildPaginaParts,
+  objectDictionaries,
   readPdfMetadata,
   readXmp,
   buildXmp,
@@ -30,8 +34,8 @@ test("buildXmp zet de URL in dc:identifier, niet in dc:source", () => {
   assert.doesNotMatch(xmp, /dc:source/);
 });
 
-test("buildXmp claimt geen PDF/UA-conformiteit", () => {
-  assert.doesNotMatch(buildXmp({ title: "T" }), /pdfuaid/);
+test("buildXmp claimt PDF/UA deel 1", () => {
+  assert.match(buildXmp({ title: "T" }), /<pdfuaid:part>1<\/pdfuaid:part>/);
 });
 
 test("buildXmp escapet XML-tekens in de titel", () => {
@@ -131,7 +135,7 @@ test("een echte Chrome-PDF houdt zijn tagstructuur en krijgt een XMP-stroom", as
     const page = await browser.newPage();
     await page.setContent(
       '<!doctype html><html lang="nl"><head><meta charset="utf-8"><title>Bron</title></head>' +
-        "<body><h1>Kop</h1><p>Tekst.</p></body></html>"
+        "<body><h1>Kop</h1><p>Tekst.</p><ul><li>Eerste <b>punt</b></li></ul></body></html>"
     );
     await page.pdf({ path: file, format: "A4" });
 
@@ -159,11 +163,107 @@ test("een echte Chrome-PDF houdt zijn tagstructuur en krijgt een XMP-stroom", as
     const xmp = readXmp(after);
     assert.match(xmp, /<dc:title>/);
     assert.match(xmp, /<dc:identifier>https:\/\/mijnoverheidzakelijk\.nl\/test\/</);
+    assert.match(xmp, /<pdfuaid:part>1<\/pdfuaid:part>/);
+
+    // Wat Chromium laat liggen en de naschrijfstap aanvult.
+    const tekst = after.toString("latin1");
+    assert.ok(tekst.includes("/RoleMap"), "RoleMap ontbreekt");
+    assert.ok(tekst.includes("/S /LBody"), "lijstitem kreeg geen LBody");
+    // Wat de artefactstap van deze Chromium-uitvoer maakt. Toetsen op het
+    // eindbestand kan niet: de herschreven stream is ingepakt en de oude versie
+    // blijft er als incrementele update bij staan.
+    const ruw = before.toString("latin1");
+    const paginas = buildPaginaParts(ruw, objectDictionaries(ruw));
+    assert.equal(paginas.length, 1, "de pagina is niet herschreven");
+    assert.match(uitStreamPart(paginas[0]), /\/Artifact BMC\n/);
   } finally {
     await browser.close();
     rmSync(dir, { recursive: true, force: true });
   }
 });
+
+test("een lijstitem krijgt een LBody om alles na het opsommingsteken", () => {
+  const text =
+    "\n10 0 obj\n<< /Type /StructElem /S /LI /P 9 0 R /K [11 0 R 12 0 R 13 0 R] >>\nendobj\n" +
+    "\n11 0 obj\n<< /Type /StructElem /S /Lbl /P 10 0 R >>\nendobj\n" +
+    "\n12 0 obj\n<< /Type /StructElem /S /Span /P 10 0 R >>\nendobj\n" +
+    "\n13 0 obj\n<< /Type /StructElem /S /Link /P 10 0 R >>\nendobj\n";
+
+  const { parts, volgendNummer } = buildLijstParts(text, objectDictionaries(text), 20);
+  const perNummer = new Map(parts.map((p) => [p.number, p.bytes.toString("latin1")]));
+
+  assert.equal(volgendNummer, 21);
+  // De LBody draagt de kinderen na het label en wijst terug naar het lijstitem.
+  assert.match(perNummer.get(20), /\/S \/LBody \/P 10 0 R \/K \[12 0 R 13 0 R\]/);
+  // Het lijstitem houdt alleen het label en de nieuwe LBody over.
+  assert.match(perNummer.get(10), /\/K \[11 0 R 20 0 R\]/);
+  // De verplaatste kinderen wijzen naar de LBody, niet meer naar het lijstitem.
+  assert.match(perNummer.get(12), /\/P 20 0 R/);
+  assert.match(perNummer.get(13), /\/P 20 0 R/);
+  // Het label blijft ongemoeid.
+  assert.equal(perNummer.has(11), false);
+});
+
+test("een lijstitem zonder inhoud naast het label blijft ongemoeid", () => {
+  const text =
+    "\n10 0 obj\n<< /Type /StructElem /S /LI /P 9 0 R /K [11 0 R] >>\nendobj\n" +
+    "\n11 0 obj\n<< /Type /StructElem /S /Lbl /P 10 0 R >>\nendobj\n";
+
+  const { parts } = buildLijstParts(text, objectDictionaries(text), 20);
+  assert.deepEqual(parts, []);
+});
+
+test("de kop en de staart van een pagina worden als artefact gemarkeerd", () => {
+  const stroom = "1 0 0 1 0 0 cm\n0 0 100 100 re f\n/P << /MCID 0 >> BDC\n(tekst) Tj\nEMC\n(voetnummer) Tj\n";
+  const text = paginaMetStroom(stroom);
+
+  const parts = buildPaginaParts(text, objectDictionaries(text));
+  assert.equal(parts.length, 1);
+  const nieuw = uitStreamPart(parts[0]);
+
+  // De paginatransformatie blijft buiten het artefact staan.
+  assert.match(nieuw, /^1 0 0 1 0 0 cm\n\/Artifact BMC\n0 0 100 100 re f\nEMC\n/);
+  // De getagde inhoud staat er byte voor byte nog.
+  assert.match(nieuw, /\/P << \/MCID 0 >> BDC\n\(tekst\) Tj\nEMC/);
+  // Alles na de laatste tag zit in een paginering-artefact.
+  assert.match(nieuw, /\/Artifact << \/Type \/Pagination >> BDC\n\(voetnummer\) Tj\n\nEMC\n$/);
+});
+
+test("een XObject na de laatste tag laat de artefactstap hard falen", () => {
+  // Zo'n XObject hoort bij de structuurboom; in een artefact zou het regel
+  // 7.1-2 breken, dus liever een gefaalde build dan een stille fout.
+  const stroom = "1 0 0 1 0 0 cm\n/P << /MCID 0 >> BDC\n(tekst) Tj\nEMC\n/X0 Do\n";
+  const text = paginaMetStroom(stroom);
+
+  assert.throws(
+    () => buildPaginaParts(text, objectDictionaries(text)),
+    /XObject na de laatste tag/
+  );
+});
+
+test("een pagina zonder tags wordt met rust gelaten", () => {
+  const text = paginaMetStroom("1 0 0 1 0 0 cm\n0 0 100 100 re f\n");
+  assert.deepEqual(buildPaginaParts(text, objectDictionaries(text)), []);
+});
+
+/** Minimale pagina met een ingepakte contentstream in object 5. */
+function paginaMetStroom(inhoud) {
+  const ingepakt = deflateSync(Buffer.from(inhoud, "latin1"));
+  return (
+    "\n4 0 obj\n<< /Type /Page /Parent 2 0 R /Contents 5 0 R >>\nendobj\n" +
+    `\n5 0 obj\n<< /Filter /FlateDecode /Length ${ingepakt.length} >>\nstream\n` +
+    ingepakt.toString("latin1") +
+    "\nendstream\nendobj\n"
+  );
+}
+
+/** De uitgepakte contentstream uit een door buildPaginaParts geschreven object. */
+function uitStreamPart(part) {
+  const tekst = part.bytes.toString("latin1");
+  const begin = tekst.indexOf("stream\n") + 7;
+  const eind = tekst.lastIndexOf("\nendstream");
+  return inflateSync(Buffer.from(tekst.slice(begin, eind), "latin1")).toString("latin1");
+}
 
 /** Kleinste PDF met een catalogus en een klassieke xref-tabel. */
 function minimalPdf() {

@@ -8,7 +8,8 @@
     "check-label": "node scripts/check-toegankelijkheidslabel.js",
     "test": "node --test scripts/render-mermaid.test.js scripts/downloads/render-downloads.test.js scripts/downloads/pdf-metadata.test.js scripts/a11y/a11y.test.js scripts/csp/csp.test.js",
     "a11y": "node scripts/a11y/check.js && node scripts/a11y/presentaties.js && node scripts/a11y/run.js",
-    "csp": "node scripts/csp/check.js"
+    "csp": "node scripts/csp/check.js",
+    "pdfua": "node scripts/pdfua/check.js"
   },
   "devDependencies": {
     "@iconify-json/tabler": "^1",
