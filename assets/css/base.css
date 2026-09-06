@@ -16,6 +16,12 @@ body {
   font-size: 1.2rem;
   line-height: 1.4;
   color: var(--color-text);
+  overflow-wrap: break-word;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
 }
 
 h1,
@@ -93,14 +99,12 @@ a {
   }
 }
 
-/* WCAG 1.4.1: een link in lopende tekst mag niet alleen aan kleur herkenbaar
-   zijn. `:where()` houdt de specificiteit op die van `a`, zodat componenten met
-   een eigen linkstijl (nav, knoppen, kaarten) blijven winnen. */
+/* `:where()` houdt de specificiteit op die van `a`, zodat componenten met een
+   eigen linkstijl blijven winnen. */
 :where(main :is(p, dd, td, blockquote, :is(ul, ol):not([class]) > li)) a:where(:not([class])) {
   text-decoration: underline;
 }
 
-/* Draagt een class en valt daarmee buiten de regel hierboven. */
 .footnote-backref {
   text-decoration: underline;
 }
@@ -172,6 +176,7 @@ code {
   padding: 0.125rem 0.25rem;
   border-radius: 0.25rem;
   font-size: 0.875em;
+  overflow-wrap: anywhere;
 }
 
 pre {

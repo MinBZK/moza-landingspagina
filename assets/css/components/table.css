@@ -8,7 +8,6 @@ article table {
   border-radius: 0.5rem;
   overflow: hidden;
   background: var(--color-bg-page);
-  font-size: 1rem;
 }
 
 article table th,

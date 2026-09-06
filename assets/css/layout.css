@@ -24,8 +24,14 @@ body {
   z-index: 100;
 
   &:focus {
-    top: 0;
+    top: 0.5rem;
+    left: 0.5rem;
   }
+}
+
+/* Focusbaar gemaakt via tabindex in baseof.html. */
+main:focus {
+  outline: none;
 }
 
 main {
