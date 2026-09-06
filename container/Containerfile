@@ -21,10 +21,11 @@ COPY . .
 RUN npm run render-mermaid
 
 ARG BASE_URL
+ARG DRAFTS
 RUN if [ -n "$BASE_URL" ]; then \
-      hugo --minify --baseURL "$BASE_URL"; \
+      hugo --minify --baseURL "$BASE_URL" ${DRAFTS:+--buildDrafts}; \
     else \
-      hugo --minify; \
+      hugo --minify ${DRAFTS:+--buildDrafts}; \
     fi
 
 RUN npm run render-downloads
