@@ -123,7 +123,7 @@ function flattenOdtQuotations(odtOut) {
 }
 
 function renderOdt(mdFile, odtOut, pageDir, meta) {
-  const args = [mdFile, "--resource-path", `${pageDir}${delimiter}${OUTPUT_DIR}`];
+  const args = [mdFile, "--metadata", "lang=nl", "--resource-path", `${pageDir}${delimiter}${OUTPUT_DIR}`];
   if (existsSync(REFERENCE_ODT)) args.push("--reference-doc", REFERENCE_ODT);
   args.push("-o", odtOut);
   execFileSync("pandoc", args, { stdio: ["pipe", "pipe", "pipe"] });
