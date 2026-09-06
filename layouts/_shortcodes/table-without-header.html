@@ -1,0 +1,38 @@
+{{- /* Tabel zonder koprij, met een willekeurig aantal kolommen. De eerste kolom
+       wordt de rijkop, want een tabel zonder enige kop is voor een schermlezer
+       betekenisloos.
+
+       De inhoud is één rij per regel, met pijpen als scheiding, net als in een
+       Markdown-tabel maar zonder koprij en zonder scheidingsregel. Staat er
+       toch een scheidingsregel, dan wordt die met de koprij erboven genegeerd. */ -}}
+{{- $regels := slice -}}
+{{- $koprij := "" -}}
+{{- range split (trim .Inner "\n ") "\n" -}}
+  {{- $regel := trim . " " -}}
+  {{- if hasPrefix $regel "|" -}}
+    {{- if findRE `^\|[\s:|-]+\|$` $regel -}}
+      {{- $koprij = index (last 1 $regels) 0 -}}
+    {{- else -}}
+      {{- $regels = $regels | append $regel -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- if $koprij -}}
+  {{- $regels = after 1 $regels -}}
+{{- end -}}
+{{- if not $regels -}}
+  {{- errorf "table-without-header: verwacht rijen in de vorm `| a | b |`, op pagina %s" .Page.File.Path -}}
+{{- end -}}
+<table>
+  <tbody>
+    {{- range $regels }}
+    {{- $cellen := split (trim . "|") "|" }}
+    <tr>
+      <th scope="row">{{ trim (index $cellen 0) " " | markdownify }}</th>
+      {{- range after 1 $cellen }}
+      <td>{{ trim . " " | markdownify }}</td>
+      {{- end }}
+    </tr>
+    {{- end }}
+  </tbody>
+</table>
