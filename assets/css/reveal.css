@@ -74,6 +74,24 @@ body {
   font-size: 1.5em;
 }
 
+/* Reveal centreert een lijst als inline-block, waardoor zijn linkerrand
+   meebeweegt met de inhoud van die lijst. */
+.reveal .slide-body {
+  display: inline-block;
+  max-width: 100%;
+  text-align: left;
+}
+
+.reveal .slide-body ul {
+  display: block;
+  margin-left: 0;
+}
+
+.reveal .aanbeveling {
+  margin-top: 1em;
+  padding-left: 40px;
+}
+
 #header-logo {
   position: fixed;
   top: 0;
