@@ -246,6 +246,21 @@ test("een pagina zonder tags wordt met rust gelaten", () => {
   assert.deepEqual(buildPaginaParts(text, objectDictionaries(text)), []);
 });
 
+test("de streamgrens komt uit /Length, niet uit een zoekactie naar endstream", () => {
+  // Deze bytes kunnen toevallig in een ingepakte stream staan; wie erop zoekt,
+  // knipt het object op de verkeerde plek af en slaat de pagina stil over.
+  const inhoud =
+    "1 0 0 1 0 0 cm\n0 0 1 rg\n(endstream endobj) Tj\n" +
+    "/P << /MCID 0 >> BDC\n(tekst) Tj\nEMC\n(1) Tj\n";
+  const text =
+    "\n4 0 obj\n<< /Type /Page /Parent 2 0 R /Contents 5 0 R >>\nendobj\n" +
+    `\n5 0 obj\n<< /Length ${inhoud.length} >>\nstream\n${inhoud}\nendstream\nendobj\n`;
+
+  const parts = buildPaginaParts(text, objectDictionaries(text));
+  assert.equal(parts.length, 1, "de pagina is overgeslagen");
+  assert.match(uitStreamPart(parts[0]), /\/Artifact BMC\n0 0 1 rg\n\(endstream endobj\) Tj\nEMC\n/);
+});
+
 /** Minimale pagina met een ingepakte contentstream in object 5. */
 function paginaMetStroom(inhoud) {
   const ingepakt = deflateSync(Buffer.from(inhoud, "latin1"));
