@@ -6,6 +6,7 @@
   var searchModal;
   var searchInput;
   var searchResults;
+  var searchStatus;
   var searchTriggers;
   var activeFilter = '';
 
@@ -25,6 +26,7 @@
     searchModal = document.getElementById('search-modal');
     searchInput = document.getElementById('search-input');
     searchResults = document.getElementById('search-results');
+    searchStatus = document.getElementById('search-status');
     searchTriggers = document.querySelectorAll('.search-trigger');
 
     if (!searchModal || !searchInput || !searchResults) {
@@ -119,11 +121,22 @@
     return path + separator + 'q=' + encodeURIComponent(query) + hash;
   }
 
+  function announce(message) {
+    if (searchStatus) {
+      searchStatus.textContent = message;
+    }
+  }
+
   function displayResults(results, query) {
     if (results.length === 0) {
       searchResults.innerHTML = '<li class="search-no-results">Geen resultaten gevonden voor "' + escapeHtml(query) + '"</li>';
+      announce('Geen resultaten gevonden voor ' + query);
       return;
     }
+
+    announce(
+      results.length === 1 ? '1 zoekresultaat' : results.length + ' zoekresultaten'
+    );
 
     var html = results.map(function (result, i) {
       var item = result.item;
@@ -148,6 +161,7 @@
 
   function hideResults() {
     searchResults.innerHTML = '';
+    announce('');
   }
 
   function escapeHtml(text) {
