@@ -194,6 +194,36 @@ class MattermostClient:
         posts_map: dict[str, dict[str, Any]] = data.get("posts", {})
         return [self._parse_post(posts_map[pid]) for pid in order if pid in posts_map]
 
+    def iter_people(self, per_page: int = 200):
+        """Alle échte personen op de server, voor de naamredactie.
+
+        Ruimer dan ons eigen team: collega's bij Logius en andere partijen zitten
+        op dezelfde server, en juist die worden in verslagen bij hun voornaam
+        genoemd. Bots en serviceaccounts vallen af, want die heten "GitHub" of
+        "Boards" en zouden gewone woorden uit de tekst slopen.
+        """
+        page = 0
+        while True:
+            data = self._get_json("/users", per_page=per_page, page=page)
+            if not data:
+                return
+            for u in data:
+                if u.get("is_bot"):
+                    continue
+                voor = (u.get("first_name") or "").strip()
+                achter = (u.get("last_name") or "").strip()
+                if not voor or not achter:
+                    continue
+                yield RawUser(
+                    id=u.get("id", ""),
+                    username=u.get("username", ""),
+                    first_name=voor,
+                    last_name=achter,
+                )
+            if len(data) < per_page:
+                return
+            page += 1
+
     def get_post(self, post_id: str) -> RawPost:
         return self._parse_post(self._get_json(f"/posts/{post_id}"))
 

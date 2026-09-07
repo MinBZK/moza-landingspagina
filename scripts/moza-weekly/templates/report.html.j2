@@ -26,7 +26,8 @@
 {%- macro render_reference(ref) -%}
   <article class="reference" id="{{ ref.id }}">
     <header class="reference-head">
-      <span class="badge badge--{{ 'mm' if ref.kind == 'mattermost' else 'web' }}">{{ 'Mattermost' if ref.kind == 'mattermost' else 'Web' }}</span>
+      {% set labels = {'mattermost': 'Mattermost', 'docs': 'Docs', 'web': 'Web'} %}
+      <span class="badge badge--{{ ref.kind }}">{{ labels.get(ref.kind, ref.kind) }}</span>
       <span class="reference-id">{{ ref.id }}</span>
       {% if ref.channel %}<span class="reference-site"># {{ ref.channel }}</span>{% endif %}
       {% if ref.site %}<span class="reference-site">{{ ref.site }}</span>{% endif %}
@@ -431,8 +432,9 @@
     overflow-y: auto;
   }
   .reference-posts { margin-top: 10px; }
-  .badge--mm { background: var(--nldd-accent-100, #e0e7ff); color: var(--nldd-accent-700); }
+  .badge--mattermost { background: var(--nldd-accent-100, #e0e7ff); color: var(--nldd-accent-700); }
   .badge--web { background: var(--nldd-info-100); color: var(--nldd-info-700); }
+  .badge--docs { background: #DCFCE7; color: #166534; }
   .badge--warn { background: #FEE2E2; color: #991B1B; }
 
   /* Print */

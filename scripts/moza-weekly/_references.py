@@ -31,8 +31,25 @@ STATUS_FOUT = "fout"
 STATUS_PDF = "pdf_niet_ondersteund"
 STATUS_OVERGESLAGEN = "overgeslagen"
 STATUS_GEBLOKKEERD = "geblokkeerd"
+STATUS_LEEG = "leeg"
 
 USER_AGENT = "moza-weekly-fetch/0.2 (+https://mijnoverheid-zakelijk.nl; interne weekly-samenvatting)"
+
+
+def docs_cookie_instructie(reden: str, docs_url: str = "https://docs.rijksapp.nl") -> str:
+    """Uitleg bij een ontbrekende of verlopen Docs-cookie."""
+    return (
+        f"{reden}\n"
+        f"  Zo haal je een nieuwe op:\n"
+        f"    1. Open {docs_url} in je browser en log in.\n"
+        f"    2. Developer tools openen (Cmd+Option+I op macOS).\n"
+        f"    3. Tabblad Application (Chrome) of Storage (Firefox)\n"
+        f"       -> Cookies -> {docs_url}\n"
+        f"    4. Kopieer de waarde van de cookie 'docs_sessionid'.\n"
+        f"    5. Zet die in .env als: DOCS_SESSION=<waarde>\n"
+        f"  De cookie is ongeveer 12 uur geldig, dus dit komt vaker langs."
+    )
+
 
 # Hosts waarvan we alleen titel en description bewaren. Een PR- of issue-pagina
 # levert duizenden tekens navigatie en diff-gepraat op, terwijl de titel en de
@@ -56,6 +73,11 @@ _TRACKING_KEYS = {"fbclid", "gclid", "mc_cid", "mc_eid", "ref", "src"}
 
 # Mattermost-permalink: /<team>/pl/<26-teken post-id>.
 _PERMALINK_RE = re.compile(r"^/[^/]+/pl/([a-z0-9]{26})$", re.I)
+
+# Docs-documentlink: /docs/<uuid>/.
+_DOCS_PATH_RE = re.compile(
+    r"^/docs/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/?$", re.I
+)
 
 _LOGIN_PATH_RE = re.compile(
     r"/(log-?in|log-?on|sign-?in|sign-?on|auth|authorize|authenticate|sso|oauth2?|saml|adfs)(/|$)",
@@ -117,6 +139,19 @@ def parse_permalink(url: str, server: str) -> str | None:
     if base_path and not target.path.startswith(base_path + "/"):
         return None
     match = _PERMALINK_RE.match(target.path[len(base_path):])
+    return match.group(1) if match else None
+
+
+def parse_docs_uuid(url: str, docs_url: str) -> str | None:
+    """Document-uuid als de URL naar een document in de Docs-applicatie wijst."""
+    if not docs_url:
+        return None
+    target, base = urlsplit(url), urlsplit(docs_url.rstrip("/"))
+    if target.scheme.lower() != base.scheme.lower():
+        return None
+    if target.netloc.lower() != base.netloc.lower():
+        return None
+    match = _DOCS_PATH_RE.match(target.path)
     return match.group(1) if match else None
 
 
@@ -223,12 +258,8 @@ def host_matcht(url: str, hosts) -> bool:
 
 
 def lijkt_javascript_shell(html: str) -> bool:
-    """Een pagina zonder leesbare tekst maar mét scripts rendert clientside.
-
-    Zulke pagina's (bijvoorbeeld de Docs-applicatie) geven anoniem een lege
-    shell terug: het is geen fout aan onze kant, de inhoud komt simpelweg niet
-    zonder browser en meestal ook niet zonder inlog.
-    """
+    """Geen leesbare tekst maar wel scripts: de pagina rendert clientside en
+    geeft anoniem dus een lege shell. Geen fout aan onze kant."""
     return "<script" in html.lower()
 
 
@@ -372,6 +403,72 @@ def _web_error(url: str, status: str, error: str, content_type: str = "") -> Web
     )
 
 
+# --------------------------------------------------------------------------- docs
+
+
+@dataclass(frozen=True)
+class DocsResult:
+    status: str
+    title: str = ""
+    text: str = ""
+    error: str = ""
+
+
+class DocsClient:
+    """Haalt verslagen uit Docs op als Markdown.
+
+    Docs kent geen personal access token; authenticatie gaat met dezelfde
+    sessiecookie die de frontend gebruikt. Die is twaalf uur geldig, dus een
+    401 betekent hier bijna altijd 'verlopen' en niet 'geen rechten'.
+    """
+
+    def __init__(self, base_url: str, session_cookie: str, *, timeout: float = DEFAULT_TIMEOUT) -> None:
+        self._base = base_url.rstrip("/")
+        self._client = httpx.Client(
+            timeout=timeout,
+            follow_redirects=False,
+            headers={"User-Agent": USER_AGENT, "Accept": "application/json"},
+            cookies={"docs_sessionid": session_cookie},
+        )
+
+    def close(self) -> None:
+        self._client.close()
+
+    def __enter__(self) -> DocsClient:
+        return self
+
+    def __exit__(self, *_: object) -> None:
+        self.close()
+
+    def fetch(self, uuid: str) -> DocsResult:
+        path = f"/api/v1.0/documents/{uuid}/formatted-content/"
+        log.debug("Docs-verslag ophalen: %s", uuid)
+        try:
+            response = self._client.get(f"{self._base}{path}", params={"content_format": "markdown"})
+        except httpx.HTTPError as e:
+            return DocsResult(status=STATUS_FOUT, error=f"{type(e).__name__}: {e}")
+
+        if response.status_code in (401, 403):
+            return DocsResult(
+                status=STATUS_GEEN_TOEGANG,
+                error=f"HTTP {response.status_code}: sessiecookie ontbreekt of is verlopen",
+            )
+        if response.status_code == 404:
+            return DocsResult(status=STATUS_NIET_GEVONDEN, error="Document niet gevonden")
+        if response.status_code >= 400:
+            return DocsResult(status=STATUS_FOUT, error=f"HTTP {response.status_code}")
+
+        try:
+            data = response.json()
+        except ValueError:
+            return DocsResult(status=STATUS_FOUT, error="Antwoord is geen JSON")
+        return DocsResult(
+            status=STATUS_OK,
+            title=(data.get("title") or "").strip(),
+            text=(data.get("content") or "").strip(),
+        )
+
+
 # --------------------------------------------------------------------------- collector
 
 
@@ -398,17 +495,22 @@ class ReferenceCollector:
         build_post,
         fetcher: WebFetcher | None = None,
         known_post_ids=frozenset(),
+        docs_client=None,
+        docs_url: str = "",
     ) -> None:
         self._client = client
         self._server = server
         self._build_post = build_post
         self._fetcher = fetcher
+        self._docs_client = docs_client
+        self._docs_url = docs_url
         self._known: set[str] = set(known_post_ids)
         self._refs: list[Reference] = []
         self._by_url: dict[str, Reference | None] = {}
         self._by_root: dict[str, Reference] = {}
         self.pdf_urls: list[str] = []
         self.skipped_external = 0
+        self.overgeslagen_docs = 0
 
     @property
     def references(self) -> list[Reference]:
@@ -428,12 +530,18 @@ class ReferenceCollector:
         if key in self._by_url:
             return self._by_url[key]
         post_id = parse_permalink(url, self._server)
+        docs_uuid = parse_docs_uuid(url, self._docs_url)
+        if docs_uuid and self._docs_client is None:
+            # Tellen zodat de caller kan melden wat er is blijven liggen.
+            self.overgeslagen_docs += 1
+            docs_uuid = None
         # Web: de genormaliseerde URL ophalen, zodat we opvragen wat we ontdubbelen.
-        ref = (
-            self._resolve_mattermost(url, post_id)
-            if post_id
-            else self._resolve_web(key)
-        )
+        if post_id:
+            ref = self._resolve_mattermost(url, post_id)
+        elif docs_uuid:
+            ref = self._resolve_docs(url, docs_uuid)
+        else:
+            ref = self._resolve_web(key)
         self._by_url[key] = ref
         return ref
 
@@ -487,6 +595,33 @@ class ReferenceCollector:
         )
         self._by_root[root_id] = ref
         return ref
+
+    # ------------------------------------------------------------------------ docs
+
+    def _resolve_docs(self, url: str, uuid: str) -> Reference | None:
+        """Een verslag komt volledig binnen: anders dan bij een webpagina staan
+        de conclusies en acties juist onderaan, en die wil je niet afkappen."""
+        result = self._docs_client.fetch(uuid)
+        tekst = result.text.strip() if result.status == STATUS_OK else ""
+        # Een overzichtsmap in Docs is een document zonder inhoud. Dat is geen
+        # storing, dus geef het een eigen status in plaats van een lege 'ok'.
+        status = STATUS_LEEG if result.status == STATUS_OK and not tekst else result.status
+        note = result.error or None
+        if status == STATUS_LEEG:
+            note = "Document zonder inhoud, waarschijnlijk een overzichtsmap"
+        return self._add(
+            Reference(
+                id="",
+                kind="docs",
+                url=url,
+                status=status,
+                title=result.title or None,
+                site=urlsplit(url).netloc or None,
+                text=tekst,
+                truncated=False,
+                note=note,
+            )
+        )
 
     # ------------------------------------------------------------------------- web
 

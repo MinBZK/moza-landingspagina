@@ -90,7 +90,7 @@ class Reference:
     wordt, of een publieke webpagina. Statuswaarden staan in _references.py."""
 
     id: str
-    kind: str  # "mattermost" | "web"
+    kind: str  # "mattermost" | "web" | "docs"
     url: str
     status: str
     title: str | None = None
@@ -118,11 +118,11 @@ class Reference:
                 "note": self.note,
             }
         )
-        if self.kind == "web":
+        if self.kind == "mattermost":
+            d["posts"] = [p.to_dict() for p in self.posts]
+        else:
             d["truncated"] = self.truncated
             d["text"] = self.text
-        else:
-            d["posts"] = [p.to_dict() for p in self.posts]
         return d
 
 

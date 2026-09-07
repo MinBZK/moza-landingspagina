@@ -83,24 +83,28 @@ clean:
 moza-weekly *FLAGS:
     #!/usr/bin/env bash
     set -euo pipefail
-    uv run scripts/moza-weekly/fetch.py {{FLAGS}}
+    uv run --project scripts/moza-weekly scripts/moza-weekly/fetch.py {{FLAGS}}
     YAML=tmp/moza-weekly/$(date +%Y-%m-%d).yaml
-    uv run scripts/moza-weekly/anonymize.py "$YAML"
-    uv run scripts/moza-weekly/render.py "$YAML"
+    uv run --project scripts/moza-weekly scripts/moza-weekly/anonymize.py "$YAML"
+    uv run --project scripts/moza-weekly scripts/moza-weekly/render.py "$YAML"
 
 # Alleen HTML opnieuw renderen (na handmatige YAML-bewerking)
 moza-weekly-render YAML:
-    uv run scripts/moza-weekly/render.py {{YAML}}
+    uv run --project scripts/moza-weekly scripts/moza-weekly/render.py {{YAML}}
 
 # Alleen geanonimiseerde JSON regenereren (na handmatige YAML-bewerking)
 moza-weekly-anonymize YAML:
-    uv run scripts/moza-weekly/anonymize.py {{YAML}}
+    uv run --project scripts/moza-weekly scripts/moza-weekly/anonymize.py {{YAML}}
+
+# Zoek namen die de anonimisering heeft gemist. Rapporteert alleen; haalt
+# eenmalig een NER-model van ruim 500 MB binnen.
+moza-weekly-namencheck JSON:
+    uv run --project scripts/moza-weekly --group ner \
+        scripts/moza-weekly/namencheck.py {{JSON}}
 
 # Draai de unit-tests van de moza-weekly-scripts
 moza-weekly-test:
-    uv run --with pytest --with pyyaml --with jinja2 --with markdown-it-py \
-        --with httpx --with tenacity --with beautifulsoup4 \
-        pytest scripts/moza-weekly/tests/ -q
+    uv run --project scripts/moza-weekly pytest scripts/moza-weekly/tests/ -q
 
 # Bouw container image
 cbuild:

@@ -14,7 +14,11 @@ description: Gebruik bij het maken van een nieuwe MOZa Weekly.
    - Standaardbron is de Mattermost-pipeline: run `just moza-weekly` (zie `scripts/moza-weekly/README.md`). Dat levert drie bestanden op in `tmp/moza-weekly/`.
    - Gebruik `tmp/moza-weekly/<datum>.anonymized.json` als input. Nooit de `.yaml` of `.html` gebruiken: die bevatten namen.
    - De gebruiker cureert eventueel de YAML; run daarna `just moza-weekly-anonymize tmp/moza-weekly/<datum>.yaml` om de JSON te verversen.
+   - **Controleer op gemiste namen**: run `just moza-weekly-namencheck tmp/moza-weekly/<datum>.anonymized.json`. Loop het rapport langs en leg de kandidaten die écht een persoon zijn voor aan de gebruiker, met de vraag of ze in `~/.config/moza-weekly/extra-namen.txt` moeten. Voeg zelf niets toe: dat bestand staat buiten de repo en is van de gebruiker. Vul je die aan, draai dan `just moza-weekly-anonymize` opnieuw.
+     - De meeste kandidaten zijn vakjargon, teams of tools; die horen niet in het namenbestand maar eventueel in `GEEN_PERSOON` in `namencheck.py`.
+     - Ook persona-namen uit gebruikersonderzoek moeten blijven staan: dat zijn geen echte personen.
    - Vraag de gebruiker om aanvullende input die niet uit Mattermost komt.
+   - Ontbreekt `DOCS_SESSION` of is die verlopen, dan meldt `fetch.py` dat met instructies. Geef die door aan de gebruiker: zonder die cookie blijven de gespreksverslagen buiten de input.
 5. Groepeer de input in secties op basis van wat er deze week speelt — secties zijn niet vast, ze volgen de onderwerpen. Laat een sectie weg als er geen inhoud voor is.
 
 ## Secties zijn onderwerp-gedreven

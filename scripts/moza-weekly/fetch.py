@@ -42,10 +42,15 @@ from _model import (  # noqa: E402
     Report,
     Thread,
 )
+from _util import load_dotenv  # noqa: E402
+
 from _references import (  # noqa: E402
+    STATUS_GEEN_TOEGANG,
     STATUS_OK,
+    DocsClient,
     ReferenceCollector,
     WebFetcher,
+    docs_cookie_instructie,
 )
 
 GENERATOR = "moza-weekly fetch.py v0.2.0"
@@ -53,6 +58,7 @@ NL_TZ = ZoneInfo("Europe/Amsterdam")
 DEFAULT_SERVER = "https://digilab.overheid.nl/chat"
 DEFAULT_TEAM = "mijnoverheid-zakelijk"
 DEFAULT_CHANNELS = "check-in,agenda,sprint-faq"
+DEFAULT_DOCS_URL = "https://docs.rijksapp.nl"
 
 # Exit-codes
 EXIT_OK = 0
@@ -67,21 +73,6 @@ log = logging.getLogger("moza-weekly.fetch")
 
 
 # --------------------------------------------------------------------------- env / cli
-
-
-def _load_dotenv(path: Path) -> None:
-    """Minimale .env-loader. Negeert lege regels, comments, en lege values."""
-    if not path.exists():
-        return
-    for line in path.read_text(encoding="utf-8").splitlines():
-        s = line.strip()
-        if not s or s.startswith("#") or "=" not in s:
-            continue
-        key, _, value = s.partition("=")
-        key = key.strip()
-        value = value.strip().strip('"').strip("'")
-        if key and value and key not in os.environ:
-            os.environ[key] = value
 
 
 def _parse_args(argv: list[str]) -> argparse.Namespace:
@@ -315,18 +306,23 @@ def _collect_references(
     server: str,
     team: str,
     follow_external: bool,
+    docs_url: str,
+    docs_session: str,
 ) -> list[Reference]:
     """Volg verwijzingen in alle opgehaalde berichten en log wat niet lukte."""
     known_post_ids = {
         p.id for ch in channels for th in ch.threads for p in (th.root, *th.replies)
     }
     fetcher = WebFetcher() if follow_external else None
+    docs_client = DocsClient(docs_url, docs_session) if docs_session else None
     collector = ReferenceCollector(
         client=client,
         server=server,
         build_post=lambda raw: _build_post(client, raw, period, server, team),
         fetcher=fetcher,
         known_post_ids=known_post_ids,
+        docs_client=docs_client,
+        docs_url=docs_url,
     )
     try:
         for ch in channels:
@@ -336,16 +332,45 @@ def _collect_references(
     finally:
         if fetcher is not None:
             fetcher.close()
+        if docs_client is not None:
+            docs_client.close()
 
     references = collector.references
     mm = sum(1 for r in references if r.kind == "mattermost")
     web = sum(1 for r in references if r.kind == "web")
-    log.info("Verwijzingen: %d Mattermost-threads, %d webpagina's", mm, web)
+    docs = sum(1 for r in references if r.kind == "docs")
+    log.info(
+        "Verwijzingen: %d Mattermost-threads, %d webpagina's, %d Docs-verslagen",
+        mm, web, docs,
+    )
     if collector.skipped_external:
         log.info("%d externe links overgeslagen (--no-external)", collector.skipped_external)
 
+    if collector.overgeslagen_docs:
+        log.warning(
+            docs_cookie_instructie(
+                f"{collector.overgeslagen_docs} verwijzingen naar Docs overgeslagen: "
+                "DOCS_SESSION ontbreekt.",
+                docs_url,
+            )
+        )
+    verlopen = [
+        r for r in references if r.kind == "docs" and r.status == STATUS_GEEN_TOEGANG
+    ]
+    if verlopen:
+        log.warning(
+            docs_cookie_instructie(
+                f"{len(verlopen)} Docs-verslagen niet opgehaald: de sessiecookie is "
+                "verlopen of geeft geen toegang.",
+                docs_url,
+            )
+        )
+
+    # Bij een verlopen cookie is elke losse regel dezelfde mededeling; die staat
+    # al in het blok hierboven.
+    verzwegen = {r.url for r in verlopen}
     for ref in references:
-        if ref.status != STATUS_OK:
+        if ref.status != STATUS_OK and ref.url not in verzwegen:
             log.warning("⚠ %s (%s): %s", ref.url, ref.status, ref.note or "")
     if collector.pdf_urls:
         log.warning(
@@ -389,7 +414,7 @@ def _write_yaml(report: Report, output: Path, force: bool) -> None:
 
 
 def main(argv: list[str] | None = None) -> int:
-    _load_dotenv(Path.cwd() / ".env")
+    load_dotenv(Path.cwd() / ".env")
     args = _parse_args(argv if argv is not None else sys.argv[1:])
     _setup_logging(args.verbose, args.quiet)
 
@@ -445,6 +470,7 @@ def main(argv: list[str] | None = None) -> int:
                 log.error("%s", e)
                 return EXIT_AUTH
 
+
             for ch_name in channels:
                 try:
                     ch = _fetch_channel(
@@ -476,6 +502,8 @@ def main(argv: list[str] | None = None) -> int:
                     server,
                     team,
                     follow_external=not args.no_external,
+                    docs_url=os.environ.get("MOZA_WEEKLY_DOCS_URL", DEFAULT_DOCS_URL),
+                    docs_session=os.environ.get("DOCS_SESSION", "").strip(),
                 )
     except MattermostError as e:
         log.error("Netwerk/server-fout: %s", e)

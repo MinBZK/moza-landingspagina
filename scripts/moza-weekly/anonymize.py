@@ -20,6 +20,7 @@ from __future__ import annotations
 import argparse
 import json
 import logging
+import os
 import re
 import sys
 from collections import OrderedDict
@@ -31,7 +32,8 @@ from zoneinfo import ZoneInfo
 # De scriptmap staat op sys.path, zodat de _-modules hiernaast importeerbaar zijn.
 sys.path.insert(0, str(Path(__file__).parent))
 
-from _util import MENTION_RE, load_yaml  # noqa: E402
+from _mattermost import MattermostClient, MattermostError  # noqa: E402
+from _util import MENTION_RE, load_dotenv, load_yaml  # noqa: E402
 
 NL_TZ = ZoneInfo("Europe/Amsterdam")
 EXIT_OK = 0
@@ -95,34 +97,73 @@ def _build_pseudonym_map(
     return out
 
 
-def _build_name_redactor(authors: "OrderedDict[str, dict[str, Any]]") -> "re.Pattern[str] | None":
+# Klinkers met en zonder accent moeten elkaar matchen: "Renée" en "Renee"
+# horen allebei geschrubd te worden, en in chat wordt het door elkaar gebruikt.
+_ACCENTEN = {
+    "a": "aàáâäã", "e": "eèéêë", "i": "iìíîï", "o": "oòóôöõ",
+    "u": "uùúûü", "y": "yÿý", "c": "cç", "n": "nñ",
+}
+_OMGEKEERD = {v: basis for basis, varianten in _ACCENTEN.items() for v in varianten}
+
+
+def _naam_patroon(naam: str) -> str:
+    """Regexfragment voor een naam, waarbij accenten en hun kale vorm matchen."""
+    delen = []
+    for teken in naam:
+        basis = _OMGEKEERD.get(teken.lower())
+        if basis:
+            delen.append(f"[{_ACCENTEN[basis]}]")
+        else:
+            delen.append(re.escape(teken))
+    return "".join(delen)
+
+
+def _build_name_redactor(
+    authors: "OrderedDict[str, dict[str, Any]]",
+    extra_names: "list[str] | None" = None,
+) -> "re.Pattern[str] | None":
     """Bouw een regex die alle bekende namen matched. Langere matches eerst zodat
-    `Robbert Bos` matched vóór `Robbert` of `Bos`.
+    `Pietje Puk` matcht vóór `Pietje` of `Puk`.
 
     Toegevoegd worden:
-    - de volledige display_name (`Robbert Bos`)
+    - de volledige display_name (`Pietje Puk`)
     - elk afzonderlijk naamdeel van >= 4 letters (voornaam, achternaam, behalve
       Nederlandse tussenvoegsels als 'de', 'van', 'der').
     """
     fragments: list[str] = []
-    for info in authors.values():
-        display = info["display_name"].strip()
+    namen = [info["display_name"].strip() for info in authors.values()]
+    namen += [n.strip() for n in (extra_names or [])]
+    for display in namen:
         if not display:
             continue
-        fragments.append(re.escape(display))
+        fragments.append(_naam_patroon(display))
         for part in display.split():
             if len(part) >= _MIN_FIRSTNAME_LEN:
-                fragments.append(re.escape(part))
+                fragments.append(_naam_patroon(part))
+    # Een handmatig opgegeven losse naam is een bewuste keuze, dus die nemen we
+    # ook op als hij korter is dan de drempel (denk aan "Luc" of "Leo").
+    for naam in extra_names or []:
+        naam = naam.strip()
+        if naam and len(naam.split()) == 1:
+            fragments.append(_naam_patroon(naam))
     if not fragments:
         return None
     fragments = sorted(set(fragments), key=len, reverse=True)
-    pattern = r"\b(?:" + "|".join(fragments) + r")\b"
-    return re.compile(pattern)
+    # Bezitsvorm meepakken ("Jans voorstel"), en hoofdletters negeren omdat
+    # namen in chat net zo vaak zonder hoofdletter worden geschreven.
+    pattern = r"\b(?:" + "|".join(fragments) + r")(?:['’]?s)?\b"
+    return re.compile(pattern, re.IGNORECASE)
 
 
-# GitHub zet de auteur in de paginatitel: "… by ericwout-overheid · Pull Request #240 …".
+# GitHub zet de auteur in de paginatitel: "… by jjansen · Pull Request #240 …".
 # Die handle staat niet in de auteur-set, dus geen enkele naamregel vangt hem.
 _GITHUB_ATTRIBUTIE_RE = re.compile(r"\bby\s+[\w][\w.-]{2,}\s+·")
+
+
+# "Truus Bakker" werd anders "[collega] Bakker": nog steeds herleidbaar.
+# Alleen een direct volgend hoofdletterwoord zonder leesteken ertussen, zodat
+# "[collega] van Logius" en "[collega]. Deze week" heel blijven.
+_ACHTERNAAM_RE = re.compile(r"(\[collega\]) +([A-Z][\w'’-]+)")
 
 
 def _redact_message(message: str, name_re: "re.Pattern[str] | None") -> str:
@@ -132,6 +173,7 @@ def _redact_message(message: str, name_re: "re.Pattern[str] | None") -> str:
     redacted = _GITHUB_ATTRIBUTIE_RE.sub("by [collega] ·", redacted)
     if name_re is not None:
         redacted = name_re.sub("[collega]", redacted)
+        redacted = _ACHTERNAAM_RE.sub(r"\1", redacted)
     return redacted
 
 
@@ -213,12 +255,58 @@ def _anonymize_references(
     return out
 
 
+def _namen_uit_mattermost(server: str) -> list[str]:
+    """Namen van iedereen op de Mattermost-server, live opgehaald.
+
+    Bewust niet opgeslagen: een namenlijst op schijf is zelf een lek.
+    """
+    token = os.environ.get("MATTERMOST_TOKEN", "").strip()
+    if not token:
+        log.warning("Geen MATTERMOST_TOKEN: naamredactie beperkt zich tot de auteurs")
+        return []
+    try:
+        with MattermostClient(server, token) as client:
+            namen = [u.display_name for u in client.iter_people()]
+    except MattermostError as e:
+        log.warning("Namen ophalen faalde (%s); redactie beperkt zich tot de auteurs", e)
+        return []
+    log.info("Naamredactie: %d personen van de Mattermost-server", len(namen))
+    return namen
+
+
+def _namen_uit_bestand() -> list[str]:
+    """Extra namen van mensen die niet op de Mattermost-server zitten.
+
+    Staat buiten de repo, standaard ~/.config/moza-weekly/extra-namen.txt, één
+    naam per regel. Regels die met # beginnen zijn commentaar.
+    """
+    pad = Path(
+        os.environ.get("MOZA_WEEKLY_EXTRA_NAMES_FILE", "~/.config/moza-weekly/extra-namen.txt")
+    ).expanduser()
+    if not pad.exists():
+        return []
+    namen = [
+        regel.strip()
+        for regel in pad.read_text(encoding="utf-8").splitlines()
+        if regel.strip() and not regel.strip().startswith("#")
+    ]
+    log.info("Naamredactie: %d extra namen uit %s", len(namen), pad)
+    return namen
+
+
+def _extra_names(data: dict[str, Any], server: str = "") -> list[str]:
+    """Alle namen om te schrubben bovenop de auteurs uit de YAML zelf."""
+    bron = server or data.get("meta", {}).get("server", "")
+    return _namen_uit_mattermost(bron) + _namen_uit_bestand()
+
+
 def _build_anonymized(data: dict[str, Any]) -> dict[str, Any]:
     channels = data.get("channels", [])
     references = data.get("references", []) or []
     authors = _collect_authors(channels, references)
     pseudonyms = _build_pseudonym_map(authors)
-    name_re = _build_name_redactor(authors)
+    extra_names = _extra_names(data)
+    name_re = _build_name_redactor(authors, extra_names)
 
     humans = sum(1 for info in authors.values() if not info["is_bot"])
     bots = sum(1 for info in authors.values() if info["is_bot"])
@@ -250,6 +338,7 @@ def _build_anonymized(data: dict[str, Any]) -> dict[str, Any]:
 
 
 def main(argv: list[str] | None = None) -> int:
+    load_dotenv(Path.cwd() / ".env")
     args = _parse_args(argv if argv is not None else sys.argv[1:])
     logging.basicConfig(
         level=logging.DEBUG if args.verbose else logging.INFO,

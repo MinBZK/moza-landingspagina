@@ -151,12 +151,31 @@ De `anonymized.json` wijkt op deze punten af van de YAML:
 
 - **Authors** → vervangen door pseudoniemen `person_1`, `person_2`, ... (en `bot_1` voor bots). De mapping is stabiel binnen één run (dezelfde persoon krijgt dezelfde ID in zowel root als replies), maar verandert tussen runs.
 - **`@mentions`** in message-bodies → `[@collega]`.
-- **Bekende collega-namen** (full name + voornaam ≥ 4 letters, geleerd uit de auteur-set) → `[collega]`. Voornamen < 4 letters worden niet vervangen om vals-positieven te vermijden.
+- **Bekende namen** → `[collega]`. De namenlijst komt uit drie bronnen: de auteurs van deze periode, **alle leden van het Mattermost-team** (die haalt `fetch.py` op en zet hij in `meta.redact_names`), en `MOZA_WEEKLY_EXTRA_NAMES` uit `.env` voor externe contactpersonen. Van een naam wordt zowel de volledige vorm als elk naamdeel van ≥ 4 letters vervangen; een handmatig opgegeven losse voornaam mag ook korter zijn, zodat "Luc" en "Leo" er ook uit gaan.
 - **Bot-flag** blijft bewaard (`is_bot: true/false`).
 - **Permalinks, timestamps, scope-flags, attachments** blijven onveranderd — die identificeren posts, niet personen.
 - **Verwijzingen** gaan door dezelfde molen: auteurs van opgehaalde Mattermost-berichten krijgen een pseudoniem uit dezelfde mapping, en titel, description en opgehaalde webtekst worden op mentions en bekende namen geschrubd.
 
-**Bewuste beperking**: namen in message-bodies die *niet* in de auteur-set voorkomen worden NIET geschrubd. Wie buiten de huidige threads om genoemd wordt blijft dus in de JSON staan. Voor een strakker filter zou NER nodig zijn — voor v0.1 een bewuste tradeoff.
+- **Een achternaam pal naast een geschrubde voornaam** gaat mee. Zonder die regel leverde "Truus Bakker" nog "[collega] Bakker" op: even herleidbaar als daarvoor, maar met de schijn van anonimiteit. Alleen een direct volgend hoofdletterwoord zonder leesteken ertussen, zodat "[collega] van Logius" blijft staan.
+
+**Bewuste beperking**: een naam die in geen van de bronnen voorkomt blijft staan. Gebruik daarom `just moza-weekly-namencheck` om te zien wat er is blijven liggen.
+
+Ter illustratie, gemeten over de periode 30 juli t/m 2 september 2026: zonder deze uitbreiding stonden er 62 losse voornamen in de berichten en 10 in de opgehaalde verwijzingen. De teamledenlijst bracht dat naar 42 en 5; met de externe namen erbij naar 0. Een onafhankelijke steekproef op woorden die na een aanloop als "gesproken met" staan, vond daarna nog één gemiste naam.
+
+Wat we bewust **niet** schrubben: organisaties en teams (Logius, Maykin, Lovelace) en persona-namen uit gebruikersonderzoek, want die horen juist in de weekly thuis.
+
+### Controleren wat er is blijven liggen
+
+```bash
+just moza-weekly-namencheck tmp/moza-weekly/<datum>.anonymized.json
+```
+
+Dit haalt eenmalig een Nederlands NER-model binnen (ruim 500 MB, in de aparte `ner`-groep, dus buiten de gewone pipeline en buiten CI) en rapporteert wie er ná anonimisering nog als persoon wordt herkend. Het **vervangt niets**; jij beslist wat er in het extra-namenbestand hoort.
+
+Twee detectoren, omdat ze verschillende dingen missen:
+
+- **Het NER-model** kijkt naar context, dus het weet dat "Jan" in een zin een naam is. Op onze eigen input wees het echter ook MOZa, Claude en Lovelace aan als personen; als automatische redactor zou het de tekst slopen. Vandaar dat het alleen rapporteert, met een filter op bekend jargon in `GEEN_PERSOON`.
+- **Deelnemerslijstjes** in de vorm `Naam (Organisatie)` worden apart herkend. Juist daar faalt het NER-model: het mist een naam in een opsomming als "Pietje (ADR)" volledig, terwijl dat patroon glashelder is.
 
 ## Verwijzingen volgen
 
@@ -170,7 +189,7 @@ Verwijzingen worden één niveau diep gevolgd: verwijzingen bínnen een opgehaal
 
 **Van `github.com` bewaren we alleen titel en description** (`SAMENVATTING_HOSTS` in `_references.py`). Een PR- of issue-pagina levert duizenden tekens navigatie en diff-gepraat op, terwijl titel en `og:description` samen al zeggen waar het over gaat. In een proefrun over vijf weken was 75 van de 116 verwijzingen een GitHub-link; zonder deze regel bestond de LLM-input voor 80% uit opgehaalde pagina's in plaats van uit de berichten zelf.
 
-De handle in zo'n GitHub-titel (`… by ericwout-overheid · Pull Request #240 …`) wordt in `anonymize.py` vervangen door `[collega]`. Die staat namelijk niet in de auteur-set, dus geen enkele naamregel vangt hem, en een weekly hoort geen namen te bevatten.
+De handle in zo'n GitHub-titel (`… by jjansen · Pull Request #240 …`) wordt in `anonymize.py` vervangen door `[collega]`. Die staat namelijk niet in de auteur-set, dus geen enkele naamregel vangt hem, en een weekly hoort geen namen te bevatten.
 
 **Pagina's die hun inhoud met JavaScript laden** (zoals de Docs-applicatie op `docs.rijksapp.nl`) geven anoniem een lege shell terug. Die krijgen `niet_publiek` met die reden erbij, niet `fout`: er is niets stuk, de inhoud komt simpelweg niet zonder browser en meestal ook niet zonder inlog. Zulke verslagen moet je zelf openen.
 
@@ -181,6 +200,7 @@ De handle in zo'n GitHub-titel (`… by ericwout-overheid · Pull Request #240 �
 | `geen_toegang` | Je token mag die Mattermost-thread niet lezen | ❌ |
 | `niet_gevonden` | Post of thread bestaat niet (meer) | ❌ |
 | `pdf_niet_ondersteund` | PDF, tekstextractie is bewust niet gebouwd | ❌ |
+| `leeg` | Document zonder inhoud, meestal een overzichtsmap in Docs | ❌ |
 | `geblokkeerd` | De URL wijst niet naar een publiek internetadres | ❌ |
 | `overgeslagen` | Ander content-type dan HTML of platte tekst | ❌ |
 | `fout` | Netwerkfout, HTTP-fout of geen leesbare tekst | ❌ |
@@ -235,6 +255,7 @@ scripts/moza-weekly/
 ├── fetch.py              # CLI-script, stap 1 (Mattermost → YAML)
 ├── anonymize.py          # CLI-script, stap 2 (YAML → anonymized JSON)
 ├── render.py             # CLI-script, stap 3 (YAML → HTML)
+├── namencheck.py         # los hulpmiddel: welke namen bleven staan?
 ├── _mattermost.py        # API-client (intern)
 ├── _references.py        # verwijzingen volgen: permalinks + webpagina's (intern)
 ├── _model.py             # dataclasses (intern)

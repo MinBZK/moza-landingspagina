@@ -32,17 +32,17 @@ def test_pseudonym_map_orders_humans_and_bots():
 
 
 def test_redactor_replaces_full_name_and_long_firstname():
-    name_re = _build_name_redactor(_authors(("rbos", "Robbert Bos", False)))
-    assert _redact_message("groet Robbert Bos", name_re) == "groet [collega]"
-    assert _redact_message("hoi Robbert!", name_re) == "hoi [collega]!"
+    name_re = _build_name_redactor(_authors(("ppuk", "Pietje Puk", False)))
+    assert _redact_message("groet Pietje Puk", name_re) == "groet [collega]"
+    assert _redact_message("hoi Pietje!", name_re) == "hoi [collega]!"
 
 
 def test_redactor_skips_short_name_parts():
     # 'Ed' en 'Bos' zijn <4 letters → losse delen worden niet vervangen,
     # de volledige naam wel.
-    name_re = _build_name_redactor(_authors(("ed", "Ed Bos", False)))
+    name_re = _build_name_redactor(_authors(("ed", "Ed Puk", False)))
     assert _redact_message("cc Ed morgen", name_re) == "cc Ed morgen"
-    assert _redact_message("cc Ed Bos morgen", name_re) == "cc [collega] morgen"
+    assert _redact_message("cc Ed Puk morgen", name_re) == "cc [collega] morgen"
 
 
 def test_redact_mentions_without_names():
@@ -52,7 +52,7 @@ def test_redact_mentions_without_names():
 def test_github_attributie_wordt_geschrubd():
     # De handle in een GitHub-paginatitel staat niet in de auteur-set, en zou
     # zonder deze regel als naam in de LLM-input belanden.
-    titel = "feat(demo): iets by ericwout-overheid · Pull Request #240 · MinBZK/moza-poc"
+    titel = "feat(demo): iets by jjansen · Pull Request #240 · MinBZK/moza-poc"
     assert _redact_message(titel, None) == (
         "feat(demo): iets by [collega] · Pull Request #240 · MinBZK/moza-poc"
     )
@@ -63,10 +63,90 @@ def test_gewoon_woord_by_blijft_staan():
     assert _redact_message("dit is by design zo", None) == "dit is by design zo"
 
 
+def test_extra_namen_worden_geschrubd():
+    # Een teamlid dat zelf niets schreef, maar wel genoemd wordt.
+    name_re = _build_name_redactor(_authors(("ppuk", "Pietje Puk", False)), ["Truus Bakker"])
+    assert _redact_message("overleg met Truus Bakker", name_re) == "overleg met [collega]"
+    assert _redact_message("Truus pakt dit op", name_re) == "[collega] pakt dit op"
+
+
+def test_korte_extra_voornaam_wordt_wel_geschrubd():
+    # De drempel van 4 letters geldt niet voor handmatig opgegeven namen: die
+    # zijn een bewuste keuze, dus 'Luc' en 'Leo' moeten er ook uit.
+    name_re = _build_name_redactor(_authors(), ["Luc", "Leo"])
+    assert _redact_message("Luc en Leo stemmen af", name_re) == "[collega] en [collega] stemmen af"
+
+
+def test_korte_extra_naam_raakt_geen_langere_woorden():
+    name_re = _build_name_redactor(_authors(), ["Leo"])
+    assert _redact_message("Leonardo bouwde het", name_re) == "Leonardo bouwde het"
+
+
+def test_extra_namen_uit_bestand_buiten_de_repo(monkeypatch, tmp_path):
+    from anonymize import _namen_uit_bestand
+
+    bestand = tmp_path / "extra-namen.txt"
+    bestand.write_text("# externen\nPietje\n\n  Klaas  \n", encoding="utf-8")
+    monkeypatch.setenv("MOZA_WEEKLY_EXTRA_NAMES_FILE", str(bestand))
+    assert _namen_uit_bestand() == ["Pietje", "Klaas"]
+
+
+def test_zonder_bestand_geen_extra_namen(monkeypatch, tmp_path):
+    from anonymize import _namen_uit_bestand
+
+    monkeypatch.setenv("MOZA_WEEKLY_EXTRA_NAMES_FILE", str(tmp_path / "bestaat-niet.txt"))
+    assert _namen_uit_bestand() == []
+
+
+def test_zonder_token_geen_namen_uit_mattermost(monkeypatch):
+    from anonymize import _namen_uit_mattermost
+
+    monkeypatch.delenv("MATTERMOST_TOKEN", raising=False)
+    assert _namen_uit_mattermost("https://voorbeeld.test") == []
+
+
+def test_redactie_negeert_hoofdletters():
+    name_re = _build_name_redactor(_authors(("m", "Klaas Jansen", False)))
+    assert _redact_message("overleg met klaas", name_re) == "overleg met [collega]"
+
+
+def test_redactie_pakt_de_bezitsvorm():
+    name_re = _build_name_redactor(_authors(("m", "Klaas Jansen", False)))
+    assert _redact_message("Klaas Jansens voorstel", name_re) == "[collega] voorstel"
+
+
+def test_redactie_negeert_accenten():
+    name_re = _build_name_redactor(_authors(), ["Renée Kuiper"])
+    assert _redact_message("met Renee Kuiper gesproken", name_re) == "met [collega] gesproken"
+    assert _redact_message("met Renée Kuiper gesproken", name_re) == "met [collega] gesproken"
+
+
+def test_achternaam_naast_een_geschrubde_voornaam_gaat_mee():
+    # "Truus Bakker" waarvan alleen de voornaam bekend is, leverde eerder
+    # "[collega] Bakker" op: nog steeds herleidbaar, en het suggereert
+    # ten onrechte dat er geanonimiseerd is.
+    name_re = _build_name_redactor(_authors(), ["Truus"])
+    assert _redact_message("met Truus Bakker (Logius)", name_re) == "met [collega] (Logius)"
+
+
+def test_organisatie_na_een_tussenvoegsel_blijft_staan():
+    # "[collega] van Logius" betekent 'een collega van Logius'; die
+    # organisatienaam mag niet sneuvelen.
+    name_re = _build_name_redactor(_authors(), ["Truus"])
+    assert _redact_message("Truus van Logius belde", name_re) == "[collega] van Logius belde"
+
+
+def test_zin_die_na_een_naam_begint_blijft_heel():
+    name_re = _build_name_redactor(_authors(), ["Jan"])
+    assert _redact_message("Bedankt Jan. Deze week...", name_re) == (
+        "Bedankt [collega]. Deze week..."
+    )
+
+
 def test_non_author_name_is_not_redacted():
     # Gedocumenteerde beperking: namen buiten de auteur-set blijven staan (geen NER).
-    name_re = _build_name_redactor(_authors(("rbos", "Robbert Bos", False)))
-    assert _redact_message("cc Pietje", name_re) == "cc Pietje"
+    name_re = _build_name_redactor(_authors(("ppuk", "Pietje Puk", False)))
+    assert _redact_message("cc Klaas", name_re) == "cc Klaas"
 
 
 def _sample_data():
@@ -82,12 +162,12 @@ def _sample_data():
                     {
                         "root": {
                             "id": "p1",
-                            "author": {"username": "rbos", "display_name": "Robbert Bos"},
+                            "author": {"username": "ppuk", "display_name": "Pietje Puk"},
                             "timestamp": "2026-05-21T10:00:00+02:00",
                             "permalink": "http://pl/1",
                             "in_scope": True,
                             "bot": False,
-                            "message": "Hoi @jan, groet Robbert Bos",
+                            "message": "Hoi @jan, groet Pietje Puk",
                         },
                         "replies": [
                             {
@@ -129,12 +209,12 @@ def _sample_data_met_references():
             "kind": "mattermost",
             "url": "http://pl/9",
             "status": "ok",
-            "title": "Verslag van Sanne Vermeulen",
+            "title": "Verslag van Truus Bakker",
             "channel": "gespreksverslagen",
             "posts": [
                 {
                     "id": "p9",
-                    "author": {"username": "svermeulen", "display_name": "Sanne Vermeulen"},
+                    "author": {"username": "tbakker", "display_name": "Truus Bakker"},
                     "timestamp": "2026-05-19T09:00:00+02:00",
                     "permalink": "http://pl/9",
                     "in_scope": False,
@@ -150,9 +230,9 @@ def _sample_data_met_references():
             "status": "ok",
             "site": "example.org",
             "title": "Nota",
-            "description": "Van Robbert Bos",
+            "description": "Van Pietje Puk",
             "truncated": False,
-            "text": "Robbert Bos schreef dit. Mail @jan voor vragen.",
+            "text": "Pietje Puk schreef dit. Mail @jan voor vragen.",
         },
     ]
     return data

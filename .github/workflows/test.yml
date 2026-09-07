@@ -25,10 +25,7 @@ jobs:
         uses: astral-sh/setup-uv@v7
 
       - name: Test moza-weekly scripts
-        run: >
-          uv run --with pytest --with pyyaml --with jinja2 --with markdown-it-py
-          --with httpx --with tenacity --with beautifulsoup4
-          pytest scripts/moza-weekly/tests/ -q
+        run: uv run --project scripts/moza-weekly --locked pytest scripts/moza-weekly/tests/ -q
 
   node:
     name: Node-scripts
