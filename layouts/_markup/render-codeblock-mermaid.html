@@ -25,9 +25,12 @@
   {{- end -}}
 {{- end -}}
 
-{{- /* Subpad afgeleid van content-bestand */ -}}
+{{- /* Subpad afgeleid van content-bestand.
+     Bundles (index.md, _index.md) gebruiken de map zelf als subpad.
+     LogicalName is hier nodig: ContentBaseName geeft bij bundles de mapnaam terug. */ -}}
 {{- $pageDir := path.Dir .Page.File.Path -}}
-{{- $baseName := .Page.File.ContentBaseName -}}
+{{- $logicalName := .Page.File.LogicalName -}}
+{{- $baseName := replaceRE "\\.[^.]+$" "" $logicalName -}}
 {{- $subdir := $pageDir -}}
 {{- if and (ne $baseName "index") (ne $baseName "_index") -}}
   {{- $subdir = path.Join $pageDir $baseName -}}
