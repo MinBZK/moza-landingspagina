@@ -32,8 +32,6 @@
 
 /* Interactive toast (button) */
 button.toast {
-  cursor: pointer;
-
   &:hover,
   &:focus-visible {
     background-color: light-dark(var(--color-rijks-blauw), var(--color-text));
