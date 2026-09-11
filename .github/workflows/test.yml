@@ -147,6 +147,68 @@ jobs:
       - name: Toets toegankelijkheid (WCAG 2.1 AA)
         run: npm run a11y
 
+  downloads:
+    name: Downloads en PDF/UA
+    runs-on: ubuntu-latest
+    needs: site
+    if: ${{ !cancelled() }}
+    env:
+      VERAPDF_VERSION: 1.30.2
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install npm dependencies
+        run: npm ci
+
+      - name: Install pandoc (voor de .odt-downloads)
+        run: sudo apt-get update && sudo apt-get install -y pandoc
+
+      # De installer is IzPack en heeft een Java nodig; die staat op de runner.
+      - name: Install veraPDF
+        working-directory: ${{ runner.temp }}
+        run: |
+          curl -sLJO "https://software.verapdf.org/releases/${VERAPDF_VERSION%.*}/verapdf-greenfield-${VERAPDF_VERSION}-installer.zip"
+          unzip -q "verapdf-greenfield-${VERAPDF_VERSION}-installer.zip"
+          cat > auto-install.xml <<XML
+          <AutomatedInstallation langpack="eng">
+            <com.izforge.izpack.panels.htmlhello.HTMLHelloPanel id="welcome"/>
+            <com.izforge.izpack.panels.target.TargetPanel id="install_dir">
+              <installpath>${HOME}/.local/verapdf</installpath>
+            </com.izforge.izpack.panels.target.TargetPanel>
+            <com.izforge.izpack.panels.packs.PacksPanel id="sdk_pack_select">
+              <pack index="0" name="veraPDF GUI" selected="true"/>
+              <pack index="1" name="veraPDF Mac and *nix Scripts" selected="true"/>
+              <pack index="2" name="veraPDF Validation model" selected="true"/>
+              <pack index="3" name="veraPDF Documentation" selected="false"/>
+              <pack index="4" name="veraPDF Sample Plugins" selected="false"/>
+            </com.izforge.izpack.panels.packs.PacksPanel>
+            <com.izforge.izpack.panels.install.InstallPanel id="install"/>
+            <com.izforge.izpack.panels.finish.FinishPanel id="finish"/>
+          </AutomatedInstallation>
+          XML
+          chmod +x "verapdf-greenfield-${VERAPDF_VERSION}/verapdf-install"
+          "verapdf-greenfield-${VERAPDF_VERSION}/verapdf-install" "${PWD}/auto-install.xml"
+          echo "${HOME}/.local/verapdf" >> "${GITHUB_PATH}"
+
+      - name: Haal de gebouwde site op
+        uses: actions/download-artifact@v8
+        with:
+          name: site
+          path: tmp/public
+
+      - name: Genereer de downloads
+        run: npm run render-downloads -- tmp/public
+
+      - name: Toets de PDF's tegen PDF/UA
+        run: npm run pdfua -- tmp/public
+
   csp:
     name: Content-Security-Policy
     runs-on: ubuntu-latest
