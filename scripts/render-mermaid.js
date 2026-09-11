@@ -68,6 +68,22 @@ function buildThemes() {
 
 const THEMES = buildThemes();
 
+// Vervangt var(--token) in de diagramcode (bijv. in classDef) door de
+// light- of dark-waarde, zodat kleuren in content het thema volgen.
+// Mermaid zet classDef-kleuren als inline !important-stijlen, dus dit
+// moet vóór het renderen gebeuren.
+function resolveDiagramTokens(code, variant) {
+  const vars = parseTokens();
+  const index = variant === "dark" ? 1 : 0;
+  return code.replace(/var\((--[\w-]+)\)/g, (match, name) => {
+    if (!(name in vars)) {
+      console.warn(`  ⚠ onbekend token ${name} in mermaid-blok`);
+      return match;
+    }
+    return lightDarkValues(vars, name)[index];
+  });
+}
+
 // ── Font embedding ───────────────────────────────────────────────────────────
 
 const FONT_FILES = [
@@ -343,7 +359,7 @@ async function renderAll() {
   try {
     for (const { block, variant, svgPath, hash } of work) {
       console.log(`  → ${relative(ROOT, svgPath)}`);
-      const data = await renderDiagram(browser, block.code, renderOptions(variant));
+      const data = await renderDiagram(browser, resolveDiagramTokens(block.code, variant), renderOptions(variant));
       const svg = postProcessSVG(data);
       writeFileSync(svgPath, svg);
       writeHash(svgPath, hash);
@@ -388,7 +404,7 @@ async function renderFile(filePath, browser) {
   try {
     for (const { block, variant, svgPath, hash } of work) {
       console.log(`  → ${relative(ROOT, svgPath)}`);
-      const data = await renderDiagram(browser, block.code, renderOptions(variant));
+      const data = await renderDiagram(browser, resolveDiagramTokens(block.code, variant), renderOptions(variant));
       writeFileSync(svgPath, postProcessSVG(data));
       writeHash(svgPath, hash);
     }
@@ -447,7 +463,7 @@ async function startWatch() {
 
 // ── Exports (voor tests) ─────────────────────────────────────────────────────
 
-export { slugify, extractMermaidBlocks, contentSubdir, parseTokens, buildThemes, postProcessSVG, computeHash, TOKENS_HASH };
+export { slugify, extractMermaidBlocks, contentSubdir, parseTokens, buildThemes, resolveDiagramTokens, postProcessSVG, computeHash, TOKENS_HASH };
 
 // ── CLI ──────────────────────────────────────────────────────────────────────
 

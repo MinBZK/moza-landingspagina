@@ -35,9 +35,7 @@ graph LR
   G -->|informeren| D
   G -->|handelen, na bevestiging| E
 
-  classDef bron fill:#d9ebf7,stroke:#154273,color:#0f172a;
-  classDef inzicht fill:#fff8e6,stroke:#b7791f,color:#0f172a;
-  class M,E bron
+  classDef inzicht fill:var(--color-bg-light),stroke:var(--color-rijks-oranje),color:var(--color-text);
   class G inzicht
 ```
 
@@ -92,9 +90,7 @@ graph LR
 
   V --> T --> R --> A
 
-  classDef bron fill:#d9ebf7,stroke:#154273,color:#0f172a;
-  classDef inzicht fill:#fff8e6,stroke:#b7791f,color:#0f172a;
-  class R bron
+  classDef inzicht fill:var(--color-bg-light),stroke:var(--color-rijks-oranje),color:var(--color-text);
   class A inzicht
 ```
 
@@ -128,9 +124,6 @@ graph LR
   D -->|ophalen| K
   D -->|toetsen| R
   D -->|indienen| V
-
-  classDef bron fill:#d9ebf7,stroke:#154273,color:#0f172a;
-  class K,R,V bron
 ```
 
 Die knip is een bewuste keuze:

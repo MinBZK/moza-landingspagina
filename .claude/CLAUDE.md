@@ -43,6 +43,8 @@ Elk mermaid-blok moet een `accTitle` hebben voor de bestandsnaam en toegankelijk
 
 Ook `accDescr` is verplicht: die vult het `alt`-attribuut. Zonder `accDescr` krijgt het diagram een lege alt-tekst en faalt `just a11y`.
 
+Kleuren in een diagram (bijvoorbeeld in `classDef`) nooit hardcoden: gebruik `var(--token)` uit `tokens.css`, zoals `color:var(--color-text)`. Het renderscript vult per variant de light- of dark-waarde in.
+
 ## Skills
 
 Workflow: `/check`, `/new-weekly`, `/new-presentatie`

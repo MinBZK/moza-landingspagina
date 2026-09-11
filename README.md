@@ -86,7 +86,7 @@ graph LR
 ```
 ````
 
-Diagrammen worden vooraf gerenderd als SVG (light + dark variant) door `scripts/render-mermaid.js`. De kleuren volgen automatisch het lichte of donkere thema via design tokens. Als de SVGs ontbreken, faalt de Hugo build met een foutmelding.
+Diagrammen worden vooraf gerenderd als SVG (light + dark variant) door `scripts/render-mermaid.js`. De kleuren volgen automatisch het lichte of donkere thema via design tokens. Eigen kleuren in een diagram (bijvoorbeeld in `classDef`) schrijf je daarom als `var(--color-text)` in plaats van een hexcode; het renderscript vult per variant de juiste waarde in. Als de SVGs ontbreken, faalt de Hugo build met een foutmelding.
 
 Render de SVGs opnieuw na het wijzigen van een diagram:
 
