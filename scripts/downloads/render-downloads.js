@@ -96,6 +96,92 @@ function setOdtMetadata(odtOut, meta) {
   }
 }
 
+/**
+ * Randen en een achtergrond voor de tabellen in het ODT.
+ *
+ * Pandoc schrijft `fo:border="none"` als automatische stijl in content.xml, dus
+ * `reference.odt` kan er niet bij. Kleuren komen uit assets/css/tokens.css.
+ */
+function styleOdtTables(odtOut) {
+  const RAND = "0.5pt solid #e2e8f0";
+  const celStijlen = {
+    TableHeaderRowCell:
+      `<style:table-cell-properties fo:border="none" fo:border-top="${RAND}" ` +
+      `fo:border-bottom="${RAND}" fo:background-color="#eff7fc" fo:padding="0.06in" />`,
+    TableRowCell:
+      `<style:table-cell-properties fo:border="none" fo:border-bottom="${RAND}" ` +
+      `fo:padding="0.06in" />`,
+  };
+  const BOVENSTE_RIJ = "TableTopRowCell";
+  const bovensteRijStijl =
+    `<style:style style:name="${BOVENSTE_RIJ}" style:family="table-cell">` +
+    `<style:table-cell-properties fo:border="none" fo:border-top="${RAND}" ` +
+    `fo:border-bottom="${RAND}" fo:padding="0.06in" /></style:style>`;
+
+  let xml = execFileSync("unzip", ["-p", odtOut, "content.xml"]).toString("utf-8");
+  let changed = false;
+
+  // Een sleutel-waardetabel heeft geen koprij nodig: de eerste kolom is de kop.
+  // Markdown kan dat niet uitdrukken, dus staat er in de bron een koprij die
+  // hier weer wordt omgezet naar een kopkolom. Het label komt uit de shortcode
+  // layouts/_shortcodes/table-without-header.html.
+  const zonderKoprij = xml.replace(
+    /<table:table\b[\s\S]*?<\/table:table>/g,
+    (tabel) => {
+      const koprij = tabel.match(/<table:table-header-rows>[\s\S]*?<\/table:table-header-rows>/);
+      if (!koprij || !/>Onderdeel</.test(koprij[0]) || !/>Waarde</.test(koprij[0])) return tabel;
+      return tabel
+        .replace(koprij[0], "")
+        .replace(
+          /<table:table-column\b[^>]*\/>/,
+          (kolom) => `<table:table-header-columns>${kolom}</table:table-header-columns>`
+        )
+        // De eerste cel van elke rij is de kop; die krijgt de opmaak die pandoc
+        // ook voor een koprij gebruikt.
+        .replace(
+          /<table:table-row>\s*<table:table-cell[^>]*>\s*<text:p text:style-name="Table_20_Contents"/g,
+          (rij) => rij.replace('Table_20_Contents', "Table_20_Heading")
+        )
+        .replace(
+          /<table:table-row>[\s\S]*?<\/table:table-row>/,
+          (rij) => rij.replaceAll('table:style-name="TableRowCell"', `table:style-name="${BOVENSTE_RIJ}"`)
+        );
+    }
+  );
+  if (zonderKoprij !== xml) {
+    changed = true;
+    xml = zonderKoprij.replace(
+      /(<style:style style:name="TableRowCell"[\s\S]*?<\/style:style>)/,
+      `$1${bovensteRijStijl}`
+    );
+  }
+
+  for (const [naam, eigenschappen] of Object.entries(celStijlen)) {
+    const patroon = new RegExp(
+      `(<style:style style:name="${naam}" style:family="table-cell">)[\\s\\S]*?(</style:style>)`,
+      "g"
+    );
+    const nieuw = xml.replace(patroon, `$1${eigenschappen}$2`);
+    if (nieuw !== xml) changed = true;
+    xml = nieuw;
+  }
+  if (!changed) return;
+  writeOdtContent(odtOut, xml);
+}
+
+function writeOdtContent(odtOut, xml) {
+  const tmp = mkdtempSync(join(tmpdir(), "odt-content-"));
+  try {
+    writeFileSync(join(tmp, "content.xml"), xml);
+    execFileSync("zip", ["-q", odtOut, "content.xml"], {
+      cwd: tmp,
+      stdio: ["pipe", "pipe", "pipe"],
+    });
+  } finally {
+    rmSync(tmp, { recursive: true, force: true });
+  }
+}
+
 function flattenOdtQuotations(odtOut) {
   let xml = execFileSync("unzip", ["-p", odtOut, "content.xml"]).toString("utf-8");
   let changed = false;
@@ -110,16 +196,7 @@ function flattenOdtQuotations(odtOut) {
     }
   );
   if (!changed) return;
-  const tmp = mkdtempSync(join(tmpdir(), "odt-quote-"));
-  try {
-    writeFileSync(join(tmp, "content.xml"), xml);
-    execFileSync("zip", ["-q", odtOut, "content.xml"], {
-      cwd: tmp,
-      stdio: ["pipe", "pipe", "pipe"],
-    });
-  } finally {
-    rmSync(tmp, { recursive: true, force: true });
-  }
+  writeOdtContent(odtOut, xml);
 }
 
 function renderOdt(mdFile, odtOut, pageDir, meta) {
@@ -128,6 +205,7 @@ function renderOdt(mdFile, odtOut, pageDir, meta) {
   args.push("-o", odtOut);
   execFileSync("pandoc", args, { stdio: ["pipe", "pipe", "pipe"] });
   flattenOdtQuotations(odtOut);
+  styleOdtTables(odtOut);
   setOdtMetadata(odtOut, meta);
 }
 
