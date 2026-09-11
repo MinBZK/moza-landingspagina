@@ -12,8 +12,8 @@
   --rapport-border: light-dark(var(--primitives-color-neutral-75), var(--primitives-color-neutral-200));
   --rapport-divider: light-dark(var(--primitives-color-neutral-25), var(--primitives-color-neutral-150));
   --rapport-text: var(--primitives-color-neutral-950);
-  --rapport-text-muted: var(--primitives-color-neutral-700);
-  --rapport-text-prose: var(--primitives-color-neutral-850);
+  /* In dark een donkerder stap dan gespiegeld: 700 is daar te licht om als gedempt te lezen */
+  --rapport-text-muted: light-dark(var(--primitives-color-neutral-700), var(--primitives-color-neutral-600));
   --rapport-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
@@ -205,7 +205,7 @@ body {
 }
 
 .item-number {
-  color: var(--rapport-text-muted);
+  color: var(--rapport-text);
   font-size: 0.875rem;
   font-weight: 500;
   flex-shrink: 0;
@@ -216,13 +216,13 @@ body {
 .item-title {
   font-weight: 600;
   color: var(--rapport-text);
-  font-size: 0.9375rem;
+  font-size: 1rem;
 }
 
 .item-description {
   margin: 4px 0 0 26px;
-  font-size: 0.8125rem;
-  color: var(--rapport-text-muted);
+  font-size: 0.9375rem;
+  color: var(--rapport-text);
   line-height: 1.5;
 }
 .item.no-number .item-description { margin-left: 0; }
@@ -231,7 +231,7 @@ body {
 .badge {
   padding: 5px 12px;
   border-radius: 999px;
-  font-size: 0.75rem;
+  font-size: 0.875rem;
   font-weight: 600;
   white-space: nowrap;
   display: inline-flex;
@@ -275,7 +275,7 @@ body {
 /* Samenvatting-card heeft prose tekst i.p.v. items */
 .summary {
   font-size: 0.9375rem;
-  color: var(--rapport-text-prose);
+  color: var(--rapport-text);
   line-height: 1.6;
   margin: 0;
 }
