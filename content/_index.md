@@ -1,7 +1,7 @@
 ---
 layout: hero
 title: MijnOverheid Zakelijk
-description: Bij MijnOverheid Zakelijk staan ondernemers centraal. Elk uur minder aan gedoe, is een uur meer ondernemen. We zorgen voor overzicht en makkelijk zakendoen. Met elkaar bouwen we zo aan nieuwe digitale snelwegen.
+description: MijnOverheid Zakelijk zet ondernemers centraal. We zorgen voor overzicht en makkelijk zakendoen met de overheid. Een uur minder gedoe, een uur meer ondernemen.
 
 hero:
   image: images/hero/ondernemer-tablet.webp
