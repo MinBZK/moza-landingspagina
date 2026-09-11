@@ -22,6 +22,13 @@ up:
     npm run render-mermaid
     hugo server
 
+# Preview mét de .odt- en .pdf-downloads (statisch, dus zonder live herladen)
+up-downloads:
+    npm run render-mermaid
+    rm -rf tmp/preview && hugo --minify --quiet --baseURL / --destination tmp/preview
+    npm run render-downloads -- tmp/preview
+    python3 -m http.server 1313 --directory tmp/preview
+
 # Watch mermaid-bestanden en herrender bij wijzigingen (apart terminal)
 watch-mermaid:
     npm run render-mermaid -- --watch
