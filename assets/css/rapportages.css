@@ -5,11 +5,8 @@
 * { box-sizing: border-box; }
 
 /* Kleuren uit de NLDD-primitives (assets/css/nldd-primitives.css), zie het
-   commentaar in tokens.css. Rapportages hebben een eigen layout zonder de
-   site-tokens; deze tokens gelden alleen hier. */
+   commentaar in tokens.css. Deze tokens gelden alleen voor de rapportages. */
 :root {
-  color-scheme: light dark;
-
   --rapport-bg: light-dark(var(--primitives-color-neutral-25), var(--primitives-color-neutral-50));
   --rapport-surface: light-dark(var(--primitives-color-neutral-0), var(--primitives-color-neutral-100));
   --rapport-border: light-dark(var(--primitives-color-neutral-75), var(--primitives-color-neutral-200));
@@ -20,11 +17,8 @@
   --rapport-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
-:root[data-scheme="light"] { color-scheme: light; }
-:root[data-scheme="dark"] { color-scheme: dark; }
-
 body {
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  font-family: var(--font-sans);
   font-feature-settings: 'liga' 1, 'calt' 1;
   background: var(--rapport-bg);
   margin: 0;
