@@ -2,7 +2,7 @@
 const toggle = document.getElementById('theme-toggle');
 if (toggle) {
   toggle.addEventListener('click', () => {
-    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const currentTheme = document.documentElement.getAttribute('data-scheme');
     let targetTheme = 'light';
 
     if (!currentTheme) {
@@ -11,7 +11,7 @@ if (toggle) {
       targetTheme = currentTheme === 'dark' ? 'light' : 'dark';
     }
 
-    document.documentElement.setAttribute('data-theme', targetTheme);
+    document.documentElement.setAttribute('data-scheme', targetTheme);
     localStorage.setItem('theme', targetTheme);
   });
 }

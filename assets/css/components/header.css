@@ -208,7 +208,7 @@ header {
       }
     }
 
-    :root[data-theme="dark"] & {
+    :root[data-scheme="dark"] & {
       .theme-toggle,
       .mobile-theme {
         .sun { display: block; }
@@ -217,7 +217,7 @@ header {
     }
 
     @media (prefers-color-scheme: dark) {
-      :root:not([data-theme="light"]) & {
+      :root:not([data-scheme="light"]) & {
         .theme-toggle,
         .mobile-theme {
           .sun { display: block; }
