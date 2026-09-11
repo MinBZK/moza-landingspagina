@@ -2,8 +2,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 {{- $pageTitle := .Site.Title -}}
 {{- $metaTitle := or .Params.page_title .Title -}}
-{{- if and (not .IsHome) $metaTitle -}}
-  {{- $pageTitle = printf "%s | %s" $metaTitle .Site.Title -}}
+{{- if .IsHome -}}
+  {{- with .Site.Params.tagline -}}
+    {{- $pageTitle = printf "%s: %s" $.Site.Title . -}}
+  {{- end -}}
+{{- else if $metaTitle -}}
+  {{- $pageTitle = printf "%s · %s" $metaTitle .Site.Title -}}
 {{- end -}}
 <title>{{ $pageTitle }}</title>
 {{- $description := .Description -}}
