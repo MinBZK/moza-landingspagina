@@ -4,8 +4,8 @@
   bottom: 24px;
   right: 24px;
   z-index: 1001;
-  background: #224F81;
-  color: #fff;
+  background: var(--primitives-color-accent-700);
+  color: var(--primitives-color-accent-0);
   border: none;
   padding: 10px 18px;
   border-radius: 8px;
@@ -17,7 +17,7 @@
 
 .moza-nav:hover,
 .moza-nav:focus-visible {
-  background: #163B63;
+  background: var(--primitives-color-accent-800);
   outline: none;
 }
 
