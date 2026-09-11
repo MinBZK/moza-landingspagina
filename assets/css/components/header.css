@@ -421,7 +421,6 @@ header {
       border-radius: 0;
       font-weight: inherit;
       color: var(--color-text);
-      cursor: pointer;
       transition: transform 0.2s ease;
 
       &:hover {
