@@ -151,83 +151,41 @@ header {
       margin-left: auto;
       padding: 0;
       list-style: none;
+      font-size: 1.25rem;
 
       @media (min-width: 768px) {
         display: flex;
       }
 
-      li {
-        margin-left: 0.75rem;
-      }
-
-      .theme-toggle,
       .search-trigger {
-        height: 32px;
-        background: transparent;
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        color: var(--color-text-inverse);
-        padding: 0 8px;
-        display: flex;
+        display: inline-flex;
         align-items: center;
-        justify-content: center;
-      }
+        gap: 0.4rem;
+        /* Negatieve marge: de tekst blijft uitgelijnd, de hovertint krijgt ruimte */
+        margin: -0.25rem -0.5rem;
+        padding: 0.25rem 0.5rem;
+        background: none;
+        border: none;
+        font: inherit;
+        color: var(--color-text-inverse);
 
-      .theme-toggle {
-        width: 32px;
-        padding: 0;
+        svg {
+          width: 1.25rem;
+          height: 1.25rem;
+        }
 
         &:hover {
-          background-color: rgba(255, 255, 255, 0.1);
-          border-color: rgba(255, 255, 255, 0.5);
+          background-color: color-mix(in oklch, var(--color-text-inverse) 10%, transparent);
         }
 
         &:focus-visible {
           outline: 2px solid var(--color-text-inverse);
           outline-offset: 2px;
-        }
-
-        .sun { display: none; }
-        .moon { display: block; }
-      }
-
-      .search-trigger {
-        &:hover {
-          background-color: rgba(255, 255, 255, 0.1);
-          border-color: rgba(255, 255, 255, 0.5);
-        }
-
-        &:focus-visible {
-          outline: 2px solid var(--color-text-inverse);
-          outline-offset: 2px;
-        }
-
-        .search-shortcut {
-          background-color: transparent;
-          border-color: rgba(255, 255, 255, 0.4);
-        }
-      }
-    }
-
-    :root[data-scheme="dark"] & {
-      .theme-toggle,
-      .mobile-theme {
-        .sun { display: block; }
-        .moon { display: none; }
-      }
-    }
-
-    @media (prefers-color-scheme: dark) {
-      :root:not([data-scheme="light"]) & {
-        .theme-toggle,
-        .mobile-theme {
-          .sun { display: block; }
-          .moon { display: none; }
         }
       }
     }
 
     .mobile-search,
-    .mobile-theme,
     .toggle {
       display: flex;
       align-items: center;
@@ -240,7 +198,7 @@ header {
       align-self: flex-start;
 
       &:hover {
-        background-color: rgba(255, 255, 255, 0.1);
+        background-color: color-mix(in oklch, var(--color-text-inverse) 10%, transparent);
       }
 
       &:focus-visible {
@@ -255,13 +213,6 @@ header {
 
     .mobile-search {
       margin-left: auto;
-    }
-
-    .mobile-theme {
-      margin-left: 0.5rem;
-
-      .sun { display: none; }
-      .moon { display: block; }
     }
 
     .toggle {
@@ -303,8 +254,8 @@ header {
           left: 0;
           right: 0;
           height: 1px;
-          background-color: rgba(255, 255, 255, 0.2);
-          box-shadow: -100vw 0 0 rgba(255, 255, 255, 0.2), 100vw 0 0 rgba(255, 255, 255, 0.2);
+          background-color: color-mix(in oklch, var(--color-text-inverse) 20%, transparent);
+          box-shadow: -100vw 0 0 color-mix(in oklch, var(--color-text-inverse) 20%, transparent), 100vw 0 0 color-mix(in oklch, var(--color-text-inverse) 20%, transparent);
         }
       }
 
@@ -315,8 +266,8 @@ header {
         left: 0;
         right: 0;
         height: 1px;
-        background-color: rgba(255, 255, 255, 0.2);
-        box-shadow: -100vw 0 0 rgba(255, 255, 255, 0.2), 100vw 0 0 rgba(255, 255, 255, 0.2);
+        background-color: color-mix(in oklch, var(--color-text-inverse) 20%, transparent);
+        box-shadow: -100vw 0 0 color-mix(in oklch, var(--color-text-inverse) 20%, transparent), 100vw 0 0 color-mix(in oklch, var(--color-text-inverse) 20%, transparent);
       }
 
       li:last-child a::after {

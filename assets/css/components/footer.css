@@ -5,7 +5,7 @@ body > footer {
   width: 100%;
   max-width: var(--content-max-width);
   margin: 0 auto;
-  padding: 2rem 1rem 1.5rem;
+  padding: 2rem 1rem 1rem;
   background-color: var(--color-rijks-blauw);
   box-shadow: 0 0 0 100vmax var(--color-rijks-blauw);
   clip-path: inset(0 -100vmax);
@@ -118,6 +118,101 @@ body > footer {
       border-right: 2px solid var(--color-text-inverse);
       border-bottom: 2px solid var(--color-text-inverse);
       transform: rotate(-45deg);
+    }
+  }
+
+  .footer-settings {
+    flex-basis: 100%;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid color-mix(in oklch, var(--color-text-inverse) 30%, transparent);
+    font-size: 1rem;
+
+    .theme-menu {
+      position: relative;
+
+      > button {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.25rem 0.5rem;
+        font: inherit;
+        color: var(--color-text-inverse);
+        background: transparent;
+        border: 1px solid color-mix(in oklch, var(--color-text-inverse) 50%, transparent);
+        border-radius: 0.25rem;
+
+        &:hover {
+          background-color: color-mix(in oklch, var(--color-text-inverse) 10%, transparent);
+        }
+
+        &:focus-visible {
+          outline: 2px solid var(--color-text-inverse);
+          outline-offset: 2px;
+        }
+
+        /* Het menu klapt naar boven open, dus de pijl staat dicht omhoog */
+        .icon-expand {
+          transform: rotate(180deg);
+        }
+
+        &[aria-expanded="true"] .icon-expand {
+          transform: none;
+        }
+      }
+
+      ul {
+        position: absolute;
+        bottom: calc(100% + 0.25rem);
+        left: 0;
+        min-width: 10rem;
+        margin: 0;
+        padding: 0.25rem 0;
+        list-style: none;
+        font-size: 1rem;
+        color: var(--color-text);
+        background-color: var(--color-bg-page);
+        border: 1px solid var(--color-border);
+        border-radius: 0.25rem;
+        box-shadow: var(--shadow-card);
+      }
+
+      li {
+        margin: 0;
+      }
+
+      [role="menuitemradio"] {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        width: 100%;
+        padding: 0.4rem 0.75rem 0.4rem 0.5rem;
+        font: inherit;
+        color: inherit;
+        text-align: left;
+        background: none;
+        border: none;
+
+        /* Vaste ruimte voor het vinkje, zodat de labels uitlijnen */
+        &::before {
+          content: "";
+          width: 1em;
+          height: 0.5em;
+          flex-shrink: 0;
+        }
+
+        &[aria-checked="true"]::before {
+          border-left: 2px solid currentColor;
+          border-bottom: 2px solid currentColor;
+          transform: translateY(-0.15em) rotate(-45deg);
+        }
+
+        &:hover,
+        &:focus-visible {
+          background-color: var(--color-bg-muted);
+          outline: none;
+        }
+      }
     }
   }
 

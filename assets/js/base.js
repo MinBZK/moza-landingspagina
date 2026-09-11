@@ -1,19 +1,55 @@
-// Theme toggle
-const toggle = document.getElementById('theme-toggle');
-if (toggle) {
-  toggle.addEventListener('click', () => {
-    const currentTheme = document.documentElement.getAttribute('data-scheme');
-    let targetTheme = 'light';
+// Weergave-menu in de footer
+const themeButton = document.getElementById('theme-button');
+const themeOptions = document.getElementById('theme-options');
+if (themeButton && themeOptions) {
+  const items = themeOptions.querySelectorAll('[role="menuitemradio"]');
 
-    if (!currentTheme) {
-      targetTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'light' : 'dark';
-    } else {
-      targetTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    }
+  function markTheme() {
+    const current = document.documentElement.getAttribute('data-scheme') || 'system';
+    items.forEach(item => item.setAttribute('aria-checked', String(item.dataset.theme === current)));
+  }
 
-    document.documentElement.setAttribute('data-scheme', targetTheme);
-    localStorage.setItem('theme', targetTheme);
+  function openThemeMenu(open) {
+    themeButton.setAttribute('aria-expanded', String(open));
+    themeOptions.hidden = !open;
+  }
+
+  themeButton.addEventListener('click', () => {
+    const open = themeButton.getAttribute('aria-expanded') !== 'true';
+    openThemeMenu(open);
+    if (open) items[0].focus();
   });
+
+  items.forEach(item => {
+    item.addEventListener('click', () => {
+      const theme = item.dataset.theme;
+      if (theme === 'system') {
+        document.documentElement.removeAttribute('data-scheme');
+        localStorage.removeItem('theme');
+      } else {
+        document.documentElement.setAttribute('data-scheme', theme);
+        localStorage.setItem('theme', theme);
+      }
+      markTheme();
+      openThemeMenu(false);
+      themeButton.focus();
+    });
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && themeButton.getAttribute('aria-expanded') === 'true') {
+      openThemeMenu(false);
+      themeButton.focus();
+    }
+  });
+
+  document.addEventListener('click', (event) => {
+    if (!themeButton.contains(event.target) && !themeOptions.contains(event.target)) {
+      openThemeMenu(false);
+    }
+  });
+
+  markTheme();
 }
 
 // Subnav panel toggles
@@ -67,14 +103,6 @@ document.querySelectorAll('.navbar .toggle').forEach(btn => {
     this.setAttribute('aria-label', !expanded ? 'Menu sluiten' : 'Menu openen');
   });
 });
-
-// Mobile theme toggle (sync with main toggle)
-const mobileThemeToggle = document.querySelector('.mobile-theme');
-if (mobileThemeToggle && toggle) {
-  mobileThemeToggle.addEventListener('click', () => {
-    toggle.click();
-  });
-}
 
 // Sluit mobiel menu bij resize naar desktop
 const desktopBreakpoint = 900;
