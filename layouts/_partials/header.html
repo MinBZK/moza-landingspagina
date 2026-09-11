@@ -42,27 +42,15 @@
 
     <ul class="navbar-right">
       <li>
-        <button class="search-trigger" aria-label="Zoeken" aria-haspopup="dialog">
+        <button class="search-trigger" aria-haspopup="dialog">
           {{- partial "icon.html" "search" -}}
-          <span class="search-trigger-text">Zoeken...</span>
-          <kbd class="search-shortcut">/</kbd>
-        </button>
-      </li>
-      <li>
-        <button id="theme-toggle" class="theme-toggle" aria-label="Wissel thema">
-          {{- partial "icon.html" "sun" -}}
-          {{- partial "icon.html" "moon" -}}
+          <span>Zoeken</span>
         </button>
       </li>
     </ul>
 
     <button class="search-trigger mobile-search" aria-label="Zoeken" aria-haspopup="dialog">
       {{- partial "icon.html" "search" -}}
-    </button>
-
-    <button class="theme-toggle mobile-theme" aria-label="Wissel thema">
-      {{- partial "icon.html" "sun" -}}
-      {{- partial "icon.html" "moon" -}}
     </button>
 
     <button
