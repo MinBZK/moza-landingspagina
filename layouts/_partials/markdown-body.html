@@ -1,10 +1,54 @@
 {{- /*
   Schoont RawContent op en herschrijft interne links naar hun .md-variant.
   Aanroepen met de oorsprongpagina als context (niet met een string): .GetPage
-  resolvet relatieve paden t.o.v. die pagina.
+  resolvet relatieve paden t.o.v. die pagina. Wie de tabellen ongemoeid wil
+  laten, roept aan met (dict "page" . "tabellen" true).
 */ -}}
 {{- $p := . -}}
-{{- $content := .RawContent -}}
+{{- $tabellen := false -}}
+{{- if reflect.IsMap . -}}
+  {{- $p = .page -}}
+  {{- $tabellen = .tabellen -}}
+{{- end -}}
+{{- $content := $p.RawContent -}}
+
+{{- /* GFM kent geen tabel zonder koprij. In de gepubliceerde .md wordt
+       table-without-header daarom een lijst; pandoc krijgt een lege koprij,
+       want zonder koprij ziet die geen tabel. Aan die lege koprij herkent
+       scripts/downloads/render-downloads.js de tabel weer. Moet vóór het
+       strippen van de shortcodetags. */ -}}
+{{- range findRE `\{\{<\s*table-without-header\s*>\}\}[\s\S]*?\{\{<\s*/\s*table-without-header\s*>\}\}` $content -}}
+  {{- $rijen := slice -}}
+  {{- $koprij := "" -}}
+  {{- range split . "\n" -}}
+    {{- $regel := trim . " " -}}
+    {{- if hasPrefix $regel "|" -}}
+      {{- if findRE `^\|[\s:|-]+\|$` $regel -}}
+        {{- $koprij = index (last 1 $rijen) 0 -}}
+      {{- else -}}
+        {{- $rijen = $rijen | append $regel -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+  {{- if $koprij }}{{ $rijen = after 1 $rijen }}{{ end -}}
+  {{- $regels := slice -}}
+  {{- if $tabellen -}}
+    {{- $leeg := slice -}}
+    {{- $streep := slice -}}
+    {{- range seq (len (split (trim (index $rijen 0) "|") "|")) -}}
+      {{- $leeg = $leeg | append " " -}}
+      {{- $streep = $streep | append " --- " -}}
+    {{- end -}}
+    {{- $regels = $regels | append (printf "|%s|" (delimit $leeg "|")) (printf "|%s|" (delimit $streep "|")) -}}
+    {{- range $rijen }}{{ $regels = $regels | append . }}{{ end -}}
+  {{- else -}}
+    {{- range $rijen -}}
+      {{- $cellen := apply (split (trim . "|") "|") "trim" "." " " -}}
+      {{- $regels = $regels | append (printf "- **%s:** %s" (index $cellen 0) (delimit (after 1 $cellen) ", ")) -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $content = replace $content . (delimit $regels "\n") -}}
+{{- end -}}
 
 {{- $content = replaceRE `\{\{<[^>]+>\}\}` "" $content -}}
 {{- $content = replaceRE `\{\{%[^%]+%\}\}` "" $content -}}

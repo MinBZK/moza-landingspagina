@@ -137,6 +137,13 @@ outputFormats:
     mediaType: text/markdown
     isPlainText: true
     notAlternative: true
+  # Bron voor de .odt-downloads: gelijk aan markdown, maar met de tabellen die
+  # pandoc nodig heeft. Zie layouts/_partials/markdown-body.html.
+  pandoc:
+    baseName: index.pandoc
+    mediaType: text/markdown
+    isPlainText: true
+    notAlternative: true
   download:
     baseName: download
     mediaType: application/json

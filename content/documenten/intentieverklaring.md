@@ -5,6 +5,10 @@ description: "De intentieverklaring waarmee overheidsorganisaties zich verbinden
 date: 2026-05-21
 toc: false
 download: true
+outputs:
+  - HTML
+  - markdown
+  - pandoc
 ---
 
 > [!NOTE]

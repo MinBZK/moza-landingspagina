@@ -9,6 +9,10 @@ outputs:
   - llmsrecent
 cascade:
   download: true
+  outputs:
+    - HTML
+    - markdown
+    - pandoc
 ---
 
 Wil je updates ontvangen? Gebruik de [RSS feed](index.xml).
