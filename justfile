@@ -9,42 +9,47 @@ default:
 setup:
     npm install
 
+# Stop met een duidelijke melding als de Node-dependencies ontbreken
+[private]
+node-deps:
+    @test -d node_modules || { echo "node_modules ontbreekt: draai eerst 'just setup'." >&2; exit 1; }
+
 # Voer tests uit
-test:
+test: node-deps
     npm test
 
 # Render Mermaid-diagrammen als SVG
-render-mermaid:
+render-mermaid: node-deps
     npm run render-mermaid
 
 # Start development server
-up:
+up: node-deps
     npm run render-mermaid
     hugo server
 
 # Preview mét de .odt- en .pdf-downloads (statisch, dus zonder live herladen)
-up-downloads:
+up-downloads: node-deps
     npm run render-mermaid
     rm -rf tmp/preview && hugo --minify --quiet --baseURL / --destination tmp/preview
     npm run render-downloads -- tmp/preview
     python3 -m http.server 1313 --directory tmp/preview
 
 # Watch mermaid-bestanden en herrender bij wijzigingen (apart terminal)
-watch-mermaid:
+watch-mermaid: node-deps
     npm run render-mermaid -- --watch
 
 # Bouw de site
-build:
+build: node-deps
     npm run render-mermaid
     rm -rf public && hugo --minify --gc --logLevel warn
     npm run render-downloads
 
 # Genereer alleen de downloadbestanden (.odt en .pdf), vereist een bestaande build
-render-downloads:
+render-downloads: node-deps
     npm run render-downloads
 
 # Controleer of het toegankelijkheidslabel bij de bron is gewijzigd
-check-label:
+check-label: node-deps
     npm run check-label
 
 # Draai alle controles op één build, oplopend in kosten
@@ -78,7 +83,7 @@ pdfua: build-check
 
 # Bouw de site naar tmp/public, waarop links, a11y en csp draaien
 [private]
-build-check:
+build-check: node-deps
     npm run render-mermaid
     rm -rf tmp/public && hugo --minify --quiet --baseURL / --destination tmp/public
 
