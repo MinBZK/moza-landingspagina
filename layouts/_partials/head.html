@@ -56,6 +56,7 @@
 <link rel="preload" href="{{ relURL "fonts/RO-SerifWeb-Italic.woff2" }}" as="font" type="font/woff2" crossorigin />
 
 {{/* CSS bundling via Hugo's asset pipeline */}}
+{{ $primitives := resources.Get "css/nldd-primitives.css" }}
 {{ $tokens := resources.Get "css/tokens.css" }}
 {{ $fonts := resources.Get "css/fonts.css" }}
 {{ $base := resources.Get "css/base.css" }}
@@ -81,7 +82,7 @@
 {{ $table := resources.Get "css/components/table.css" }}
 {{ $code := resources.Get "css/components/code.css" }}
 {{ $print := resources.Get "css/components/print.css" }}
-{{ $css := slice $tokens $fonts $base $layout $header $hero $cardGrid $box $button $blockquote $figure $list $footer $toast $search $mermaid $diagram $pageNav $actueel $pageAside $leadImage $tag $table $code $print | resources.Concat "css/style.css" | resources.ExecuteAsTemplate "css/style.css" . | fingerprint "md5" }}
+{{ $css := slice $primitives $tokens $fonts $base $layout $header $hero $cardGrid $box $button $blockquote $figure $list $footer $toast $search $mermaid $diagram $pageNav $actueel $pageAside $leadImage $tag $table $code $print | resources.Concat "css/style.css" | resources.ExecuteAsTemplate "css/style.css" . | fingerprint "md5" }}
 <link rel="stylesheet" href="{{ $css.RelPermalink }}" />
 
 {{- $themeInit := resources.Get "js/theme-init.js" | fingerprint "md5" -}}

@@ -2,7 +2,7 @@ import { describe, it, after } from "node:test";
 import assert from "node:assert/strict";
 import { writeFileSync, mkdirSync, rmSync } from "node:fs";
 import { join } from "node:path";
-import { slugify, extractMermaidBlocks, contentSubdir, parseTokens, buildThemes, resolveDiagramTokens, postProcessSVG, computeHash, TOKENS_HASH } from "./render-mermaid.js";
+import { slugify, extractMermaidBlocks, contentSubdir, parseTokens, resolveToken, oklchToHex, buildThemes, resolveDiagramTokens, postProcessSVG, computeHash, TOKENS_HASH } from "./render-mermaid.js";
 
 const ROOT = join(import.meta.dirname, "..");
 
@@ -228,21 +228,46 @@ describe("buildThemes", () => {
 
 // ── resolveDiagramTokens ────────────────────────────────────────────────────
 
-describe("resolveDiagramTokens", () => {
-  const code = "classDef bron stroke:var(--color-primary),color:var(--color-text);";
+describe("resolveToken", () => {
+  const vars = {
+    "--basis": "light-dark(oklch(0.201 0.042 257.4), oklch(0.947 0.007 257.4))",
+    "--alias": "var(--basis)",
+    "--gemengd": "light-dark(#ffffff, var(--basis))",
+    "--lus": "var(--lus)",
+  };
 
-  it("vervangt tokens door de light-waarde", () => {
-    assert.equal(
-      resolveDiagramTokens(code, "light"),
-      "classDef bron stroke:#154273,color:#0f172a;",
-    );
+  it("kiest de light- of dark-tak van light-dark() met geneste haakjes", () => {
+    assert.equal(resolveToken(vars, "--basis", "light"), "#091629");
+    assert.equal(resolveToken(vars, "--basis", "dark"), "#ebeef2");
   });
 
-  it("vervangt tokens door de dark-waarde", () => {
-    assert.equal(
-      resolveDiagramTokens(code, "dark"),
-      "classDef bron stroke:#80d5fc,color:#e2e8f0;",
-    );
+  it("volgt var()-verwijzingen recursief", () => {
+    assert.equal(resolveToken(vars, "--alias", "dark"), "#ebeef2");
+    assert.equal(resolveToken(vars, "--gemengd", "light"), "#ffffff");
+    assert.equal(resolveToken(vars, "--gemengd", "dark"), "#ebeef2");
+  });
+
+  it("breekt af bij een kringverwijzing", () => {
+    assert.equal(resolveToken(vars, "--lus", "light"), "var(--lus)");
+  });
+
+  it("oklch naar hex: wit, zwart en een blauw", () => {
+    assert.equal(oklchToHex(1, 0, 0), "#ffffff");
+    assert.equal(oklchToHex(0, 0, 0), "#000000");
+    assert.equal(oklchToHex(0.562, 0.097, 253.4), "#4a78ad");
+  });
+});
+
+describe("resolveDiagramTokens", () => {
+  const code = "classDef bron stroke:var(--color-primary),color:var(--color-text);";
+  const hexRe = /^classDef bron stroke:#[0-9a-f]{6},color:#[0-9a-f]{6};$/;
+
+  it("vervangt tokens door hex-kleuren per variant", () => {
+    const light = resolveDiagramTokens(code, "light");
+    const dark = resolveDiagramTokens(code, "dark");
+    assert.match(light, hexRe);
+    assert.match(dark, hexRe);
+    assert.notEqual(light, dark, "light en dark moeten verschillen");
   });
 
   it("token zonder light-dark krijgt in beide varianten dezelfde waarde", () => {
