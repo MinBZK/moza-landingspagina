@@ -54,6 +54,7 @@
   <aside>
     <h2><a href="{{ relURL "documenten/" }}">Documenten</a></h2>
     {{ $documenten := where .Site.RegularPages "Section" "documenten" }}
+    {{ $documenten = where $documenten "Params.hide_on_actueel" "!=" true }}
     {{ $documenten = sort $documenten ".Date" "desc" }}
     <ul class="list">
       {{ range $documenten }}
