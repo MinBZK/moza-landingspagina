@@ -186,7 +186,8 @@ De site is dan beschikbaar op [http://localhost:8080/](http://localhost:8080/).
 
 ## Credits
 
-- Kleuren: [NLDD Design System](https://github.com/MinBZK/storybook) (EUPL-1.2 licentie)
+- Kleuren en font: [NLDD Design System](https://github.com/MinBZK/storybook) (EUPL-1.2 licentie)
+- Font: RijksSans is auteursrechtelijk beschermd door de Staat der Nederlanden en valt niet onder de licentie van deze repository. Het is uitsluitend bestemd voor publicaties van de Rijksoverheid of voor werk in opdracht van de Rijksoverheid; zie de [gebruiksvoorwaarden typografie](https://www.rijkshuisstijl.nl/basiselementen/typografie/gebruiksvoorwaarden-typografie). RijksSans komt uit het NLDD-pakket, zie daar [NOTICES.md](https://github.com/MinBZK/storybook/blob/main/NOTICES.md).
 - Diagrammen: [Mermaid](https://mermaid.js.org/) (MIT licentie)
 - Iconen: [Tabler Icons](https://tabler.io/icons) (MIT licentie)
 - Zoeken: [Fuse.js](https://www.fusejs.io/) (Apache 2.0 licentie)

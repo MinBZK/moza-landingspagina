@@ -1,49 +1,16 @@
+/* RijksSans: variabel font (gewicht 200-800) uit @nldd/design-system */
 @font-face {
-  font-family: "RO-Sans";
-  src:
-    url("{{ relURL "fonts/RO-SansWebText-Regular.woff2" }}") format("woff2"),
-    url("{{ relURL "fonts/RO-SansWebText-Regular.woff" }}") format("woff");
-  font-weight: 400;
+  font-family: "RijksSans";
+  src: url("{{ relURL "fonts/RijksSansWeb-Regular.woff2" }}") format("woff2-variations");
+  font-weight: 200 800;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "RO-Sans";
-  src:
-    url("{{ relURL "fonts/RO-SansWebText-Bold.woff2" }}") format("woff2"),
-    url("{{ relURL "fonts/RO-SansWebText-Bold.woff" }}") format("woff");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "RO-Sans";
-  src:
-    url("{{ relURL "fonts/RO-SansWebText-Italic.woff2" }}") format("woff2"),
-    url("{{ relURL "fonts/RO-SansWebText-Italic.woff" }}") format("woff");
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "RO-Serif";
-  src:
-    url("{{ relURL "fonts/RO-SerifWeb-Regular.woff2" }}") format("woff2"),
-    url("{{ relURL "fonts/RO-SerifWeb-Regular.woff" }}") format("woff");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "RO-Serif";
-  src:
-    url("{{ relURL "fonts/RO-SerifWeb-Italic.woff2" }}") format("woff2"),
-    url("{{ relURL "fonts/RO-SerifWeb-Italic.woff" }}") format("woff");
-  font-weight: 400;
+  font-family: "RijksSans";
+  src: url("{{ relURL "fonts/RijksSansWeb-Italic.woff2" }}") format("woff2-variations");
+  font-weight: 200 800;
   font-style: italic;
   font-display: swap;
 }
