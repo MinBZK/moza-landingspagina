@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ .Title }} | {{ .Site.Title }}</title>
+  <title>{{ .Title }} · {{ .Site.Title }}</title>
   {{/* Reveal.js CSS bundelen */}}
   {{ $revealCore := resources.Get "vendor/reveal/reveal.css" }}
   {{ $revealTheme := resources.Get "vendor/reveal/white.css" }}
