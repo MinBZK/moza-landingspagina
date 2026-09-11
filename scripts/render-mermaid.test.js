@@ -300,7 +300,7 @@ describe("postProcessSVG", () => {
   it("embed fonts in bestaande style tag", () => {
     const input = '<svg viewBox="0 0 100 100"><style>.cls{}</style></svg>';
     const result = postProcessSVG(Buffer.from(input));
-    assert.ok(result.includes("RO-Sans"));
+    assert.ok(result.includes("RijksSans"));
     assert.ok(result.includes("@font-face"));
   });
 
@@ -308,7 +308,7 @@ describe("postProcessSVG", () => {
     const input = '<svg viewBox="0 0 100 100"><rect/></svg>';
     const result = postProcessSVG(Buffer.from(input));
     assert.ok(result.includes("<style>"));
-    assert.ok(result.includes("RO-Sans"));
+    assert.ok(result.includes("RijksSans"));
   });
 
   it("vervangt inline style met rect voor achtergrondkleur", () => {

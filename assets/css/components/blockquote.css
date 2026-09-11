@@ -97,7 +97,7 @@ blockquote.callout {
   padding: 0;
   background: none;
   border-radius: 0;
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-size: clamp(1.4rem, 1.1rem + 1.2vw, 2rem);
   line-height: 1.35;
   font-style: italic;

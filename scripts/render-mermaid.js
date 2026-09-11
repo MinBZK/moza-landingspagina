@@ -163,9 +163,9 @@ function resolveDiagramTokens(code, variant) {
 
 // ── Font embedding ───────────────────────────────────────────────────────────
 
+// Variabel font: één bestand dekt alle gewichten
 const FONT_FILES = [
-  { file: "RO-SansWebText-Regular.woff2", weight: "400" },
-  { file: "RO-SansWebText-Bold.woff2", weight: "700" },
+  { file: "RijksSansWeb-Regular.woff2", weight: "200 800" },
 ];
 
 let fontCSS;
@@ -174,7 +174,7 @@ function getFontCSS() {
   fontCSS = FONT_FILES.map(({ file, weight }) => {
     const buf = readFileSync(join(FONTS_DIR, file));
     const b64 = buf.toString("base64");
-    return `@font-face{font-family:"RO-Sans";src:url("data:font/woff2;base64,${b64}") format("woff2");font-weight:${weight};font-style:normal}`;
+    return `@font-face{font-family:"RijksSans";src:url("data:font/woff2;base64,${b64}") format("woff2-variations");font-weight:${weight};font-style:normal}`;
   }).join("\n");
   return fontCSS;
 }
@@ -264,7 +264,10 @@ function computeHash(code) {
 }
 
 // Token-hash zodat SVGs opnieuw worden gerenderd als kleuren wijzigen
-const TOKENS_HASH = computeHash(TOKEN_FILES.map((f) => readFileSync(f, "utf-8")).join("\n")).slice(0, 8);
+// Ook de fontnamen tellen mee, zodat een fontwissel de SVGs herrendert
+const TOKENS_HASH = computeHash(
+  TOKEN_FILES.map((f) => readFileSync(f, "utf-8")).join("\n") + FONT_FILES.map((f) => f.file).join(","),
+).slice(0, 8);
 
 function hashPath(svgPath) {
   return join(CACHE_DIR, relative(RENDER_DIR, svgPath) + ".hash");
@@ -387,7 +390,7 @@ function renderOptions(variant) {
       themeCSS: ".flowchartTitleText { font-weight: bold; font-size: 1.4em; }",
       themeVariables: {
         ...THEMES[variant],
-        fontFamily: '"RO-Sans", Calibri, sans-serif',
+        fontFamily: '"RijksSans", Calibri, sans-serif',
       },
     },
     iconPacks: ["@iconify-json/tabler"],

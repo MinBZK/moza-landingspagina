@@ -73,7 +73,7 @@ body > footer {
   }
 
   .tagline {
-    font-family: var(--font-serif);
+    font-family: var(--font-sans);
     font-size: 1.5rem;
     line-height: 1.2;
     font-style: italic;

@@ -26,7 +26,7 @@ Presentaties staan in `content/presentaties/` als HTML page bundles.
 
 Mermaid-diagrammen worden vooraf gerenderd als SVG (light + dark) door `scripts/render-mermaid.js` met Puppeteer. De render hook (`layouts/_markup/render-codeblock-mermaid.html`) toont de pre-gerenderde SVGs als `<img>`. Als de SVGs ontbreken, faalt de Hugo build.
 
-Kleuren komen uit `assets/css/tokens.css` (via `scripts/render-mermaid.js`). Fonts (RO-Sans) worden als base64 in de SVG ingebed.
+Kleuren komen uit `assets/css/tokens.css` (via `scripts/render-mermaid.js`). Het font (RijksSans) wordt als base64 in de SVG ingebed.
 
 Elk mermaid-blok heeft een `accTitle` nodig voor de bestandsnaam en toegankelijkheid.
 

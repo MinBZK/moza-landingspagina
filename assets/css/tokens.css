@@ -41,8 +41,7 @@
   --color-highlight-text: inherit;
 
   /* Typography */
-  --font-sans: "RO-Sans", "Fira Sans", Arial, sans-serif;
-  --font-serif: "RO-Serif", "Times New Roman", serif;
+  --font-sans: "RijksSans", "Fira Sans", Arial, sans-serif;
 
   /* Font size */
   --text-base: 1rem;
