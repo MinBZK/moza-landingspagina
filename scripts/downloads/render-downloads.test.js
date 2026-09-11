@@ -31,7 +31,7 @@ test(
           "<body><main><article><h1>Testdocument</h1><p>Hallo wereld.</p></article></main></body></html>"
       );
       writeFileSync(
-        join(pageDir, "index.md"),
+        join(pageDir, "index.pandoc.md"),
         "---\ntitle: Testdocument\n---\n\n# Testdocument\n\nHallo wereld.\n"
       );
       writeFileSync(

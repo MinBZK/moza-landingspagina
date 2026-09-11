@@ -5,7 +5,7 @@
  *
  * Draait NA de Hugo-build op de outputmap (standaard `public`). Leest het
  * manifest `downloads.json` (door Hugo gegenereerd) en maakt per pagina:
- *   - <naam>.odt  via pandoc, uit de door Hugo gegenereerde index.md
+ *   - <naam>.odt  via pandoc, uit de door Hugo gegenereerde index.pandoc.md
  *   - <naam>.pdf  via Puppeteer, door de gebouwde HTML-pagina af te drukken
  *
  * De PDF gebruikt de echte sitestijl: een tijdelijke webserver serveert de
@@ -54,7 +54,7 @@ function checkPandoc() {
 }
 
 // Documenttitel (H1) + bron-URL en beschrijving uit de front matter van de
-// gegenereerde index.md — voor onzichtbare documenteigenschappen in ODF en PDF.
+// gegenereerde markdown - voor onzichtbare documenteigenschappen in ODF en PDF.
 function parseDocMeta(mdFile) {
   const raw = readFileSync(mdFile, "utf-8");
   const fmMatch = raw.match(/^---\n([\s\S]*?)\n---/);
@@ -121,17 +121,20 @@ function styleOdtTables(odtOut) {
   let xml = execFileSync("unzip", ["-p", odtOut, "content.xml"]).toString("utf-8");
   let changed = false;
 
+  // Pandoc centreert elke tabel; links uitlijnen leest rustiger.
+  const gecentreerd = xml.replace(/(<style:table-properties[^>]*?)table:align="center"/g, '$1table:align="left"');
+  if (gecentreerd !== xml) changed = true;
+  xml = gecentreerd;
+
   // Een sleutel-waardetabel heeft geen koprij nodig: de eerste kolom is de kop.
-  // Markdown kan dat niet uitdrukken, dus staat er in de bron een koprij die
-  // hier weer wordt omgezet naar een kopkolom. Het label komt uit de shortcode
-  // layouts/_shortcodes/table-without-header.html.
+  // De uitvoer voor pandoc geeft zo'n tabel een lege koprij, waarop pandoc geen
+  // table:table-header-rows schrijft. Dat is hier het kenmerk; zie
+  // layouts/_partials/markdown-body.html.
   const zonderKoprij = xml.replace(
     /<table:table\b[\s\S]*?<\/table:table>/g,
     (tabel) => {
-      const koprij = tabel.match(/<table:table-header-rows>[\s\S]*?<\/table:table-header-rows>/);
-      if (!koprij || !/>Onderdeel</.test(koprij[0]) || !/>Waarde</.test(koprij[0])) return tabel;
+      if (/<table:table-header-rows>/.test(tabel)) return tabel;
       return tabel
-        .replace(koprij[0], "")
         .replace(
           /<table:table-column\b[^>]*\/>/,
           (kolom) => `<table:table-header-columns>${kolom}</table:table-header-columns>`
@@ -285,9 +288,9 @@ async function main() {
     const page = await browser.newPage();
     for (const { relPermalink, name } of entries) {
       const pageDir = join(OUTPUT_DIR, relPermalink);
-      const mdFile = join(pageDir, "index.md");
+      const mdFile = join(pageDir, "index.pandoc.md");
       if (!existsSync(mdFile)) {
-        console.warn(`  ⚠ ${relPermalink}: index.md ontbreekt, overgeslagen`);
+        console.warn(`  ⚠ ${relPermalink}: index.pandoc.md ontbreekt, overgeslagen`);
         continue;
       }
       const odtOut = join(pageDir, `${name}.odt`);
