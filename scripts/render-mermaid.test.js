@@ -2,7 +2,7 @@ import { describe, it, after } from "node:test";
 import assert from "node:assert/strict";
 import { writeFileSync, mkdirSync, rmSync } from "node:fs";
 import { join } from "node:path";
-import { slugify, extractMermaidBlocks, contentSubdir, parseTokens, buildThemes, postProcessSVG, computeHash, TOKENS_HASH } from "./render-mermaid.js";
+import { slugify, extractMermaidBlocks, contentSubdir, parseTokens, buildThemes, resolveDiagramTokens, postProcessSVG, computeHash, TOKENS_HASH } from "./render-mermaid.js";
 
 const ROOT = join(import.meta.dirname, "..");
 
@@ -223,6 +223,42 @@ describe("buildThemes", () => {
   it("TOKENS_HASH is 8 tekens hex", () => {
     assert.equal(TOKENS_HASH.length, 8);
     assert.match(TOKENS_HASH, /^[a-f0-9]{8}$/);
+  });
+});
+
+// ── resolveDiagramTokens ────────────────────────────────────────────────────
+
+describe("resolveDiagramTokens", () => {
+  const code = "classDef bron stroke:var(--color-primary),color:var(--color-text);";
+
+  it("vervangt tokens door de light-waarde", () => {
+    assert.equal(
+      resolveDiagramTokens(code, "light"),
+      "classDef bron stroke:#154273,color:#0f172a;",
+    );
+  });
+
+  it("vervangt tokens door de dark-waarde", () => {
+    assert.equal(
+      resolveDiagramTokens(code, "dark"),
+      "classDef bron stroke:#80d5fc,color:#e2e8f0;",
+    );
+  });
+
+  it("token zonder light-dark krijgt in beide varianten dezelfde waarde", () => {
+    const oranje = "classDef x stroke:var(--color-rijks-oranje);";
+    assert.equal(resolveDiagramTokens(oranje, "light"), "classDef x stroke:#e17000;");
+    assert.equal(resolveDiagramTokens(oranje, "dark"), "classDef x stroke:#e17000;");
+  });
+
+  it("onbekend token blijft ongewijzigd", () => {
+    const onbekend = "classDef x stroke:var(--bestaat-niet);";
+    assert.equal(resolveDiagramTokens(onbekend, "light"), onbekend);
+  });
+
+  it("code zonder tokens blijft ongewijzigd", () => {
+    const plain = "graph LR\n  A --> B";
+    assert.equal(resolveDiagramTokens(plain, "dark"), plain);
   });
 });
 
