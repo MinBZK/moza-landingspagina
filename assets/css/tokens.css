@@ -36,9 +36,9 @@
   /* Border kleur */
   --color-border: light-dark(var(--primitives-color-neutral-75), var(--primitives-color-neutral-200));
 
-  /* Highlight kleur voor zoekresultaten */
-  --color-highlight: var(--color-bg-info);
-  --color-highlight-text: inherit;
+  /* Markering van de zoekterm, NLDD's mark-semantiek (donkergeel) */
+  --color-highlight: light-dark(var(--primitives-color-mark-100), var(--primitives-color-mark-200));
+  --color-highlight-text: light-dark(var(--primitives-color-mark-900), var(--primitives-color-mark-800));
 
   /* Typography */
   --font-sans: "RijksSans", "Fira Sans", Arial, sans-serif;

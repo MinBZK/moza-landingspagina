@@ -8,6 +8,7 @@
   --primitives-color-reference-violet: #a90061;
   --primitives-color-reference-rood: #d52b1e;
   --primitives-color-reference-oranje: #e17000;
+  --primitives-color-reference-donkergeel: #ffb612;
   --primitives-color-reference-groen: #39870c;
 
   /* coolgray */
@@ -172,6 +173,33 @@
   --primitives-color-violet-975: light-dark(oklch(0.162 0.023 355.9), oklch(0.975 0.014 355.9));
   --primitives-color-violet-1000: light-dark(oklch(0.000 0.000 0.0), oklch(1.000 0.000 0.0));
 
+  /* donkergeel */
+  --primitives-color-donkergeel-0: light-dark(oklch(1.000 0.000 0.0), oklch(0.000 0.000 0.0));
+  --primitives-color-donkergeel-25: light-dark(oklch(0.975 0.023 79.0), oklch(0.158 0.030 79.0));
+  --primitives-color-donkergeel-50: light-dark(oklch(0.949 0.046 79.0), oklch(0.203 0.050 79.0));
+  --primitives-color-donkergeel-75: light-dark(oklch(0.924 0.069 79.0), oklch(0.236 0.055 79.0));
+  --primitives-color-donkergeel-100: light-dark(oklch(0.900 0.091 79.0), oklch(0.263 0.059 79.0));
+  --primitives-color-donkergeel-150: light-dark(oklch(0.854 0.137 79.0), oklch(0.309 0.067 79.0));
+  --primitives-color-donkergeel-200: light-dark(oklch(0.810 0.169 79.0), oklch(0.350 0.075 79.0));
+  --primitives-color-donkergeel-250: light-dark(oklch(0.766 0.160 79.0), oklch(0.389 0.083 79.0));
+  --primitives-color-donkergeel-300: light-dark(oklch(0.724 0.151 79.0), oklch(0.424 0.090 79.0));
+  --primitives-color-donkergeel-350: light-dark(oklch(0.682 0.142 79.0), oklch(0.460 0.097 79.0));
+  --primitives-color-donkergeel-400: light-dark(oklch(0.644 0.134 79.0), oklch(0.496 0.104 79.0));
+  --primitives-color-donkergeel-450: light-dark(oklch(0.604 0.126 79.0), oklch(0.531 0.111 79.0));
+  --primitives-color-donkergeel-500: light-dark(oklch(0.567 0.119 79.0), oklch(0.567 0.119 79.0));
+  --primitives-color-donkergeel-550: light-dark(oklch(0.531 0.111 79.0), oklch(0.604 0.126 79.0));
+  --primitives-color-donkergeel-600: light-dark(oklch(0.496 0.104 79.0), oklch(0.644 0.134 79.0));
+  --primitives-color-donkergeel-650: light-dark(oklch(0.460 0.097 79.0), oklch(0.682 0.142 79.0));
+  --primitives-color-donkergeel-700: light-dark(oklch(0.424 0.090 79.0), oklch(0.724 0.151 79.0));
+  --primitives-color-donkergeel-750: light-dark(oklch(0.389 0.083 79.0), oklch(0.766 0.160 79.0));
+  --primitives-color-donkergeel-800: light-dark(oklch(0.350 0.075 79.0), oklch(0.810 0.169 79.0));
+  --primitives-color-donkergeel-850: light-dark(oklch(0.309 0.067 79.0), oklch(0.854 0.137 79.0));
+  --primitives-color-donkergeel-900: light-dark(oklch(0.263 0.059 79.0), oklch(0.900 0.091 79.0));
+  --primitives-color-donkergeel-925: light-dark(oklch(0.236 0.055 79.0), oklch(0.924 0.069 79.0));
+  --primitives-color-donkergeel-950: light-dark(oklch(0.203 0.050 79.0), oklch(0.949 0.046 79.0));
+  --primitives-color-donkergeel-975: light-dark(oklch(0.158 0.030 79.0), oklch(0.975 0.023 79.0));
+  --primitives-color-donkergeel-1000: light-dark(oklch(0.000 0.000 0.0), oklch(1.000 0.000 0.0));
+
   /* neutral: coolgray met chroma >= 0.042 onder lichtheid 0.56 */
   --primitives-color-neutral-0: light-dark(oklch(1.000 0.000 0.0), oklch(0.000 0.000 0.0));
   --primitives-color-neutral-25: light-dark(oklch(0.974 0.004 257.4), oklch(0.158 0.042 257.4));
@@ -300,4 +328,29 @@
   --primitives-color-critical-950: var(--primitives-color-rood-950);
   --primitives-color-critical-975: var(--primitives-color-rood-975);
   --primitives-color-critical-1000: var(--primitives-color-rood-1000);
+  --primitives-color-mark-0: var(--primitives-color-donkergeel-0);
+  --primitives-color-mark-25: var(--primitives-color-donkergeel-25);
+  --primitives-color-mark-50: var(--primitives-color-donkergeel-50);
+  --primitives-color-mark-75: var(--primitives-color-donkergeel-75);
+  --primitives-color-mark-100: var(--primitives-color-donkergeel-100);
+  --primitives-color-mark-150: var(--primitives-color-donkergeel-150);
+  --primitives-color-mark-200: var(--primitives-color-donkergeel-200);
+  --primitives-color-mark-250: var(--primitives-color-donkergeel-250);
+  --primitives-color-mark-300: var(--primitives-color-donkergeel-300);
+  --primitives-color-mark-350: var(--primitives-color-donkergeel-350);
+  --primitives-color-mark-400: var(--primitives-color-donkergeel-400);
+  --primitives-color-mark-450: var(--primitives-color-donkergeel-450);
+  --primitives-color-mark-500: var(--primitives-color-donkergeel-500);
+  --primitives-color-mark-550: var(--primitives-color-donkergeel-550);
+  --primitives-color-mark-600: var(--primitives-color-donkergeel-600);
+  --primitives-color-mark-650: var(--primitives-color-donkergeel-650);
+  --primitives-color-mark-700: var(--primitives-color-donkergeel-700);
+  --primitives-color-mark-750: var(--primitives-color-donkergeel-750);
+  --primitives-color-mark-800: var(--primitives-color-donkergeel-800);
+  --primitives-color-mark-850: var(--primitives-color-donkergeel-850);
+  --primitives-color-mark-900: var(--primitives-color-donkergeel-900);
+  --primitives-color-mark-925: var(--primitives-color-donkergeel-925);
+  --primitives-color-mark-950: var(--primitives-color-donkergeel-950);
+  --primitives-color-mark-975: var(--primitives-color-donkergeel-975);
+  --primitives-color-mark-1000: var(--primitives-color-donkergeel-1000);
 }

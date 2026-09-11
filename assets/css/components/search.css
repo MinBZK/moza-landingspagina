@@ -201,11 +201,6 @@
   background-color: var(--color-bg-info);
 }
 
-.search-result-item:hover mark,
-.search-result-item:focus-visible mark {
-  background-color: var(--color-bg-info);
-}
-
 /* Divider van vorig item meekleuren bij hover */
 .search-results li:has(+ li .search-result-item:hover) .search-result-item::after,
 .search-results li:has(+ li .search-result-item:focus-visible) .search-result-item::after {

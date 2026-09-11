@@ -22,10 +22,10 @@ const PALETTES = join(dirname(VARIABLES), "colors.generated.css");
 const OUTPUT = join(ROOT, "assets", "css", "nldd-primitives.css");
 
 // Schalen die één op één worden overgenomen
-const SCALES = ["coolgray", "lintblauw", "oranje", "groen", "rood", "violet"];
+const SCALES = ["coolgray", "lintblauw", "oranje", "groen", "rood", "violet", "donkergeel"];
 
 // Functionele aliassen, zelfde koppeling als in NLDD's variables.css
-const ALIASES = { accent: "lintblauw", success: "groen", warning: "oranje", critical: "rood" };
+const ALIASES = { accent: "lintblauw", success: "groen", warning: "oranje", critical: "rood", mark: "donkergeel" };
 
 // Neutral: coolgray met minimaal deze chroma zodra de lichtheid onder
 // de grens zit. Boven de grens blijft coolgray ongewijzigd, zodat
