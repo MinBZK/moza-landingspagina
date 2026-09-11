@@ -5,7 +5,10 @@
   /* exacte huisstijlkleuren, niet themagevoelig */
   --primitives-color-reference-coolgray: #64748b;
   --primitives-color-reference-lintblauw: #154273;
+  --primitives-color-reference-violet: #a90061;
+  --primitives-color-reference-rood: #d52b1e;
   --primitives-color-reference-oranje: #e17000;
+  --primitives-color-reference-groen: #39870c;
 
   /* coolgray */
   --primitives-color-coolgray-0: light-dark(oklch(1.000 0.000 0.0), oklch(0.000 0.000 0.0));
@@ -88,6 +91,87 @@
   --primitives-color-oranje-975: light-dark(oklch(0.158 0.019 52.9), oklch(0.975 0.015 52.9));
   --primitives-color-oranje-1000: light-dark(oklch(0.000 0.000 0.0), oklch(1.000 0.000 0.0));
 
+  /* groen */
+  --primitives-color-groen-0: light-dark(oklch(1.000 0.000 0.0), oklch(0.000 0.000 0.0));
+  --primitives-color-groen-25: light-dark(oklch(0.972 0.016 137.9), oklch(0.156 0.016 137.9));
+  --primitives-color-groen-50: light-dark(oklch(0.946 0.024 137.9), oklch(0.199 0.024 137.9));
+  --primitives-color-groen-75: light-dark(oklch(0.919 0.032 137.9), oklch(0.230 0.032 137.9));
+  --primitives-color-groen-100: light-dark(oklch(0.893 0.040 137.9), oklch(0.256 0.040 137.9));
+  --primitives-color-groen-150: light-dark(oklch(0.844 0.056 137.9), oklch(0.303 0.056 137.9));
+  --primitives-color-groen-200: light-dark(oklch(0.798 0.072 137.9), oklch(0.341 0.072 137.9));
+  --primitives-color-groen-250: light-dark(oklch(0.752 0.087 137.9), oklch(0.377 0.087 137.9));
+  --primitives-color-groen-300: light-dark(oklch(0.709 0.103 137.9), oklch(0.412 0.103 137.9));
+  --primitives-color-groen-350: light-dark(oklch(0.666 0.119 137.9), oklch(0.447 0.119 137.9));
+  --primitives-color-groen-400: light-dark(oklch(0.627 0.135 137.9), oklch(0.480 0.135 137.9));
+  --primitives-color-groen-450: light-dark(oklch(0.588 0.151 137.9), oklch(0.514 0.151 137.9));
+  --primitives-color-groen-500: light-dark(oklch(0.550 0.165 137.9), oklch(0.550 0.165 137.9));
+  --primitives-color-groen-550: light-dark(oklch(0.514 0.151 137.9), oklch(0.588 0.151 137.9));
+  --primitives-color-groen-600: light-dark(oklch(0.480 0.135 137.9), oklch(0.627 0.135 137.9));
+  --primitives-color-groen-650: light-dark(oklch(0.447 0.119 137.9), oklch(0.666 0.119 137.9));
+  --primitives-color-groen-700: light-dark(oklch(0.412 0.103 137.9), oklch(0.709 0.103 137.9));
+  --primitives-color-groen-750: light-dark(oklch(0.377 0.087 137.9), oklch(0.752 0.087 137.9));
+  --primitives-color-groen-800: light-dark(oklch(0.341 0.072 137.9), oklch(0.798 0.072 137.9));
+  --primitives-color-groen-850: light-dark(oklch(0.303 0.056 137.9), oklch(0.844 0.056 137.9));
+  --primitives-color-groen-900: light-dark(oklch(0.256 0.040 137.9), oklch(0.893 0.040 137.9));
+  --primitives-color-groen-925: light-dark(oklch(0.230 0.032 137.9), oklch(0.919 0.032 137.9));
+  --primitives-color-groen-950: light-dark(oklch(0.199 0.024 137.9), oklch(0.946 0.024 137.9));
+  --primitives-color-groen-975: light-dark(oklch(0.156 0.016 137.9), oklch(0.972 0.016 137.9));
+  --primitives-color-groen-1000: light-dark(oklch(0.000 0.000 0.0), oklch(1.000 0.000 0.0));
+
+  /* rood */
+  --primitives-color-rood-0: light-dark(oklch(1.000 0.000 0.0), oklch(0.000 0.000 0.0));
+  --primitives-color-rood-25: light-dark(oklch(0.974 0.013 29.5), oklch(0.160 0.021 29.5));
+  --primitives-color-rood-50: light-dark(oklch(0.951 0.025 29.5), oklch(0.205 0.031 29.5));
+  --primitives-color-rood-75: light-dark(oklch(0.927 0.037 29.5), oklch(0.238 0.042 29.5));
+  --primitives-color-rood-100: light-dark(oklch(0.903 0.051 29.5), oklch(0.266 0.052 29.5));
+  --primitives-color-rood-150: light-dark(oklch(0.858 0.073 29.5), oklch(0.315 0.073 29.5));
+  --primitives-color-rood-200: light-dark(oklch(0.814 0.094 29.5), oklch(0.358 0.094 29.5));
+  --primitives-color-rood-250: light-dark(oklch(0.773 0.115 29.5), oklch(0.398 0.115 29.5));
+  --primitives-color-rood-300: light-dark(oklch(0.733 0.135 29.5), oklch(0.438 0.135 29.5));
+  --primitives-color-rood-350: light-dark(oklch(0.696 0.156 29.5), oklch(0.475 0.156 29.5));
+  --primitives-color-rood-400: light-dark(oklch(0.658 0.177 29.5), oklch(0.513 0.177 29.5));
+  --primitives-color-rood-450: light-dark(oklch(0.624 0.198 29.5), oklch(0.551 0.198 29.5));
+  --primitives-color-rood-500: light-dark(oklch(0.588 0.207 29.5), oklch(0.588 0.207 29.5));
+  --primitives-color-rood-550: light-dark(oklch(0.551 0.198 29.5), oklch(0.624 0.198 29.5));
+  --primitives-color-rood-600: light-dark(oklch(0.513 0.177 29.5), oklch(0.658 0.177 29.5));
+  --primitives-color-rood-650: light-dark(oklch(0.475 0.156 29.5), oklch(0.696 0.156 29.5));
+  --primitives-color-rood-700: light-dark(oklch(0.438 0.135 29.5), oklch(0.733 0.135 29.5));
+  --primitives-color-rood-750: light-dark(oklch(0.398 0.115 29.5), oklch(0.773 0.115 29.5));
+  --primitives-color-rood-800: light-dark(oklch(0.358 0.094 29.5), oklch(0.814 0.094 29.5));
+  --primitives-color-rood-850: light-dark(oklch(0.315 0.073 29.5), oklch(0.858 0.073 29.5));
+  --primitives-color-rood-900: light-dark(oklch(0.266 0.052 29.5), oklch(0.903 0.051 29.5));
+  --primitives-color-rood-925: light-dark(oklch(0.238 0.042 29.5), oklch(0.927 0.037 29.5));
+  --primitives-color-rood-950: light-dark(oklch(0.205 0.031 29.5), oklch(0.951 0.025 29.5));
+  --primitives-color-rood-975: light-dark(oklch(0.160 0.021 29.5), oklch(0.974 0.013 29.5));
+  --primitives-color-rood-1000: light-dark(oklch(0.000 0.000 0.0), oklch(1.000 0.000 0.0));
+
+  /* violet */
+  --primitives-color-violet-0: light-dark(oklch(1.000 0.000 0.0), oklch(0.000 0.000 0.0));
+  --primitives-color-violet-25: light-dark(oklch(0.975 0.014 355.9), oklch(0.162 0.023 355.9));
+  --primitives-color-violet-50: light-dark(oklch(0.951 0.027 355.9), oklch(0.207 0.037 355.9));
+  --primitives-color-violet-75: light-dark(oklch(0.929 0.041 355.9), oklch(0.240 0.050 355.9));
+  --primitives-color-violet-100: light-dark(oklch(0.904 0.056 355.9), oklch(0.270 0.064 355.9));
+  --primitives-color-violet-150: light-dark(oklch(0.861 0.084 355.9), oklch(0.318 0.091 355.9));
+  --primitives-color-violet-200: light-dark(oklch(0.820 0.114 355.9), oklch(0.362 0.118 355.9));
+  --primitives-color-violet-250: light-dark(oklch(0.779 0.145 355.9), oklch(0.404 0.145 355.9));
+  --primitives-color-violet-300: light-dark(oklch(0.741 0.172 355.9), oklch(0.443 0.172 355.9));
+  --primitives-color-violet-350: light-dark(oklch(0.704 0.196 355.9), oklch(0.483 0.196 355.9));
+  --primitives-color-violet-400: light-dark(oklch(0.665 0.196 355.9), oklch(0.518 0.196 355.9));
+  --primitives-color-violet-450: light-dark(oklch(0.627 0.196 355.9), oklch(0.554 0.196 355.9));
+  --primitives-color-violet-500: light-dark(oklch(0.590 0.196 355.9), oklch(0.590 0.196 355.9));
+  --primitives-color-violet-550: light-dark(oklch(0.554 0.196 355.9), oklch(0.627 0.196 355.9));
+  --primitives-color-violet-600: light-dark(oklch(0.518 0.196 355.9), oklch(0.665 0.196 355.9));
+  --primitives-color-violet-650: light-dark(oklch(0.483 0.196 355.9), oklch(0.704 0.196 355.9));
+  --primitives-color-violet-700: light-dark(oklch(0.443 0.172 355.9), oklch(0.741 0.172 355.9));
+  --primitives-color-violet-750: light-dark(oklch(0.404 0.145 355.9), oklch(0.779 0.145 355.9));
+  --primitives-color-violet-800: light-dark(oklch(0.362 0.118 355.9), oklch(0.820 0.114 355.9));
+  --primitives-color-violet-850: light-dark(oklch(0.318 0.091 355.9), oklch(0.861 0.084 355.9));
+  --primitives-color-violet-900: light-dark(oklch(0.270 0.064 355.9), oklch(0.904 0.056 355.9));
+  --primitives-color-violet-925: light-dark(oklch(0.240 0.050 355.9), oklch(0.929 0.041 355.9));
+  --primitives-color-violet-950: light-dark(oklch(0.207 0.037 355.9), oklch(0.951 0.027 355.9));
+  --primitives-color-violet-975: light-dark(oklch(0.162 0.023 355.9), oklch(0.975 0.014 355.9));
+  --primitives-color-violet-1000: light-dark(oklch(0.000 0.000 0.0), oklch(1.000 0.000 0.0));
+
   /* neutral: coolgray met chroma >= 0.042 onder lichtheid 0.56 */
   --primitives-color-neutral-0: light-dark(oklch(1.000 0.000 0.0), oklch(0.000 0.000 0.0));
   --primitives-color-neutral-25: light-dark(oklch(0.974 0.004 257.4), oklch(0.158 0.042 257.4));
@@ -115,7 +199,7 @@
   --primitives-color-neutral-975: light-dark(oklch(0.158 0.042 257.4), oklch(0.974 0.004 257.4));
   --primitives-color-neutral-1000: light-dark(oklch(0.000 0.000 0.0), oklch(1.000 0.000 0.0));
 
-  /* accent: alias zoals in NLDD */
+  /* functionele aliassen zoals in NLDD */
   --primitives-color-accent-0: var(--primitives-color-lintblauw-0);
   --primitives-color-accent-25: var(--primitives-color-lintblauw-25);
   --primitives-color-accent-50: var(--primitives-color-lintblauw-50);
@@ -141,4 +225,79 @@
   --primitives-color-accent-950: var(--primitives-color-lintblauw-950);
   --primitives-color-accent-975: var(--primitives-color-lintblauw-975);
   --primitives-color-accent-1000: var(--primitives-color-lintblauw-1000);
+  --primitives-color-success-0: var(--primitives-color-groen-0);
+  --primitives-color-success-25: var(--primitives-color-groen-25);
+  --primitives-color-success-50: var(--primitives-color-groen-50);
+  --primitives-color-success-75: var(--primitives-color-groen-75);
+  --primitives-color-success-100: var(--primitives-color-groen-100);
+  --primitives-color-success-150: var(--primitives-color-groen-150);
+  --primitives-color-success-200: var(--primitives-color-groen-200);
+  --primitives-color-success-250: var(--primitives-color-groen-250);
+  --primitives-color-success-300: var(--primitives-color-groen-300);
+  --primitives-color-success-350: var(--primitives-color-groen-350);
+  --primitives-color-success-400: var(--primitives-color-groen-400);
+  --primitives-color-success-450: var(--primitives-color-groen-450);
+  --primitives-color-success-500: var(--primitives-color-groen-500);
+  --primitives-color-success-550: var(--primitives-color-groen-550);
+  --primitives-color-success-600: var(--primitives-color-groen-600);
+  --primitives-color-success-650: var(--primitives-color-groen-650);
+  --primitives-color-success-700: var(--primitives-color-groen-700);
+  --primitives-color-success-750: var(--primitives-color-groen-750);
+  --primitives-color-success-800: var(--primitives-color-groen-800);
+  --primitives-color-success-850: var(--primitives-color-groen-850);
+  --primitives-color-success-900: var(--primitives-color-groen-900);
+  --primitives-color-success-925: var(--primitives-color-groen-925);
+  --primitives-color-success-950: var(--primitives-color-groen-950);
+  --primitives-color-success-975: var(--primitives-color-groen-975);
+  --primitives-color-success-1000: var(--primitives-color-groen-1000);
+  --primitives-color-warning-0: var(--primitives-color-oranje-0);
+  --primitives-color-warning-25: var(--primitives-color-oranje-25);
+  --primitives-color-warning-50: var(--primitives-color-oranje-50);
+  --primitives-color-warning-75: var(--primitives-color-oranje-75);
+  --primitives-color-warning-100: var(--primitives-color-oranje-100);
+  --primitives-color-warning-150: var(--primitives-color-oranje-150);
+  --primitives-color-warning-200: var(--primitives-color-oranje-200);
+  --primitives-color-warning-250: var(--primitives-color-oranje-250);
+  --primitives-color-warning-300: var(--primitives-color-oranje-300);
+  --primitives-color-warning-350: var(--primitives-color-oranje-350);
+  --primitives-color-warning-400: var(--primitives-color-oranje-400);
+  --primitives-color-warning-450: var(--primitives-color-oranje-450);
+  --primitives-color-warning-500: var(--primitives-color-oranje-500);
+  --primitives-color-warning-550: var(--primitives-color-oranje-550);
+  --primitives-color-warning-600: var(--primitives-color-oranje-600);
+  --primitives-color-warning-650: var(--primitives-color-oranje-650);
+  --primitives-color-warning-700: var(--primitives-color-oranje-700);
+  --primitives-color-warning-750: var(--primitives-color-oranje-750);
+  --primitives-color-warning-800: var(--primitives-color-oranje-800);
+  --primitives-color-warning-850: var(--primitives-color-oranje-850);
+  --primitives-color-warning-900: var(--primitives-color-oranje-900);
+  --primitives-color-warning-925: var(--primitives-color-oranje-925);
+  --primitives-color-warning-950: var(--primitives-color-oranje-950);
+  --primitives-color-warning-975: var(--primitives-color-oranje-975);
+  --primitives-color-warning-1000: var(--primitives-color-oranje-1000);
+  --primitives-color-critical-0: var(--primitives-color-rood-0);
+  --primitives-color-critical-25: var(--primitives-color-rood-25);
+  --primitives-color-critical-50: var(--primitives-color-rood-50);
+  --primitives-color-critical-75: var(--primitives-color-rood-75);
+  --primitives-color-critical-100: var(--primitives-color-rood-100);
+  --primitives-color-critical-150: var(--primitives-color-rood-150);
+  --primitives-color-critical-200: var(--primitives-color-rood-200);
+  --primitives-color-critical-250: var(--primitives-color-rood-250);
+  --primitives-color-critical-300: var(--primitives-color-rood-300);
+  --primitives-color-critical-350: var(--primitives-color-rood-350);
+  --primitives-color-critical-400: var(--primitives-color-rood-400);
+  --primitives-color-critical-450: var(--primitives-color-rood-450);
+  --primitives-color-critical-500: var(--primitives-color-rood-500);
+  --primitives-color-critical-550: var(--primitives-color-rood-550);
+  --primitives-color-critical-600: var(--primitives-color-rood-600);
+  --primitives-color-critical-650: var(--primitives-color-rood-650);
+  --primitives-color-critical-700: var(--primitives-color-rood-700);
+  --primitives-color-critical-750: var(--primitives-color-rood-750);
+  --primitives-color-critical-800: var(--primitives-color-rood-800);
+  --primitives-color-critical-850: var(--primitives-color-rood-850);
+  --primitives-color-critical-900: var(--primitives-color-rood-900);
+  --primitives-color-critical-925: var(--primitives-color-rood-925);
+  --primitives-color-critical-950: var(--primitives-color-rood-950);
+  --primitives-color-critical-975: var(--primitives-color-rood-975);
+  --primitives-color-critical-1000: var(--primitives-color-rood-1000);
 }

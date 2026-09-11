@@ -13,9 +13,13 @@
 {{- $inter := resources.Get "vendor/inter/inter.css" -}}
 {{- $interAbs := resources.FromString "css/inter-absoluut.css"
       (replaceRE `url\("` (printf `url("%s` (relURL "vendor/inter/")) $inter.Content) -}}
-{{- $css := slice $interAbs (resources.Get "css/rapportages.css") (resources.Get "css/rapportage-nav.css")
+{{- $css := slice $interAbs (resources.Get "css/nldd-primitives.css") (resources.Get "css/rapportages.css") (resources.Get "css/rapportage-nav.css")
       | resources.Concat "css/rapportage-bundle.css" | fingerprint "md5" }}
 <link rel="stylesheet" href="{{ $css.RelPermalink }}">
+{{- /* Zelfde thema-keuze als op de rest van de site (data-scheme uit localStorage). */ -}}
+{{- with resources.Get "js/theme-init.js" }}
+<script src="{{ .RelPermalink }}"></script>
+{{- end }}
 </head>
 <body>
 {{ .Content }}

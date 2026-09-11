@@ -22,7 +22,10 @@ const PALETTES = join(dirname(VARIABLES), "colors.generated.css");
 const OUTPUT = join(ROOT, "assets", "css", "nldd-primitives.css");
 
 // Schalen die één op één worden overgenomen
-const SCALES = ["coolgray", "lintblauw", "oranje"];
+const SCALES = ["coolgray", "lintblauw", "oranje", "groen", "rood", "violet"];
+
+// Functionele aliassen, zelfde koppeling als in NLDD's variables.css
+const ALIASES = { accent: "lintblauw", success: "groen", warning: "oranje", critical: "rood" };
 
 // Neutral: coolgray met minimaal deze chroma zodra de lichtheid onder
 // de grens zit. Boven de grens blijft coolgray ongewijzigd, zodat
@@ -86,9 +89,11 @@ function buildCSS(scales, references = {}) {
     lines.push(`  --primitives-color-neutral-${step}: ${boostChroma(base[step])};`);
   }
   lines.push("");
-  lines.push("  /* accent: alias zoals in NLDD */");
-  for (const step of Object.keys(scales.lintblauw).map(Number).sort((a, b) => a - b)) {
-    lines.push(`  --primitives-color-accent-${step}: var(--primitives-color-lintblauw-${step});`);
+  lines.push("  /* functionele aliassen zoals in NLDD */");
+  for (const [alias, scale] of Object.entries(ALIASES)) {
+    for (const step of Object.keys(scales[scale]).map(Number).sort((a, b) => a - b)) {
+      lines.push(`  --primitives-color-${alias}-${step}: var(--primitives-color-${scale}-${step});`);
+    }
   }
   lines.push("}", "");
   return lines.join("\n");
