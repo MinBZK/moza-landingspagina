@@ -6,41 +6,34 @@ title: "Toegankelijkheid"
 
 Iedereen moet MijnOverheid Zakelijk kunnen gebruiken. Ook als je een schermlezer gebruikt, alleen met een toetsenbord werkt, of de tekst flink vergroot.
 
-MijnOverheid Zakelijk is nog in ontwikkeling. We hebben nog geen toegankelijkheidsonderzoek uitgevoerd.
-
-Onze status is daarom C: eerste maatregelen genomen. Dat betekent dat we [de verklaring hebben gepubliceerd](https://www.toegankelijkheidsverklaring.nl/register/29880) en het onderzoek hebben ingepland, maar dat het nog niet is uitgevoerd.
-
 {{< toegankelijkheidslabel >}}
 
-## Wat we nu al doen
+Het label komt uit [het landelijke register](https://www.toegankelijkheidsverklaring.nl/register/29880) en toont nog status C: nog niet alles onderzocht. Die verklaring wordt bijgewerkt naar status A, de status voor een site die volledig is onderzocht en aan alle eisen voldoet.
 
-- We ontwerpen en bouwen volgens de WCAG. De wettelijke norm is versie 2.1 niveau AA, via EN 301 549 en het Tijdelijk besluit digitale toegankelijkheid overheid. Wij houden [versie 2.2](https://www.w3.org/Translations/WCAG22-nl/) aan, die verder gaat.
+Deze verklaring gaat over de website mijnoverheidzakelijk.nl. De wettelijke norm is [WCAG](https://www.digitoegankelijk.nl/toegankelijkheid/en-301-549-en-wcag) 2.1 niveau AA, via de Europese norm EN 301 549 en het Tijdelijk besluit digitale toegankelijkheid overheid. Wij toetsen tegen [WCAG 2.2](https://www.w3.org/Translations/WCAG22-nl/), dat daar zes criteria bovenop legt.
+
+In september 2026 hebben we de site onderzocht volgens WCAG-EM, de evaluatiemethode van het W3C. Alle 56 succescriteria van niveau A en AA zijn beoordeeld. Daarvan voldoen er 40; de overige 16 gaan over zaken die op deze site niet voorkomen, zoals audio en video.
+
+Er kwamen negen bevindingen uit, en die zijn alle negen tijdens het onderzoek opgelost. Wat er per bevinding aan de hand was, wie er last van had en wat we eraan gedaan hebben, staat in het [toegankelijkheidsonderzoek 2026](/documenten/toegankelijkheid/onderzoek-2026/).
+
+## Hoe we het houden zoals het is
+
 - Bij elke wijziging draait een geautomatiseerde toets over alle pagina's, met twee onafhankelijke engines, plus eigen controles op koppenvolgorde, tekstalternatieven bij diagrammen en de bedienbaarheid van presentaties.
-- We toetsen zelf op onder meer toetsenbordbediening, kleurcontrast en schermlezers.
+- De pdf-downloads worden bij elke build gevalideerd tegen PDF/UA. Nul fouten is de eis, niet een streven.
+- Een diagram zonder tekstalternatief laat de build falen.
+- Nieuwe content gaat langs een redactionele review die let op begrijpelijkheid en taalniveau.
 - We nemen toegankelijkheid mee tijdens het ontwerpen, niet als controle achteraf.
 
-## Bekende beperkingen
+## Wat buiten het onderzoek viel
 
-Een aantal dingen kan een geautomatiseerde toets niet beoordelen. Die hebben we zelf nagerekend:
-
-- **Tekst op de half-doorzichtige achtergrond van de startpagina.** Een scanner kan er niet doorheen rekenen, omdat de uitkomst afhangt van wat eronder ligt. Gemeten haalt die 14,2:1 in de lichte weergave en 12,0:1 in de donkere, ruim boven de 4,5:1 die de norm vraagt.
-- **Presentaties.** Reveal.js toont één slide tegelijk en verbergt de rest voor hulptechnologie. Een scanner ziet er daardoor maar één. Koppen, tekstalternatieven en de bedienbaarheid met het toetsenbord toetsen we wel over alle slides.
-
-## Wat nog niet gedekt is
-
-- Een geautomatiseerde toets dekt ongeveer een derde van de eisen. Meer dan tachtig procent moet een mens beoordelen. Dat gebeurt bij het geplande onderzoek.
-- Het kleurcontrast binnen de presentaties is nog niet vastgelegd. De opmaak van Reveal.js maakt het machinaal onmeetbaar.
-- De downloads in .odt en .pdf vallen buiten de geautomatiseerde toets. De PDF's dragen een documentstructuur, een taalaanduiding en een titel, maar zijn niet tegen PDF/UA gevalideerd.
-- Tekstalternatieven worden getoetst op aanwezigheid, niet op kwaliteit.
-- We hebben nog niet systematisch met een schermlezer getest en de uitkomsten vastgelegd.
-
-## Wat er nog moet gebeuren
-
-Zodra de onderzoeksresultaten er zijn, werken we de verklaring bij en zetten we hier neer wat we gaan verbeteren en wanneer.
+- Documenten van derden waarnaar we verwijzen, en de externe diensten die vanaf deze site bereikbaar zijn. Die vallen buiten ons beheer.
+- Firefox. We hebben getoetst met Edge, Chrome en Safari, en met NVDA op Windows en VoiceOver op macOS en iOS.
 
 ## Loop je ergens tegenaan?
 
 [Neem dan contact met ons op](contact). Vertel kort waar je vastliep en welke hulpmiddelen je gebruikt. Dat helpt ons het probleem terug te vinden.
+
+Kom je er met ons niet uit, dan kun je het melden bij [het meldpunt van DigiToegankelijk](https://www.digitoegankelijk.nl/meldpunt).
 
 ## De officiële verklaring
 
