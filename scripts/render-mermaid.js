@@ -21,7 +21,11 @@ const FONTS_DIR = join(ROOT, "static", "fonts");
 
 // ── Theme from design tokens ────────────────────────────────────────────────
 
-const TOKENS_FILE = join(ROOT, "assets", "css", "tokens.css");
+// Volgorde is de cascade: latere bestanden overschrijven eerdere.
+const TOKEN_FILES = [
+  join(ROOT, "assets", "css", "nldd-primitives.css"),
+  join(ROOT, "assets", "css", "tokens.css"),
+];
 
 const TOKEN_MAP = {
   primaryColor: "--color-bg-info",
@@ -34,24 +38,99 @@ const TOKEN_MAP = {
 };
 
 function parseTokens() {
-  const css = readFileSync(TOKENS_FILE, "utf-8");
   const vars = {};
-  for (const [, name, value] of css.matchAll(/(--[\w-]+):\s*([^;]+)/g)) {
-    vars[name] = value.trim();
+  for (const file of TOKEN_FILES) {
+    const css = readFileSync(file, "utf-8");
+    for (const [, name, value] of css.matchAll(/(--[\w-]+):\s*([^;]+)/g)) {
+      vars[name] = value.trim();
+    }
   }
   return vars;
 }
 
-// Lost één niveau var()-referenties op. Alle tokens in tokens.css resolven
-// direct naar een eindwaarde, dus diepere nesting is niet nodig.
-function resolveVars(vars, value) {
-  return value.replace(/var\((--[\w-]+)\)/g, (_, name) => vars[name] ?? name);
+// Splitst de argumenten van een functie-aanroep op komma's buiten haakjes.
+function splitArgs(text) {
+  const args = [];
+  let depth = 0;
+  let current = "";
+  for (const ch of text) {
+    if (ch === "(") depth++;
+    if (ch === ")") depth--;
+    if (ch === "," && depth === 0) {
+      args.push(current.trim());
+      current = "";
+    } else {
+      current += ch;
+    }
+  }
+  args.push(current.trim());
+  return args;
 }
 
-function lightDarkValues(vars, tokenName) {
-  const raw = resolveVars(vars, vars[tokenName] ?? "");
-  const m = raw.match(/light-dark\(\s*([^,]+?)\s*,\s*([^)]+?)\s*\)/);
-  return m ? [m[1].trim(), m[2].trim()] : [raw, raw];
+// Vindt de inhoud tussen de haakjes van `fn(` op positie `start`.
+function matchCall(text, fn, start = 0) {
+  const open = text.indexOf(`${fn}(`, start);
+  if (open === -1) return null;
+  let depth = 0;
+  for (let i = open + fn.length; i < text.length; i++) {
+    if (text[i] === "(") depth++;
+    if (text[i] === ")" && --depth === 0) {
+      return { start: open, end: i + 1, inner: text.slice(open + fn.length + 1, i) };
+    }
+  }
+  return null;
+}
+
+// oklch → sRGB hex (CSS Color 4). Waarden buiten gamut worden geknipt.
+function oklchToHex(l, c, h) {
+  const rad = (h * Math.PI) / 180;
+  const a = c * Math.cos(rad);
+  const b = c * Math.sin(rad);
+  const l_ = (l + 0.3963377774 * a + 0.2158037573 * b) ** 3;
+  const m_ = (l - 0.1055613458 * a - 0.0638541728 * b) ** 3;
+  const s_ = (l - 0.0894841775 * a - 1.291485548 * b) ** 3;
+  const lin = [
+    4.0767416621 * l_ - 3.3077115913 * m_ + 0.2309699292 * s_,
+    -1.2684380046 * l_ + 2.6097574011 * m_ - 0.3413193965 * s_,
+    -0.0041960863 * l_ - 0.7034186147 * m_ + 1.707614701 * s_,
+  ];
+  return "#" + lin.map((v) => {
+    const clamped = Math.min(1, Math.max(0, v));
+    const srgb = clamped <= 0.0031308 ? 12.92 * clamped : 1.055 * clamped ** (1 / 2.4) - 0.055;
+    return Math.round(srgb * 255).toString(16).padStart(2, "0");
+  }).join("");
+}
+
+// Rekent een tokenwaarde uit voor één variant: var() recursief invullen,
+// light-dark() kiezen en oklch() naar hex omzetten.
+function resolveValue(vars, value, variant, seen = new Set()) {
+  let out = value;
+  let call;
+  let from = 0;
+  while ((call = matchCall(out, "var", from))) {
+    const name = splitArgs(call.inner)[0];
+    if (seen.has(name) || !(name in vars)) {
+      // Onbekend of circulair: laten staan en verder zoeken na deze aanroep
+      from = call.end;
+      continue;
+    }
+    const nested = resolveValue(vars, vars[name], variant, new Set([...seen, name]));
+    out = out.slice(0, call.start) + nested + out.slice(call.end);
+    from = call.start + nested.length;
+  }
+  while ((call = matchCall(out, "light-dark"))) {
+    const [light, dark] = splitArgs(call.inner);
+    out = out.slice(0, call.start) + (variant === "dark" ? dark : light) + out.slice(call.end);
+  }
+  while ((call = matchCall(out, "oklch"))) {
+    const [l, c, h] = call.inner.trim().split(/\s+/).map(Number);
+    out = out.slice(0, call.start) + oklchToHex(l, c, h) + out.slice(call.end);
+  }
+  return out;
+}
+
+function resolveToken(vars, name, variant) {
+  return resolveValue(vars, vars[name] ?? "", variant);
 }
 
 function buildThemes() {
@@ -59,9 +138,8 @@ function buildThemes() {
   const light = { darkMode: false };
   const dark = { darkMode: true };
   for (const [key, token] of Object.entries(TOKEN_MAP)) {
-    const [l, d] = lightDarkValues(vars, token);
-    light[key] = l;
-    dark[key] = d;
+    light[key] = resolveToken(vars, token, "light");
+    dark[key] = resolveToken(vars, token, "dark");
   }
   return { light, dark };
 }
@@ -74,13 +152,12 @@ const THEMES = buildThemes();
 // moet vóór het renderen gebeuren.
 function resolveDiagramTokens(code, variant) {
   const vars = parseTokens();
-  const index = variant === "dark" ? 1 : 0;
   return code.replace(/var\((--[\w-]+)\)/g, (match, name) => {
     if (!(name in vars)) {
       console.warn(`  ⚠ onbekend token ${name} in mermaid-blok`);
       return match;
     }
-    return lightDarkValues(vars, name)[index];
+    return resolveToken(vars, name, variant);
   });
 }
 
@@ -187,7 +264,7 @@ function computeHash(code) {
 }
 
 // Token-hash zodat SVGs opnieuw worden gerenderd als kleuren wijzigen
-const TOKENS_HASH = computeHash(readFileSync(TOKENS_FILE, "utf-8")).slice(0, 8);
+const TOKENS_HASH = computeHash(TOKEN_FILES.map((f) => readFileSync(f, "utf-8")).join("\n")).slice(0, 8);
 
 function hashPath(svgPath) {
   return join(CACHE_DIR, relative(RENDER_DIR, svgPath) + ".hash");
@@ -463,7 +540,7 @@ async function startWatch() {
 
 // ── Exports (voor tests) ─────────────────────────────────────────────────────
 
-export { slugify, extractMermaidBlocks, contentSubdir, parseTokens, buildThemes, resolveDiagramTokens, postProcessSVG, computeHash, TOKENS_HASH };
+export { slugify, extractMermaidBlocks, contentSubdir, parseTokens, resolveToken, oklchToHex, buildThemes, resolveDiagramTokens, postProcessSVG, computeHash, TOKENS_HASH };
 
 // ── CLI ──────────────────────────────────────────────────────────────────────
 

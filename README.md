@@ -96,6 +96,14 @@ just render-mermaid
 
 Zie [Mermaid](https://mermaid.js.org/) voor de volledige syntax.
 
+### Kleuren
+
+De kleurtokens in `assets/css/tokens.css` verwijzen naar de primitives van het [NLDD Design System](https://github.com/MinBZK/storybook). Die primitives staan in `assets/css/nldd-primitives.css`, gegenereerd uit het npm-pakket `@nldd/design-system`. Na een upgrade van dat pakket genereer je het bestand opnieuw:
+
+```bash
+just nldd-tokens
+```
+
 ## Code kwaliteit
 
 We gebruiken [Lefthook](https://github.com/evilmartians/lefthook) voor pre-commit checks. Dit controleert automatisch of de site correct bouwt en of er geen broken links zijn.
@@ -178,6 +186,7 @@ De site is dan beschikbaar op [http://localhost:8080/](http://localhost:8080/).
 
 ## Credits
 
+- Kleuren: [NLDD Design System](https://github.com/MinBZK/storybook) (EUPL-1.2 licentie)
 - Diagrammen: [Mermaid](https://mermaid.js.org/) (MIT licentie)
 - Iconen: [Tabler Icons](https://tabler.io/icons) (MIT licentie)
 - Zoeken: [Fuse.js](https://www.fusejs.io/) (Apache 2.0 licentie)

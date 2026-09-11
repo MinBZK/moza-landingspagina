@@ -45,6 +45,10 @@ Ook `accDescr` is verplicht: die vult het `alt`-attribuut. Zonder `accDescr` kri
 
 Kleuren in een diagram (bijvoorbeeld in `classDef`) nooit hardcoden: gebruik `var(--token)` uit `tokens.css`, zoals `color:var(--color-text)`. Het renderscript vult per variant de light- of dark-waarde in.
 
+## Kleuren
+
+Kleurtokens in `assets/css/tokens.css` verwijzen naar NLDD-primitives in het gegenereerde `assets/css/nldd-primitives.css` (`just nldd-tokens`, opnieuw draaien na een upgrade van `@nldd/design-system`). Lees het commentaar bovenin `tokens.css` voordat je een token toevoegt.
+
 ## Skills
 
 Workflow: `/check`, `/new-weekly`, `/new-presentatie`

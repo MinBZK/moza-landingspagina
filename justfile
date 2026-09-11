@@ -18,6 +18,10 @@ node-deps:
 test: node-deps
     npm test
 
+# Genereer de NLDD-kleurprimitives opnieuw (na een upgrade van @nldd/design-system)
+nldd-tokens: node-deps
+    npm run nldd-tokens
+
 # Render Mermaid-diagrammen als SVG
 render-mermaid: node-deps
     npm run render-mermaid
