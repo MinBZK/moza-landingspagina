@@ -97,12 +97,16 @@ header {
     }
 
     .title {
-      display: flex;
-      align-items: center;
+      flex: 1;
+      min-width: 0;
       font-size: 1.25rem;
       font-weight: 700;
+      line-height: var(--navbar-height);
       text-decoration: none;
-      min-height: var(--navbar-height);
+      /* Op een smal scherm krimpt de titel, zodat zoeken en menu op dezelfde regel blijven */
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
       align-self: flex-start;
 
       @media (min-width: 600px) {
