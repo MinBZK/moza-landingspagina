@@ -6,7 +6,7 @@
            - titel: "Externe bron"
              url: "https://voorbeeld.nl"                 # of een directe URL
        Links worden gerenderd via de render-link partial, zodat externe links
-       automatisch het externe-link-icoon en target/rel krijgen.
+       automatisch rel="external" krijgen en besloten links het slot-icoon.
        Rendert niets als 'relevante_links' ontbreekt. */ -}}
 {{- with .Params.relevante_links -}}
 <nav class="relevante-links" aria-label="Relevante links">
