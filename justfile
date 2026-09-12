@@ -22,6 +22,10 @@ test: node-deps
 nldd-tokens: node-deps
     npm run nldd-tokens
 
+# Schrijf de site-iconen opnieuw uit het NLDD Design System (na een upgrade van @nldd/design-system)
+nldd-iconen: node-deps
+    npm run nldd-iconen
+
 # Render Mermaid-diagrammen als SVG
 render-mermaid: node-deps
     npm run render-mermaid

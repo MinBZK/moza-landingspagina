@@ -47,7 +47,7 @@ Kleuren in een diagram (bijvoorbeeld in `classDef`) nooit hardcoden: gebruik `va
 
 ## Kleuren
 
-Kleurtokens in `assets/css/tokens.css` verwijzen naar NLDD-primitives in het gegenereerde `assets/css/nldd-primitives.css` (`just nldd-tokens`, opnieuw draaien na een upgrade van `@nldd/design-system`). Lees het commentaar bovenin `tokens.css` voordat je een token toevoegt.
+Kleurtokens in `assets/css/tokens.css` verwijzen naar NLDD-primitives in het gegenereerde `assets/css/nldd-primitives.css` (`just nldd-tokens`, opnieuw draaien na een upgrade van `@nldd/design-system`). Lees het commentaar bovenin `tokens.css` voordat je een token toevoegt. De iconen in `static/images/icons/` komen uit dezelfde bron via `just nldd-iconen` (mapping in `scripts/nldd-iconen.js`); in diagrammen gebruik je `nldd:<naam>`.
 
 ## Skills
 

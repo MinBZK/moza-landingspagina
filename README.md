@@ -104,6 +104,8 @@ De kleurtokens in `assets/css/tokens.css` verwijzen naar de primitives van het [
 just nldd-tokens
 ```
 
+De iconen van de site (`static/images/icons/`) en in de diagrammen komen uit dezelfde bron. De site-iconen, de favicon en het touch-icon schrijf je na een upgrade opnieuw met `just nldd-iconen`; de bestandstype-iconen voor ODT en PDF blijven handgemaakt, NLDD heeft die niet.
+
 ## Code kwaliteit
 
 We gebruiken [Lefthook](https://github.com/evilmartians/lefthook) voor pre-commit checks. Dit controleert automatisch of de site correct bouwt en of er geen broken links zijn.
@@ -186,8 +188,7 @@ De site is dan beschikbaar op [http://localhost:8080/](http://localhost:8080/).
 
 ## Credits
 
-- Kleuren en font: [NLDD Design System](https://github.com/MinBZK/storybook) (EUPL-1.2 licentie)
+- Kleuren, font en iconen: [NLDD Design System](https://github.com/MinBZK/storybook) (EUPL-1.2 licentie)
 - Font: RijksSans is auteursrechtelijk beschermd door de Staat der Nederlanden en valt niet onder de licentie van deze repository. Het is uitsluitend bestemd voor publicaties van de Rijksoverheid of voor werk in opdracht van de Rijksoverheid; zie de [gebruiksvoorwaarden typografie](https://www.rijkshuisstijl.nl/basiselementen/typografie/gebruiksvoorwaarden-typografie). RijksSans komt uit het NLDD-pakket, zie daar [NOTICES.md](https://github.com/MinBZK/storybook/blob/main/NOTICES.md).
 - Diagrammen: [Mermaid](https://mermaid.js.org/) (MIT licentie)
-- Iconen: [Tabler Icons](https://tabler.io/icons) (MIT licentie)
 - Zoeken: [Fuse.js](https://www.fusejs.io/) (Apache 2.0 licentie)

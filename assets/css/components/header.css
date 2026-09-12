@@ -384,6 +384,11 @@ header {
         border-radius: 0;
       }
 
+      .icon-expand {
+        width: 1rem;
+        height: 1rem;
+      }
+
       &[aria-expanded="true"] .icon-expand {
         transform: rotate(180deg);
       }

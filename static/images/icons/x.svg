@@ -1,3 +1,3 @@
-<svg class="x-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+<svg class="x-icon" width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+	<path fill="currentColor" d="m19.3 3.3 1.4 1.4-7.29 7.3 7.3 7.3-1.42 1.4L12 13.42l-7.3 7.3-1.4-1.42L10.58 12l-7.3-7.3 1.42-1.4L12 10.58z"/>
 </svg>
