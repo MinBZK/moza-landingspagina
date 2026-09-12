@@ -23,6 +23,7 @@ import { execFileSync } from "node:child_process";
 import puppeteer from "puppeteer";
 import { startServer } from "../lib/static-server.js";
 import { setPdfMetadata } from "./pdf-metadata.js";
+import { PUPPETEER_ARGS } from "../lib/puppeteer-args.js";
 
 const OUTPUT_DIR = resolve(process.cwd(), process.argv[2] || "public");
 const MANIFEST = join(OUTPUT_DIR, "download.json");
@@ -34,12 +35,6 @@ const REFERENCE_ODT = join(import.meta.dirname, "reference.odt");
 const LOGO_SVG = join(
   import.meta.dirname, "..", "..", "static", "images", "logo-rijksoverheid.svg"
 );
-
-// In CI of als root (container) heeft Chromium deze vlaggen nodig.
-const PUPPETEER_ARGS =
-  process.env.CI || process.getuid?.() === 0
-    ? ["--no-sandbox", "--disable-gpu", "--disable-dev-shm-usage"]
-    : [];
 
 // ── Generatie ────────────────────────────────────────────────────────────────
 
