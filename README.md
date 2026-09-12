@@ -106,6 +106,8 @@ just nldd
 
 `npm test` bewaakt dat die bestanden bij het geïnstalleerde pakket passen. De bestandstype-iconen voor ODT en PDF blijven handgemaakt, NLDD heeft die niet.
 
+De afbeelding die bij een gedeelde link wordt getoond staat in `static/social-card.jpg` en komt uit `just social-card`; titel en tagline komen uit `hugo.yaml` en de foto is de hero van de homepage, dus draai het opnieuw als je die wijzigt.
+
 ## Code kwaliteit
 
 We gebruiken [Lefthook](https://github.com/evilmartians/lefthook) voor pre-commit checks. Dit controleert automatisch of de site correct bouwt en of er geen broken links zijn.
