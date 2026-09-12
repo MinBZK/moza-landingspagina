@@ -57,12 +57,12 @@ title: N:M-model Profielservice
 graph LR
   accTitle: N:M-model Profielservice
   accDescr: Meerdere personen kunnen gekoppeld zijn aan meerdere bedrijven (N:M-model). Elke pijl symboliseert een contactgegeven en/of voorkeur.
-  P1@{ icon: "tabler:user", label: "Persoon A" }
-  P2@{ icon: "tabler:user", label: "Persoon B" }
-  P3@{ icon: "tabler:user", label: "Persoon C" }
-  B1@{ icon: "tabler:buildings", label: "Bedrijf 1" }
-  B2@{ icon: "tabler:buildings", label: "Bedrijf 2" }
-  B3@{ icon: "tabler:buildings", label: "Bedrijf 3" }
+  P1@{ icon: "nldd:person", label: "Persoon A" }
+  P2@{ icon: "nldd:person", label: "Persoon B" }
+  P3@{ icon: "nldd:person", label: "Persoon C" }
+  B1@{ icon: "nldd:apartment-building-2", label: "Bedrijf 1" }
+  B2@{ icon: "nldd:apartment-building-2", label: "Bedrijf 2" }
+  B3@{ icon: "nldd:apartment-building-2", label: "Bedrijf 3" }
 
   P1 <-->|contactgegeven/voorkeur| B1
   P2 <--> B2
@@ -90,10 +90,10 @@ title: Klantreis burger of ondernemer
 graph LR
   accTitle: Klantreis burger of ondernemer
   accDescr: De stappen die een burger of ondernemer doorloopt: inloggen met DigiD, eHerkenning of eIDAS, gegevens bekijken, contactvoorkeuren instellen.
-  A@{ icon: "tabler:login", label: "Inloggen met DigiD, eHerkenning of eIDAS" }
-  B@{ icon: "tabler:user", label: "Gegevens bekijken" }
-  C@{ icon: "tabler:address-book", label: "Contactvoorkeuren instellen" }
-  D@{ icon: "tabler:check", label: "Klaar" }
+  A@{ icon: "nldd:arrow-right-in-bucket", label: "Inloggen met DigiD, eHerkenning of eIDAS" }
+  B@{ icon: "nldd:person", label: "Gegevens bekijken" }
+  C@{ icon: "nldd:person-text-rectangle", label: "Contactvoorkeuren instellen" }
+  D@{ icon: "nldd:check-mark", label: "Klaar" }
 
   A --> B --> C --> D
 ```
@@ -115,11 +115,11 @@ title: Bestuurlijk bericht versturen
 graph LR
   accTitle: Bestuurlijk bericht versturen
   accDescr: Een bericht wordt klaargezet in het berichtenmagazijn. De notificatieservice zoekt de contactvoorkeuren van de burger of ondernemer op en verstuurt een e-mail of brief.
-  A@{ icon: "tabler:inbox", label: "Bericht klaarzetten in berichtenmagazijn" }
-  B@{ icon: "tabler:bell", label: "Notificatieservice" }
-  C@{ icon: "tabler:address-book", label: "Contactvoorkeuren opzoeken in profielservice" }
-  D@{ icon: "tabler:mail", label: "E-mail verstuurd" }
-  E@{ icon: "tabler:mailbox", label: "Brief verstuurd" }
+  A@{ icon: "nldd:tray", label: "Bericht klaarzetten in berichtenmagazijn" }
+  B@{ icon: "nldd:bell", label: "Notificatieservice" }
+  C@{ icon: "nldd:person-text-rectangle", label: "Contactvoorkeuren opzoeken in profielservice" }
+  D@{ icon: "nldd:at", label: "E-mail verstuurd" }
+  E@{ icon: "nldd:envelope", label: "Brief verstuurd" }
 
   A --> B --> C
   C -->|e-mail| D
@@ -139,9 +139,9 @@ title: Klantreis overheidsorganisatie
 graph LR
   accTitle: Klantreis overheidsorganisatie
   accDescr: De stappen die een overheidsorganisatie doorloopt: aansluiten via FSC, voorkeuren ophalen, de burger of ondernemer bereiken.
-  A@{ icon: "tabler:plug-connected", label: "Aansluiten via FSC" }
-  B@{ icon: "tabler:address-book", label: "Voorkeuren ophalen" }
-  C@{ icon: "tabler:mail", label: "Burger of ondernemer bereiken" }
+  A@{ icon: "nldd:power-plug", label: "Aansluiten via FSC" }
+  B@{ icon: "nldd:person-text-rectangle", label: "Voorkeuren ophalen" }
+  C@{ icon: "nldd:envelope", label: "Burger of ondernemer bereiken" }
 
   A --> B --> C
 ```

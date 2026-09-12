@@ -10,6 +10,7 @@
 
 import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, watch, utimesSync } from "node:fs";
 import { join, resolve, relative, dirname, basename } from "node:path";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import { createHash } from "node:crypto";
 import puppeteer from "puppeteer";
 
@@ -294,18 +295,23 @@ const PUPPETEER_ARGS = process.env.CI || process.getuid?.() === 0
 // Pad naar de mermaid IIFE (zet globalThis.mermaid)
 const mermaidIIFEPath = join(ROOT, "node_modules", "mermaid", "dist", "mermaid.js");
 
-// Laad icon packs lokaal uit node_modules (geen netwerk nodig)
-function loadLocalIconPack(name) {
-  const jsonPath = join(ROOT, "node_modules", name, "icons.json");
-  try {
-    return JSON.parse(readFileSync(jsonPath, "utf-8"));
-  } catch (err) {
-    console.warn(`  ⚠ Icon pack "${name}" niet gevonden: ${err.message}`);
-    return {};
+// NLDD-iconen als Iconify-pack. De registry is een Map van naam naar SVG-string
+// (viewBox 0 0 24 24, fill="currentColor"); Iconify wil alleen de inhoud van de <svg>.
+async function loadNlddIconPack() {
+  const iconDir = dirname(fileURLToPath(import.meta.resolve("@nldd/design-system/icon")));
+  const { iconRegistry } = await import(pathToFileURL(join(iconDir, "icon-registry.js")).href);
+  const { aliases } = await import(pathToFileURL(join(iconDir, "icon-aliases.js")).href);
+  const icons = {};
+  for (const [name, svg] of iconRegistry) {
+    icons[name] = { body: svg.replace(/^<svg[^>]*>/, "").replace(/<\/svg>\s*$/, "").trim() };
   }
+  const aliasEntries = Object.fromEntries(Object.entries(aliases).map(([alias, parent]) => [alias, { parent }]));
+  return { prefix: "nldd", data: { prefix: "nldd", icons, aliases: aliasEntries, width: 24, height: 24 } };
 }
 
-async function renderDiagram(browser, definition, { backgroundColor, mermaidConfig, iconPacks = [] }) {
+const ICON_PACKS = [await loadNlddIconPack()];
+
+async function renderDiagram(browser, definition, { backgroundColor, mermaidConfig, iconPacks = ICON_PACKS }) {
   const page = await browser.newPage();
   try {
     await page.setContent('<html><body><div id="container"></div></body></html>');
@@ -314,11 +320,7 @@ async function renderDiagram(browser, definition, { backgroundColor, mermaidConf
     await page.addStyleTag({ content: getFontCSS() });
     await page.addScriptTag({ path: mermaidIIFEPath });
 
-    // Laad icon packs lokaal (geen netwerk nodig)
-    const iconData = iconPacks.map((name) => ({
-      prefix: name.split("/")[1],
-      data: loadLocalIconPack(name),
-    }));
+    const iconData = iconPacks;
 
     await page.$eval("#container", async (container, definition, mermaidConfig, bg, iconData) => {
       await Promise.all(Array.from(document.fonts, (font) => font.load()));
@@ -393,7 +395,6 @@ function renderOptions(variant) {
         fontFamily: '"RijksSans", Calibri, sans-serif',
       },
     },
-    iconPacks: ["@iconify-json/tabler"],
   };
 }
 

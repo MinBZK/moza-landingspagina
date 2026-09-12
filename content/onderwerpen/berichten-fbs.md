@@ -28,9 +28,9 @@ title: Klantreis ondernemer
 flowchart LR
   accTitle: Gebruikersreis ondernemer
   accDescr: De ondernemer ontvangt een notificatie over een beschikking, logt vervolgens in met DigiD, eHerkenning of eIDAS, en leest tot slot de beschikking in zijn Berichtenbox.
-  A@{ icon: "tabler:bell", label: "Ontvangt notificatie over beschikking" }
-  B@{ icon: "tabler:eye", label: "Logt in met DigiD, eHerkenning of eIDAS" }
-  C@{ icon: "tabler:file-check", label: "Leest beschikking in zijn Berichtenbox" }
+  A@{ icon: "nldd:bell", label: "Ontvangt notificatie over beschikking" }
+  B@{ icon: "nldd:arrow-right-in-bucket", label: "Logt in met DigiD, eHerkenning of eIDAS" }
+  C@{ icon: "nldd:file-text-badge-check-mark", label: "Leest beschikking in zijn Berichtenbox" }
   A --> B --> C
 ```
 
@@ -41,15 +41,15 @@ title: Berichtenstroom Federatief Berichtenstelsel
 flowchart LR
   accTitle: Berichtenstroom Federatief Berichtenstelsel
   accDescr: De Belastingdienst verstuurt een beschikking naar het Berichtenmagazijn. Het Berichtenmagazijn verstuurt een notificatie en wisselt gegevens uit met het Berichten Uitvraag Systeem. Het Berichten Uitvraag Systeem communiceert met het MOZa portaal, waar de ondernemer het bericht bekijkt.
-  BD@{ icon: "tabler:building-bank", label: "Belastingdienst verstuurt beschikking" }
-  O@{ icon: "tabler:user", label: "Ondernemer gaat bericht bekijken" }
-  MOZa@{ icon: "tabler:device-laptop", label: "MOZa portaal" }
+  BD@{ icon: "nldd:apartment-building-2", label: "Belastingdienst verstuurt beschikking" }
+  O@{ icon: "nldd:person", label: "Ondernemer gaat bericht bekijken" }
+  MOZa@{ icon: "nldd:display", label: "MOZa portaal" }
   subgraph FBS["Federatief Berichtenstelsel"]
     direction LR
     BM[(Berichtenmagazijn)]
     BUS[(Berichten Uitvraag Systeem)]
   end
-  N@{ icon: "tabler:bell", label: "Verstuurt notificatie" }
+  N@{ icon: "nldd:bell", label: "Verstuurt notificatie" }
   BD --> BM
   O --> MOZa
   BM <--> BUS
