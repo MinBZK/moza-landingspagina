@@ -18,11 +18,16 @@ node-deps:
 test: node-deps
     npm test
 
-# Genereer de NLDD-kleurprimitives opnieuw (na een upgrade van @nldd/design-system)
+# Schrijf alles wat uit het NLDD Design System komt opnieuw weg (na een upgrade van het pakket)
+nldd: nldd-tokens nldd-iconen
+
+# Genereer alleen de kleurprimitives
+[private]
 nldd-tokens: node-deps
     npm run nldd-tokens
 
-# Schrijf de site-iconen opnieuw uit het NLDD Design System (na een upgrade van @nldd/design-system)
+# Genereer alleen de iconen, de favicon en het touch-icon
+[private]
 nldd-iconen: node-deps
     npm run nldd-iconen
 
