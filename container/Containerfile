@@ -30,6 +30,8 @@ RUN if [ -n "$BASE_URL" ]; then \
 
 RUN npm run render-downloads
 
+RUN npm run og-cards
+
 
 FROM nginxinc/nginx-unprivileged:stable-alpine-slim
 

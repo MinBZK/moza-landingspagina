@@ -1,0 +1,19 @@
+{{- /* Manifest van de deelafbeeldingen. scripts/og-cards.js leest dit na de
+       Hugo-build en rendert per pagina een JPEG op het opgegeven pad. */ -}}
+{{- $list := slice -}}
+{{- range site.Pages -}}
+  {{- if .OutputFormats.Get "html" -}}
+    {{- $titel := or .Params.page_title .Title -}}
+    {{- $onderregel := site.Title -}}
+    {{- if .IsHome -}}
+      {{- $titel = site.Title -}}
+      {{- $onderregel = site.Params.tagline -}}
+    {{- end -}}
+    {{- $list = $list | append (dict
+      "pad" (partial "og-image.html" .)
+      "titel" $titel
+      "onderregel" $onderregel
+    ) -}}
+  {{- end -}}
+{{- end -}}
+{{- $list | jsonify -}}
