@@ -46,10 +46,10 @@ title: Klantreis ondernemer
 graph LR
   accTitle: Klantreis ondernemer
   accDescr: De stappen die een ondernemer doorloopt: inloggen met eHerkenning of eIDAS, profiel instellen, informatie-berichten bekijken.
-  A@{ icon: "tabler:login", label: "Inloggen met eHerkenning of eIDAS" }
-  B@{ icon: "tabler:user", label: "Profiel instellen" }
-  C@{ icon: "tabler:news", label: "Informatie-berichten bekijken" }
-  D@{ icon: "tabler:bell", label: "Proactieve signalen ontvangen" }
+  A@{ icon: "nldd:arrow-right-in-bucket", label: "Inloggen met eHerkenning of eIDAS" }
+  B@{ icon: "nldd:person", label: "Profiel instellen" }
+  C@{ icon: "nldd:rectangle-stack-text", label: "Informatie-berichten bekijken" }
+  D@{ icon: "nldd:bell", label: "Proactieve signalen ontvangen" }
   A --> B --> C --> D
 
 ```
@@ -76,10 +76,10 @@ title: Proactieve signalen
 graph LR
   accTitle: Proactieve signalen
   accDescr: Het proces van proactieve signalen: informatie-bericht publiceren, filtering toepassen, signaal versturen.
-  A@{ icon: "tabler:edit", label: "Dienstverlener publiceert informatie-bericht" }
-  B@{ icon: "tabler:filter", label: "Filtering toepassen" }
-  C@{ icon: "tabler:bell", label: "Signaal versturen" }
-  D@{ icon: "tabler:user", label: "Ondernemer ontvangt signaal" }
+  A@{ icon: "nldd:pencil-on-square", label: "Dienstverlener publiceert informatie-bericht" }
+  B@{ icon: "nldd:list-decreasing-lines", label: "Filtering toepassen" }
+  C@{ icon: "nldd:bell", label: "Signaal versturen" }
+  D@{ icon: "nldd:person", label: "Ondernemer ontvangt signaal" }
   A --> B --> C --> D
 ```
 
@@ -100,9 +100,9 @@ title: Publicatieproces overheidsorganisatie
 graph LR
   accTitle: Publicatieproces overheidsorganisatie
   accDescr: De stappen die een overheidsorganisatie doorloopt: aansluiten via FSC/FTV, informatie-berichten publiceren, automatische distributie.
-  A@{ icon: "tabler:plug-connected", label: "Aansluiten via FSC/FTV" }
-  B@{ icon: "tabler:edit", label: "Informatie-berichten publiceren" }
-  C@{ icon: "tabler:share", label: "Automatische distributie" }
+  A@{ icon: "nldd:power-plug", label: "Aansluiten via FSC/FTV" }
+  B@{ icon: "nldd:pencil-on-square", label: "Informatie-berichten publiceren" }
+  C@{ icon: "nldd:square-arrow-up", label: "Automatische distributie" }
   A --> B --> C
 ```
 

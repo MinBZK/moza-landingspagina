@@ -25,11 +25,11 @@ title: Digitale Assistent begeleidt de hele klantreis
 graph LR
   accTitle: Digitale Assistent begeleidt de hele klantreis
   accDescr: De Digitale Assistent begeleidt de ondernemer door de hele klantreis. De ondernemer stelt een vraag in natuurlijke taal, de assistent raadpleegt de KVK en RegelRecht, geeft inzicht in wat geldt voor de situatie, en biedt twee uitkomsten, een verwijzing naar het juiste artikel om zich te informeren, of, na bevestiging, het indienen van de rapportage bij RVO.
-  A@{ icon: "tabler:message-question", label: "Vraag in natuurlijke taal" }
-  M@{ icon: "tabler:search", label: "Raadpleegt KVK en RegelRecht" }
-  G@{ icon: "tabler:bulb", label: "Inzicht: wat geldt voor jouw situatie" }
-  D@{ icon: "tabler:book", label: "Verwijzing naar artikel" }
-  E@{ icon: "tabler:send", label: "Indienen bij RVO" }
+  A@{ icon: "nldd:message-rectangle-text", label: "Vraag in natuurlijke taal" }
+  M@{ icon: "nldd:magnifier", label: "Raadpleegt KVK en RegelRecht" }
+  G@{ icon: "nldd:lightbulb", label: "Inzicht: wat geldt voor jouw situatie" }
+  D@{ icon: "nldd:book", label: "Verwijzing naar artikel" }
+  E@{ icon: "nldd:paper-plane", label: "Indienen bij RVO" }
 
   A --> M --> G
   G -->|informeren| D
@@ -83,10 +83,10 @@ title: Rolverdeling tussen taalmodel en RegelRecht
 graph LR
   accTitle: Rolverdeling tussen taalmodel en RegelRecht
   accDescr: De ondernemer stelt een vraag. Het taalmodel voert het gesprek en vertaalt de vraag naar een toets. RegelRecht rekent de regel uit en bepaalt de uitkomst. De ondernemer krijgt een antwoord met de bron en het wetsartikel erbij.
-  V@{ icon: "tabler:message-question", label: "Vraag van de ondernemer" }
-  T@{ icon: "tabler:robot", label: "Taalmodel voert het gesprek" }
-  R@{ icon: "tabler:calculator", label: "RegelRecht rekent de regel uit" }
-  A@{ icon: "tabler:file-check", label: "Antwoord met bron en artikel" }
+  V@{ icon: "nldd:message-rectangle-text", label: "Vraag van de ondernemer" }
+  T@{ icon: "nldd:sparkles", label: "Taalmodel voert het gesprek" }
+  R@{ icon: "nldd:pipeline-machine-gear", label: "RegelRecht rekent de regel uit" }
+  A@{ icon: "nldd:file-text-badge-check-mark", label: "Antwoord met bron en artikel" }
 
   V --> T --> R --> A
 
@@ -114,11 +114,11 @@ title: Raadpleging bronnen en tools door Digitale Assistent
 graph LR
   accTitle: Raadpleging bronnen en tools door Digitale Assistent
   accDescr: De ondernemer stelt een vraag aan de Digitale Assistent. Die raadpleegt via het MCP-protocol drie bronnen. KVK levert bedrijfsgegevens. RegelRecht toetst de regel en geeft de wettelijke grondslag terug. RVO is de bron waar de rapportage na bevestiging wordt ingediend.
-  O@{ icon: "tabler:user", label: "Ondernemer" }
-  D@{ icon: "tabler:robot", label: "Digitale Assistent" }
-  K@{ icon: "tabler:building", label: "KVK" }
-  R@{ icon: "tabler:scale", label: "RegelRecht" }
-  V@{ icon: "tabler:send", label: "RVO" }
+  O@{ icon: "nldd:person", label: "Ondernemer" }
+  D@{ icon: "nldd:sparkles", label: "Digitale Assistent" }
+  K@{ icon: "nldd:apartment-building", label: "KVK" }
+  R@{ icon: "nldd:pipeline-machine-gear", label: "RegelRecht" }
+  V@{ icon: "nldd:paper-plane", label: "RVO" }
 
   O <--> D
   D -->|ophalen| K
