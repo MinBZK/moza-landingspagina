@@ -16,13 +16,10 @@ import { copyFileSync, writeFileSync } from "node:fs";
 import { dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import puppeteer from "puppeteer";
+import { PUPPETEER_ARGS } from "./lib/puppeteer-args.js";
 
 const ROOT = resolve(import.meta.dirname, "..");
 const OUTPUT_DIR = join(ROOT, "static", "images", "icons");
-
-// Altijd dezelfde vlaggen, ook lokaal: zonder sandbox start Chromium in CI niet,
-// en met de GPU uit rastert elke machine dezelfde PNG-bytes.
-const PUPPETEER_ARGS = ["--no-sandbox", "--disable-gpu", "--disable-dev-shm-usage"];
 
 // bestandsnaam -> NLDD-icoon (canonieke naam), plus de class die CSS of JS verwacht
 const ICONS = {

@@ -17,15 +17,10 @@ import { join, resolve } from "node:path";
 import puppeteer from "puppeteer";
 import { collectRoutes } from "./routes.js";
 import { startServer } from "../lib/static-server.js";
+import { PUPPETEER_ARGS } from "../lib/puppeteer-args.js";
 
 const OUTPUT_DIR = resolve(process.cwd(), process.argv[2] || join("tmp", "public"));
 const MAX_TABS = 20;
-
-// In CI of als root (container) heeft Chromium deze vlaggen nodig.
-const PUPPETEER_ARGS =
-  process.env.CI || process.getuid?.() === 0
-    ? ["--no-sandbox", "--disable-gpu", "--disable-dev-shm-usage"]
-    : [];
 
 function presentatieRoutes(root) {
   return collectRoutes(root).filter((route) => {

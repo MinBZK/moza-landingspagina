@@ -13,6 +13,7 @@ import { join, resolve, relative, dirname, basename } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { createHash } from "node:crypto";
 import puppeteer from "puppeteer";
+import { PUPPETEER_ARGS } from "./lib/puppeteer-args.js";
 
 const ROOT = resolve(import.meta.dirname, "..");
 const CONTENT_DIR = join(ROOT, "content");
@@ -287,10 +288,6 @@ function writeHash(svgPath, hash) {
 }
 
 // ── Mermaid rendering met font-injectie ──────────────────────────────────────
-
-const PUPPETEER_ARGS = process.env.CI || process.getuid?.() === 0
-  ? ["--no-sandbox", "--disable-gpu", "--disable-dev-shm-usage"]
-  : [];
 
 // Pad naar de mermaid IIFE (zet globalThis.mermaid)
 const mermaidIIFEPath = join(ROOT, "node_modules", "mermaid", "dist", "mermaid.js");

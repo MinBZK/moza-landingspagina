@@ -20,15 +20,11 @@ import { join, resolve, dirname } from "node:path";
 import { spawn } from "node:child_process";
 import { collectRoutes } from "./routes.js";
 import { startServer } from "../lib/static-server.js";
+import { PUPPETEER_ARGS as CHROME_ARGS } from "../lib/puppeteer-args.js";
 
 const OUTPUT_DIR = resolve(process.cwd(), process.argv[2] || join("tmp", "public"));
 const CONFIG_FILE = join(dirname(OUTPUT_DIR), "pa11yci.json");
 
-// In CI of als root (container) heeft Chromium deze vlaggen nodig.
-const CHROME_ARGS =
-  process.env.CI || process.getuid?.() === 0
-    ? ["--no-sandbox", "--disable-gpu", "--disable-dev-shm-usage"]
-    : [];
 
 function buildConfig(baseUrl, routes) {
   return {

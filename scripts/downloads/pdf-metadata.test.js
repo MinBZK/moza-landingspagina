@@ -16,11 +16,7 @@ import {
   buildXmp,
   pdfString,
 } from "./pdf-metadata.js";
-
-const PUPPETEER_ARGS =
-  process.env.CI || process.getuid?.() === 0
-    ? ["--no-sandbox", "--disable-gpu", "--disable-dev-shm-usage"]
-    : [];
+import { PUPPETEER_ARGS } from "../lib/puppeteer-args.js";
 
 test("pdfString codeert als UTF-16BE met byte order mark", () => {
   assert.equal(pdfString("A"), "<FEFF0041>");
