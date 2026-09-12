@@ -1,10 +1,10 @@
 /* Handgetekende SVG-diagrammen in de content. */
 .diagram {
+  position: relative;
   margin: 1.5rem 0;
 }
 
 .diagram-panel {
-  position: relative;
   padding: 1rem;
   background-color: var(--color-bg-muted);
   border-radius: 0.5rem;
@@ -17,13 +17,6 @@
   right: 0.5rem;
   z-index: 1;
   border-radius: 0.25rem;
-  opacity: 0.6;
-  transition: opacity 0.2s;
-}
-
-.diagram-panel:hover .diagram-download,
-.diagram-download:focus-visible {
-  opacity: 1;
 }
 
 .diagram-panel > svg {
