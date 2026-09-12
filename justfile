@@ -31,6 +31,10 @@ nldd-tokens: node-deps
 nldd-iconen: node-deps
     npm run nldd-iconen
 
+# Genereer de afbeelding die bij een gedeelde link wordt getoond
+social-card: node-deps
+    npm run social-card
+
 # Render Mermaid-diagrammen als SVG
 render-mermaid: node-deps
     npm run render-mermaid
