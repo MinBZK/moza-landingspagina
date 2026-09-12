@@ -89,7 +89,7 @@
       {{- if .Site.Menus.secondary -}}
       <ul>
         {{- range .Site.Menus.secondary -}}
-        <li><a href="{{ .URL }}" target="_blank" rel="external noopener noreferrer">{{ .Name }}</a></li>
+        <li><a href="{{ .URL }}" rel="external noreferrer">{{ .Name }}</a></li>
         {{- end -}}
       </ul>
       {{- end -}}

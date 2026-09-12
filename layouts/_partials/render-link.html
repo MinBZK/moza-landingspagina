@@ -7,7 +7,7 @@
     - title: (optioneel) Title attribuut
     - private: (optioneel) Markeer als besloten link via {.private} in Markdown
 
-  Externe links krijgen automatisch target="_blank" en rel="external noopener noreferrer".
+  Externe links krijgen rel="external noreferrer" en openen in hetzelfde tabblad.
   Private links krijgen een slotje-icoon en "(besloten omgeving)" label.
   Een link is private als {.private} is meegegeven in Markdown, of automatisch
   bij samenwerkruimten.nl en digilab.overheid.nl/chat.
@@ -16,9 +16,9 @@
 {{- $isExternal := and $u.IsAbs (hasPrefix $u.Scheme "http") -}}
 {{- $isPrivate := or .private (and $isExternal (or (strings.Contains $u.Host "samenwerkruimten.nl") (and (strings.Contains $u.Host "digilab.overheid.nl") (strings.Contains $u.Path "/chat")))) -}}
 {{- if $isPrivate -}}
-<a href="{{ .href }}"{{ with .title }} title="{{ . }}"{{ end }} target="_blank" rel="external private noopener noreferrer">{{ .text }}<span class="visually-hidden"> (besloten omgeving)</span></a>
+<a href="{{ .href }}"{{ with .title }} title="{{ . }}"{{ end }} rel="external private noreferrer">{{ .text }}<span class="visually-hidden"> (besloten omgeving)</span></a>
 {{- else if $isExternal -}}
-<a href="{{ .href }}"{{ with .title }} title="{{ . }}"{{ end }} target="_blank" rel="external noopener noreferrer">{{ .text }}</a>
+<a href="{{ .href }}"{{ with .title }} title="{{ . }}"{{ end }} rel="external noreferrer">{{ .text }}</a>
 {{- else -}}
 <a href="{{ .href }}"{{ with .title }} title="{{ . }}"{{ end }}>{{ .text }}</a>
 {{- end -}}

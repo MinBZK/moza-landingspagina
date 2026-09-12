@@ -24,7 +24,6 @@ const OUTPUT_DIR = join(ROOT, "static", "images", "icons");
 // bestandsnaam -> NLDD-icoon (canonieke naam), plus de class die CSS of JS verwacht
 const ICONS = {
   download: { name: "arrow-down-in-bucket" },
-  "externe-link": { name: "square-arrow-right-top" },
   "file-type-md": { name: "markdown-rectangle" },
   info: { name: "info-circle" },
   lock: { name: "lock-closed" },
