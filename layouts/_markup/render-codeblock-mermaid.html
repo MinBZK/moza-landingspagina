@@ -56,14 +56,21 @@
 {{- if and (os.FileExists $lightFile) (os.FileExists $darkFile) -}}
 {{- /* De bestandsnaam verandert niet bij een nieuwe render; de inhoudshash in de
      URL voorkomt dat browser of CDN een oude SVG blijft tonen. */ -}}
-{{- $lightUrl := printf "/%s?v=%s" (path.Join "images/render" $subdir (printf "%s-light.svg" $slug)) (substr (os.ReadFile $lightFile | md5) 0 8) -}}
+{{- $lightSVG := os.ReadFile $lightFile -}}
+{{- $lightUrl := printf "/%s?v=%s" (path.Join "images/render" $subdir (printf "%s-light.svg" $slug)) (substr ($lightSVG | md5) 0 8) -}}
 {{- $darkUrl := printf "/%s?v=%s" (path.Join "images/render" $subdir (printf "%s-dark.svg" $slug)) (substr (os.ReadFile $darkFile | md5) 0 8) -}}
+{{- $viewBox := findRESubmatch `viewBox="[-\d.]+ [-\d.]+ ([\d.]+) ([\d.]+)"` $lightSVG 1 -}}
+{{- if not $viewBox -}}
+  {{- errorf "Diagram '%s' op pagina %s heeft geen leesbare viewBox." $slug .Page.File.Path -}}
+{{- end -}}
+{{- $breedte := int (math.Ceil (index (index $viewBox 0) 1)) -}}
+{{- $hoogte := int (math.Ceil (index (index $viewBox 0) 2)) -}}
 <div class="mermaid-diagram">
   <a class="mermaid-download button-ghost" href="{{ $lightUrl }}" download="{{ $slug }}.svg" title="Download als afbeelding" aria-label="Download als afbeelding">
     {{- partial "icon.html" "download" -}}
   </a>
-  <img class="mermaid-img mermaid-img--light" src="{{ $lightUrl }}" alt="{{ $accDescr }}" loading="lazy">
-  <img class="mermaid-img mermaid-img--dark" src="{{ $darkUrl }}" alt="{{ $accDescr }}" loading="lazy">
+  <img class="mermaid-img mermaid-img--light" src="{{ $lightUrl }}" alt="{{ $accDescr }}" width="{{ $breedte }}" height="{{ $hoogte }}" loading="lazy">
+  <img class="mermaid-img mermaid-img--dark" src="{{ $darkUrl }}" alt="{{ $accDescr }}" width="{{ $breedte }}" height="{{ $hoogte }}" loading="lazy">
 </div>
 {{- else -}}
 {{- errorf "Mermaid SVGs ontbreken voor '%s' op pagina %s. Voer 'npm run render-mermaid' uit." $slug .Page.File.Path -}}
