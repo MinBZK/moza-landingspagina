@@ -8,7 +8,7 @@
  * maar met meer verzadiging aan de donkere kant, zodat de donkere
  * achtergrond blauw blijft in plaats van grijs.
  *
- * Gebruik: node scripts/nldd-tokens.js
+ * Gebruik: just nldd
  */
 
 import { readFileSync, writeFileSync } from "node:fs";
@@ -65,7 +65,7 @@ function boostChroma(value) {
 function buildCSS(scales, references = {}) {
   const lines = [
     "/* Gegenereerd door scripts/nldd-tokens.js uit @nldd/design-system.",
-    "   Niet handmatig bewerken: draai `just nldd-tokens`. */",
+    "   Niet handmatig bewerken: draai `just nldd`. */",
     "",
     ":root {",
     "  /* exacte huisstijlkleuren, niet themagevoelig */",
@@ -99,13 +99,20 @@ function buildCSS(scales, references = {}) {
   return lines.join("\n");
 }
 
-export { parsePalettes, parseReferences, boostChroma, buildCSS };
+// Pad -> inhoud, zodat de test kan vergelijken zonder te schrijven
+function generate() {
+  const variables = readFileSync(VARIABLES, "utf-8");
+  const scales = parsePalettes(readFileSync(PALETTES, "utf-8"));
+  return { [OUTPUT]: buildCSS(scales, parseReferences(variables)) };
+}
+
+export { parsePalettes, parseReferences, boostChroma, buildCSS, generate };
 
 const isCLI = process.argv[1] && resolve(process.argv[1]) === resolve(import.meta.dirname, "nldd-tokens.js");
 
 if (isCLI) {
-  const scales = parsePalettes(readFileSync(PALETTES, "utf-8"));
-  const references = parseReferences(readFileSync(VARIABLES, "utf-8"));
-  writeFileSync(OUTPUT, buildCSS(scales, references));
-  console.log(`Geschreven: ${OUTPUT}`);
+  for (const [path, content] of Object.entries(generate())) {
+    writeFileSync(path, content);
+    console.log(`Geschreven: ${path}`);
+  }
 }

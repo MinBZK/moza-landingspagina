@@ -98,13 +98,13 @@ Zie [Mermaid](https://mermaid.js.org/) voor de volledige syntax.
 
 ### Kleuren
 
-De kleurtokens in `assets/css/tokens.css` verwijzen naar de primitives van het [NLDD Design System](https://github.com/MinBZK/storybook). Die primitives staan in `assets/css/nldd-primitives.css`, gegenereerd uit het npm-pakket `@nldd/design-system`. Na een upgrade van dat pakket genereer je het bestand opnieuw:
+Kleuren, iconen, de favicon en het touch-icon komen uit het [NLDD Design System](https://github.com/MinBZK/storybook), uit het npm-pakket `@nldd/design-system`. De gegenereerde bestanden staan in git; na een upgrade van het pakket schrijf je ze opnieuw weg:
 
 ```bash
-just nldd-tokens
+just nldd
 ```
 
-De iconen van de site (`static/images/icons/`) en in de diagrammen komen uit dezelfde bron. De site-iconen, de favicon en het touch-icon schrijf je na een upgrade opnieuw met `just nldd-iconen`; de bestandstype-iconen voor ODT en PDF blijven handgemaakt, NLDD heeft die niet.
+`npm test` bewaakt dat die bestanden bij het geïnstalleerde pakket passen. De bestandstype-iconen voor ODT en PDF blijven handgemaakt, NLDD heeft die niet.
 
 ## Code kwaliteit
 
