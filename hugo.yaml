@@ -107,6 +107,7 @@ outputs:
     - llms
     - llmsfull
     - download
+    - og
   section:
     - HTML
     - RSS
@@ -146,6 +147,11 @@ outputFormats:
     notAlternative: true
   download:
     baseName: download
+    mediaType: application/json
+    isPlainText: true
+    notAlternative: true
+  og:
+    baseName: og
     mediaType: application/json
     isPlainText: true
     notAlternative: true

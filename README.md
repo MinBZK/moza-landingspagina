@@ -106,7 +106,7 @@ just nldd
 
 `npm test` bewaakt dat die bestanden bij het geïnstalleerde pakket passen. De bestandstype-iconen voor ODT en PDF blijven handgemaakt, NLDD heeft die niet.
 
-De afbeelding die bij een gedeelde link wordt getoond staat in `static/social-card.jpg` en komt uit `just social-card`; titel en tagline komen uit `hugo.yaml` en de foto is de hero van de homepage, dus draai het opnieuw als je die wijzigt.
+Elke pagina krijgt een eigen afbeelding voor een gedeelde link, met de paginatitel erop. Die komen uit `just og-cards`, dat na de Hugo-build draait op het manifest `og.json` en per pagina een JPEG in `images/og/` schrijft. `just build` doet dat zelf al. De foto is de hero van de homepage.
 
 ## Code kwaliteit
 

@@ -31,9 +31,10 @@ nldd-tokens: node-deps
 nldd-iconen: node-deps
     npm run nldd-iconen
 
-# Genereer de afbeelding die bij een gedeelde link wordt getoond
-social-card: node-deps
-    npm run social-card
+# Genereer de afbeeldingen die bij een gedeelde link worden getoond, op een
+# bestaande build
+og-cards: node-deps
+    npm run og-cards
 
 # Render Mermaid-diagrammen als SVG
 render-mermaid: node-deps
@@ -49,6 +50,7 @@ up-downloads: node-deps
     npm run render-mermaid
     rm -rf tmp/preview && hugo --minify --quiet --baseURL / --destination tmp/preview
     npm run render-downloads -- tmp/preview
+    npm run og-cards -- tmp/preview
     python3 -m http.server 1313 --directory tmp/preview
 
 # Watch mermaid-bestanden en herrender bij wijzigingen (apart terminal)
@@ -60,6 +62,7 @@ build: node-deps
     npm run render-mermaid
     rm -rf public && hugo --minify --gc --logLevel warn
     npm run render-downloads
+    npm run og-cards
 
 # Genereer alleen de downloadbestanden (.odt en .pdf), vereist een bestaande build
 render-downloads: node-deps

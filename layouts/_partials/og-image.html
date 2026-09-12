@@ -1,0 +1,9 @@
+{{- /* Pad van de deelafbeelding van een pagina, relatief aan de siteroot.
+       Gebruikt door head.html en door het manifest home.og.json, zodat de
+       template en het renderscript dezelfde naam afleiden. */ -}}
+{{- $slug := strings.Trim .RelPermalink "/" | replaceRE "[^a-zA-Z0-9/-]" "" | replaceRE "/" "-" -}}
+{{- with $slug -}}
+  {{- printf "images/og/%s.jpg" . -}}
+{{- else -}}
+  {{- "images/og/home.jpg" -}}
+{{- end -}}
