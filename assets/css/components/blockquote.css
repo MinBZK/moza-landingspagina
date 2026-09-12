@@ -27,7 +27,7 @@ blockquote.callout {
     align-items: center;
     gap: 0.5rem;
 
-    img {
+    svg {
       width: 24px;
       height: 24px;
     }

@@ -3,7 +3,7 @@
   {{- if or (eq .AlertType "info") .AlertTitle }}
   <header>
     {{- if eq .AlertType "info" }}
-    <img src="{{ relURL "images/icons/info.svg" }}" alt="Info icon">
+    {{- partial "icon.html" "info" -}}
     {{- end }}
     {{- with .AlertTitle }}<span class="title">{{ . }}</span>{{ end }}
   </header>

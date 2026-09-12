@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "nldd-tokens": "node scripts/nldd-tokens.js",
+    "nldd-iconen": "node scripts/nldd-iconen.js",
     "render-mermaid": "node scripts/render-mermaid.js",
     "render-downloads": "node scripts/downloads/render-downloads.js",
     "check-label": "node scripts/check-toegankelijkheidslabel.js",
@@ -13,7 +14,6 @@
     "pdfua": "node scripts/pdfua/check.js"
   },
   "devDependencies": {
-    "@iconify-json/tabler": "^1",
     "@nldd/design-system": "^0.8.87",
     "mermaid": "^11",
     "pa11y-ci": "^4.1.1",
