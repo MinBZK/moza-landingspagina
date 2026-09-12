@@ -4,10 +4,11 @@
        De tekening zelf staat in de partial en wordt twee keer gerenderd: inline
        in de pagina, en met de stijlen ingebakken als downloadbaar bestand. */ -}}
 
+{{- $primitives := (resources.Get "css/nldd-primitives.css").Content -}}
 {{- $tokens := (resources.Get "css/tokens.css").Content -}}
 {{- $regels := (resources.Get "css/components/diagram.css").Content -}}
 {{- $eigen := "svg { background: var(--color-bg-muted); color: var(--color-text-muted); font-family: var(--font-sans); }" -}}
-{{- $bestand := partial "diagram-notificatiedienst.html" (dict "css" (printf "%s\n%s\n%s" $tokens $regels $eigen)) -}}
+{{- $bestand := partial "diagram-notificatiedienst.html" (dict "css" (printf "%s\n%s\n%s\n%s" $primitives $tokens $regels $eigen)) -}}
 {{- $svg := resources.FromString "images/diagrammen/notificatiedienst.svg" $bestand -}}
 
 <figure class="diagram">
