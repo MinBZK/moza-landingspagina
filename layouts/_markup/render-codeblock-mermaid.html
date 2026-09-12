@@ -52,10 +52,12 @@
 {{- /* Pre-rendered SVGs in static/ */ -}}
 {{- $lightFile := path.Join "static/images/render" $subdir (printf "%s-light.svg" $slug) -}}
 {{- $darkFile := path.Join "static/images/render" $subdir (printf "%s-dark.svg" $slug) -}}
-{{- $lightUrl := printf "/%s" (path.Join "images/render" $subdir (printf "%s-light.svg" $slug)) -}}
-{{- $darkUrl := printf "/%s" (path.Join "images/render" $subdir (printf "%s-dark.svg" $slug)) -}}
 
 {{- if and (os.FileExists $lightFile) (os.FileExists $darkFile) -}}
+{{- /* De bestandsnaam verandert niet bij een nieuwe render; de inhoudshash in de
+     URL voorkomt dat browser of CDN een oude SVG blijft tonen. */ -}}
+{{- $lightUrl := printf "/%s?v=%s" (path.Join "images/render" $subdir (printf "%s-light.svg" $slug)) (substr (os.ReadFile $lightFile | md5) 0 8) -}}
+{{- $darkUrl := printf "/%s?v=%s" (path.Join "images/render" $subdir (printf "%s-dark.svg" $slug)) (substr (os.ReadFile $darkFile | md5) 0 8) -}}
 <div class="mermaid-diagram">
   <a class="mermaid-download button-ghost" href="{{ $lightUrl }}" download="{{ $slug }}.svg" title="Download als afbeelding" aria-label="Download als afbeelding">
     {{- partial "icon.html" "download" -}}
